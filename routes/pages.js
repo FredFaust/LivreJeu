@@ -15,7 +15,11 @@ router.get(url.START, function(req, res) {
 });
 
 router.get(url.PAGES, function(req, res) {
-  res.render('pages/pages', { title: 'PAGES' , pageNumber: req.params.pagenumber });
+  res.render('pages/book/page' + req.params.pagenumber, { title: 'PAGES', pageNumber: req.params.pagenumber });
+});
+
+router.get(url.PAGES_TODO, function(req, res) {
+  res.render('pages/book/pageTODO', { title: 'PAGES' });
 });
 
 module.exports = router;

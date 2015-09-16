@@ -25,8 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routesPages);
 
-app.redirect("/page", "/pages/:pagenumber(1)", 301);
-app.redirect("/pages", "/pages/:pagenumber(1)", 301);
+app.redirect("/", "/home", 301);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

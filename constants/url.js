@@ -1,5 +1,5 @@
 module.exports = {
-  HOME: '/',
+  HOME: '/home',
   HELP: '/help',
   START: '/start',
   PAGES: '/pages/:pagenumber'

@@ -4,14 +4,15 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    header()
-      a(href='/home') Accueil
-      i -
-      a(href='/start') Création
-      i -
-      a(href='/help') Aide
-    block menuNav
+    nav()
+      ul
+        li
+          a(href='/home') Accueil
+        li
+          a(href='/start') Création
+        li
+          a(href='/help') Aide
     block content
     footer()
-      p Laboratoire #1  /  Présenté à M. Konstantinos Lambrou-Latreille  /  Par Jean-Fr&eacute;d&eacute;ric Faust et F&eacute;lix Pelletier
+      p Laboratoire #1  /  Présenté à M. Konstantinos Lambrou-Latreille  /  Par Jean-Frédéric Faust et Félix Pelletier
       p 20 septembre 2015

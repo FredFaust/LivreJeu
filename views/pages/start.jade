@@ -1,14 +1,17 @@
 extends ../layout
 
 block content
-  p Cr&eacute;ation d'un h&eacute;ro
+  h2 Cr&eacute;ation d'un h&eacute;ro
   br
   form(action='pages/1')
-    label(for='heroname') Name :
+    label(for='heroname') Nom du h&eacute;ro : &nbsp;
     input#heroname(type='text', name='heroname')
+    br
+    br
     fieldset
       legend Disciplines et &eacute;quipement
       label(for='discs') Choisissez 5 disciplines :
+      br
       select#discs(name='discs', multiple='')
         option(value='camo') Camouflage
         option(value='hunt') Chasse
@@ -21,7 +24,9 @@ block content
         option(value='animal-whisperer') Communication Animale
         option(value='matter-mastery') Ma&icirc;trise Psychique de la Mati&egrave;re
       br
+      br
       label(for='equipment') Choisissez 2 items :
+      br
       select#equipment(name='equipment', multiple='')
         option(value='sword') &Eacute;p&eacute;e
         option(value='sabre') Sabre
@@ -34,4 +39,5 @@ block content
         option(value='leather-jacket') Gilet de cuir matelass&eacute;
         option(value='lampsur-potion') Potion de Lampsur
         option(value='special-food', title='TODO') Rations sp&eacute;ciales
-    input(type='submit')
+    br
+    input(type='submit', value='Debuter l\'aventure!')

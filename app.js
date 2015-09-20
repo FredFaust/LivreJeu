@@ -4,9 +4,8 @@ var express = require('express');
   logger = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
-  redirect = require("express-redirect");
-
-var routesPages = require('./routes/pages');
+  redirect = require("express-redirect"),
+  router = require('./routes/router');
 
 var app = express();
 redirect(app);
@@ -24,8 +23,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'public/resources/images')));
 
-app.use(routesPages);
 
+//CUSTOM CODE HERE
+app.use(router);
 app.redirect("/", "/home", 301);
 
 // catch 404 and forward to error handler
@@ -42,7 +42,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.render('pages/error', {
       message: err.message,
       error: err
     });
@@ -53,7 +53,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.render('pages/error', {
     message: err.message,
     error: {}
   });

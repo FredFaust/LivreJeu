@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  p Combat vs. #{name}
+  form(action='/pages/#{returnPage}')
+    input(type='submit', value='Retour')

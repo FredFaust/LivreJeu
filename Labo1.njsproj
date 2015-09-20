@@ -22,7 +22,7 @@
     <Content Include="README.md" />
     <Compile Include="app.js" />
     <Compile Include="constants\url.js" />
-    <Compile Include="routes\pages.js" />
+    <Compile Include="routes\router.js" />
     <Content Include="views\error.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\pages\help\disciplines.jade" />

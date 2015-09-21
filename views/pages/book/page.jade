@@ -7,6 +7,7 @@ block content
   block fight
   h2 Statistiques
   ul
+    li Nom : #{heroname}
     li Habilet&eacute; : #{hero.ability}
     li Endurance : #{hero.endurance}
     li Pi&egrave;ces d'or : #{hero.money}
@@ -16,5 +17,3 @@ block content
   ol
     each fight in hero.fights         
         li= fight.opponent + ' - ' + fight.result
-    //Seigneur des glaces - VICTOIRE
-    //li Sanglier enrag&eacute; - VICTOIRE

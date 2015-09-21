@@ -2,4 +2,5 @@ extends page
 block fight
     form(action='/fight')
       block fightInfo
+      input(type='hidden', name="heroname", value='#{heroname}')
       input(type='submit', value='Commencer un combat')

@@ -31,11 +31,11 @@ router.get(url.START, function(req, res) {
 });
 
 router.get(url.FIGHT, function(req, res) {
-  res.render('pages/fight', { title: 'Combat', returnPage: req.query.return_page, name: req.query.name, hability: req.query.hability, endurance: req.query.endurance });
+  res.render('pages/fight', { title: 'Combat', heroname: req.query.heroname || 'Felix le Vainqueur' , returnPage: req.query.return_page, name: req.query.name, ability: req.query.ability, endurance: req.query.endurance });
 });
 
 router.get(url.PAGES, function(req, res) {
-    res.render('pages/book/page' + req.params.pagenumber, { title: 'Pages', pageNumber: req.params.pagenumber });
+    res.render('pages/book/page' + req.params.pagenumber, { title: 'Pages', heroname: req.query.heroname || 'Felix le Vainqueur', pageNumber: req.params.pagenumber });
 });
 
 router.get(url.PAGES_TODO, function(req, res) {

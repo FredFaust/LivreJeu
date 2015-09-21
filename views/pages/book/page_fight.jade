@@ -1,7 +1,5 @@
-extends ../layout
-block content
-  block story
-  block fight
+extends page
+block fight
     form(action='/fight')
-      block info
+      block fightInfo
       input(type='submit', value='Commencer un combat')

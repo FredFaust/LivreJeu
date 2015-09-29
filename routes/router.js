@@ -3,11 +3,11 @@ var express = require('express'),
     url = require('../constants/url');
 
 router.get(url.HOME, function(req, res) {
-    res.render('pages/home', { title: 'Le Livre de Jeu du Maitre Kai' });
+    res.render('pages/home', { title: 'Le Livre de Jeu du Maitre Kai', selectedNav: 'home' });
 });
 
 router.get(url.HELP, function (req, res) {
-    res.render('pages/help', { title: 'Aide' });
+    res.render('pages/help', { title: 'Aide', selectedNav: 'help' });
 });
 
 router.get(url.HELP_TOPIC, function (req, res) {
@@ -19,27 +19,23 @@ router.get(url.HELP_TOPIC, function (req, res) {
     var helpTopic = req.params.topic;
 
     if (knownTopics[helpTopic] === undefined) {
-        res.render('pages/help/unknownTopic', { title: 'Aide', topic: helpTopic });
+        res.render('pages/help/unknownTopic', { title: 'Aide', topic: helpTopic, selectedNav: 'help' });
         return;
     }
 
-    res.render('pages/help/' + req.params.topic, { title: 'Aide', topic: knownTopics[helpTopic] }); 
-});
-
-router.get(url.START, function(req, res) {
-    res.render('pages/start', { title: 'Depart' });
+    res.render('pages/help/' + req.params.topic, { title: 'Aide', topic: knownTopics[helpTopic], selectedNav: 'help' });
 });
 
 router.get(url.FIGHT, function(req, res) {
-  res.render('pages/fight', { title: 'Combat', heroname: req.query.heroname || 'Felix le Vainqueur' , returnPage: req.query.return_page, name: req.query.name, ability: req.query.ability, endurance: req.query.endurance });
+  res.render('pages/fight', { title: 'Combat', heroname: req.query.heroname || 'Felix le Vainqueur' , returnPage: req.query.return_page, name: req.query.name, ability: req.query.ability, endurance: req.query.endurance, selectedNav: 'game' });
 });
 
 router.get(url.PAGES, function(req, res) {
-    res.render('pages/book/page' + req.params.pagenumber, { title: 'Pages', heroname: req.query.heroname || 'Felix le Vainqueur', pageNumber: req.params.pagenumber });
+    res.render('pages/book/page' + req.params.pagenumber, { title: 'Pages', heroname: req.query.heroname || 'Felix le Vainqueur', pageNumber: req.params.pagenumber, selectedNav: 'game' });
 });
 
 router.get(url.PAGES_TODO, function(req, res) {
-    res.render('pages/book/pageTODO', { title: 'Pages' });
+    res.render('pages/book/pageTODO', { title: 'Pages', selectedNav: 'game' });
 });
 
 module.exports = router;

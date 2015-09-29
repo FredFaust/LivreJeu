@@ -1,0 +1,52 @@
+.form-fieldset {
+    border: 1px solid darkgrey;
+    display: inline;
+    margin-bottom: 20px;
+}
+
+.checkbox-container {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 30px;
+}
+
+.check-label {
+    margin-left: 5px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+label.check-label {
+    display: inline-block;
+    float: left;
+}
+
+label.check-img  {
+    cursor:pointer;
+    display:inline-block;
+    width:15px;
+    height:15px;
+    clear: left;
+    float: left;
+    padding: 0 0 10px 0;
+    vertical-align: middle;
+    background: url("../images/x-icon.png") no-repeat;
+}
+
+input[type="checkbox"]:checked + label.check-img  {
+    cursor:pointer;
+    display:inline-block;
+    width:15px;
+    height:15px;
+    padding: 0 0 10px 0;
+    vertical-align: middle;
+    background: url("../images/tick-icon.png") no-repeat;
+}
+
+input[type="checkbox"]:checked + label.check-img  + label.check-label {
+    font-weight: bold;
+}

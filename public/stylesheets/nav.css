@@ -1,0 +1,26 @@
+.navlinks {
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: darkgrey;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.navlinks li{
+    display: inline;
+}
+
+.navlinks a{
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.nav-selected {
+    color: whitesmoke;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: lightskyblue;
+}

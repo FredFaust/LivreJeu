@@ -2,17 +2,19 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/main.css')
+    link(rel='stylesheet', href='/stylesheets/nav.css')
+    block extraHeaders
   body
     nav()
-      ul
+      ul.navlinks
         li
-          a(href='/home') Accueil
+          a(href='/home', class=selectedNav === 'home' ? 'nav-selected' : 'nav-not-selected') Accueil
         li
-          a(href='/start') Création
+          a(href='/pages/0', class=selectedNav === 'game' ? 'nav-selected' : 'nav-not-selected') Jeu
         li
-          a(href='/help') Aide
+          a(href='/help', class=selectedNav === 'help' ? 'nav-selected' : 'nav-not-selected') Aide
     block content
     footer()
-      p Laboratoire #1  /  Présenté à M. Konstantinos Lambrou-Latreille  /  Par Jean-Frédéric Faust et Félix Pelletier
-      p 20 septembre 2015
+      p Laboratoire #2  /  Présenté à M. Konstantinos Lambrou-Latreille  /  Par Jean-Frédéric Faust et Félix Pelletier
+      p 4 octobre 2015

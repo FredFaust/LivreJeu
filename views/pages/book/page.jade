@@ -1,6 +1,10 @@
 extends ../layout
+
+block extraHeaders
+  link(rel='stylesheet', href='/stylesheets/game.css')
+
 block content
-  // Dummy data, only for the TP1
+  // Dummy data, only for the first tps
   -var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, disciplines: 'Communication Animale, 6e Sens', equipment: 'Marteau de guerre, glaive', fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' } ]};
   h1 Page ##{pageNumber}
   block story

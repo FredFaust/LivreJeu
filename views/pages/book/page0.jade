@@ -3,20 +3,21 @@ extends ../layout
 //- Page de creation
 
 block extraHeaders
-  link(rel='stylesheet', href='/stylesheets/game.css')
+  link(rel='stylesheet', href='/stylesheets/create.css')
 
 block content
-  h2 Cr&eacute;ation d'un h&eacute;ro
+  h1 Cr&eacute;ation d'un h&eacute;ro
   br
   form(action='/pages/1')
-    label(for='heroname') Nom du h&eacute;ro : &nbsp;
-    input#heroname(type='text', name='heroname')
+    label#hero-lbl(for='heroname') Nom du h&eacute;ro : &nbsp;
+    input#heroname.txt-box-underlined(type='text', name='heroname')
     br
     br
     fieldset(class='form-fieldset')
       legend Disciplines et &eacute;quipement
       #discs.checkbox-container
-        p Choisissez 5 disciplines :
+        p Choisissez 5
+          span &nbsp;disciplines
 
         input#d1(type="checkbox", value='camo')
         label.check-img
@@ -55,7 +56,8 @@ block content
         label.check-label(for='d9') Ma&icirc;trise Psychique de la Mati&egrave;re
 
       #equip.checkbox-container
-        p Choisissez 2 items :
+        p Choisissez 2
+          span &nbsp;items
 
         input#e1(type="checkbox", value='sword')
         label.check-img
@@ -93,13 +95,13 @@ block content
         label.check-img
         label.check-label(for='e9') Gilet de cuir matelass&eacute;
 
-        input#e9(type='checkbox', value='lampsur-potion')
+        input#e10(type='checkbox', value='lampsur-potion')
         label.check-img
         label.check-label(for='e10') Potion de Lampsur
 
-        input#e9(type='checkbox', value='special-food')
+        input#e11(type='checkbox', value='special-food')
         label.check-img
         label.check-label(for='e11') Rations sp&eacute;ciales
 
     br
-    input(type='submit', value='Debuter l\'aventure!')
+    input.button.button-success(type='submit', value='Debuter l\'aventure!')

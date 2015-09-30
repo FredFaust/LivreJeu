@@ -1,8 +1,51 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Rockwell", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+h1, h2, h3 {
+    font-family: "Papyrus" !important;
+}
+
+input[type='text'] {
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    padding: 3px;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="text"].focus {
+    border-bottom: solid 2px #969696;
+}
+
+.button {
+    color: white;
+    display: inline-block;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background-color: deepskyblue;
+}
+
+.button-success {
+    background-color: mediumseagreen;
+}
+
+.button-warning {
+    background-color: yellow;
+}
+
+.button-error {
+    background-color: red;
 }

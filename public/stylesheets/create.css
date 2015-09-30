@@ -28,9 +28,12 @@
 }
 
 .check-label {
+    background-color:transparent;
     margin-left: 5px;
     cursor: pointer;
     vertical-align: middle;
+    transition: background-color 1s;
+    -moz-transition: background-color 1s;
 }
 
 input[type="checkbox"] {
@@ -65,5 +68,5 @@ input[type="checkbox"]:checked + label.check-img  {
 }
 
 input[type="checkbox"]:checked + label.check-img  + label.check-label {
-    font-weight: bold;
+    background-color: khaki;
 }

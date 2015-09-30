@@ -6,15 +6,17 @@ html
     link(rel='stylesheet', href='/stylesheets/nav.css')
     block extraHeaders
   body
-    nav()
-      ul.navlinks
-        li
-          a(href='/home', class=selectedNav === 'home' ? 'nav-selected' : 'nav-not-selected') Accueil
-        li
-          a(href='/pages/0', class=selectedNav === 'game' ? 'nav-selected' : 'nav-not-selected') Jeu
-        li
-          a(href='/help', class=selectedNav === 'help' ? 'nav-selected' : 'nav-not-selected') Aide
-    block content
-    footer()
-      p Laboratoire #2  /  Présenté à M. Konstantinos Lambrou-Latreille  /  Par Jean-Frédéric Faust et Félix Pelletier
-      p 4 octobre 2015
+    .page-wrap
+      nav()
+        ul.navlinks
+          li
+            a(href='/home', class=selectedNav === 'home' ? 'nav-selected' : 'nav-not-selected') Accueil
+          li
+            a(href='/pages/0', class=selectedNav === 'game' ? 'nav-selected' : 'nav-not-selected') Jeu
+          li
+            a(href='/help', class=selectedNav === 'help' ? 'nav-selected' : 'nav-not-selected') Aide
+      block content
+    footer.site-footer()
+      span Laboratoire #2  /  Présenté à M. Konstantinos Lambrou-Latreille  /  Par Jean-Frédéric Faust et Félix Pelletier
+      br
+      span 4 octobre 2015

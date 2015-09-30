@@ -1,5 +1,42 @@
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+p, ul, ol {
+    padding-bottom: 20px;
+}
+
+h1, h2, h3 {
+    padding: 5px 0;
+}
+
+.page-wrap {
+    min-height: 100%;
+    margin-bottom: -40px;
+}
+
+.page-wrap:after {
+    content: "";
+    display: block;
+}
+
+.site-footer, .page-wrap:after {
+    height: 40px;
+}
+
+.site-footer {
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: darkgrey;
+    text-align: center;
+}
+
 body {
-  padding: 30px 50px;
+  padding: 0 50px;
   font: 14px "Rockwell", Helvetica, Arial, sans-serif;
 }
 

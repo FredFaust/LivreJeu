@@ -10,6 +10,10 @@ p, ul, ol {
     padding-bottom: 20px;
 }
 
+p {
+    line-height: 25px;
+}
+
 h1, h2, h3 {
     padding: 5px 0;
 }

@@ -3,6 +3,5 @@ module.exports = {
   HELP: '/help',
   HELP_TOPIC: '/help/:topic',
   FIGHT: '/fight',
-  PAGES: '/pages/:pagenumber',
-  PAGES_TODO: '/pages/todo'
+  PAGES: '/pages/:pagenumber'
 }

@@ -31,11 +31,7 @@ router.get(url.FIGHT, function(req, res) {
 });
 
 router.get(url.PAGES, function(req, res) {
-    res.render('pages/book/page' + req.params.pagenumber, { title: 'Pages', heroname: req.query.heroname || 'Felix le Vainqueur', pageNumber: req.params.pagenumber, selectedNav: 'game' });
-});
-
-router.get(url.PAGES_TODO, function(req, res) {
-    res.render('pages/book/pageTODO', { title: 'Pages', selectedNav: 'game' });
+    res.render('pages/book/p' + req.params.pagenumber, { title: 'Pages', heroname: req.query.heroname || 'Felix le Vainqueur', pageNumber: req.params.pagenumber, selectedNav: 'game' });
 });
 
 module.exports = router;

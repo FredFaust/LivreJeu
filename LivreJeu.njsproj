@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{77ddcd47-b8f3-4862-b1e2-eb9d7f95481a}</ProjectGuid>
+    <ProjectHome />
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>app.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <NodejsPort>3000</NodejsPort>
+    <NodeExePath>C:\Program Files\nodejs\node.exe</NodeExePath>
+    <StartWebBrowser>True</StartWebBrowser>
+    <NodeExeArguments>
+    </NodeExeArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Compile Include="app.js" />
+    <Compile Include="constants\url.js" />
+    <Compile Include="routes\router.js" />
+    <Content Include="public\images\p1.png" />
+    <Content Include="public\images\p245.png" />
+    <Content Include="public\images\p78.png" />
+    <Content Include="public\images\p91.png" />
+    <Content Include="public\images\tick-icon.png" />
+    <Content Include="public\images\x-icon.png" />
+    <Content Include="public\stylesheets\create.css" />
+    <Content Include="public\stylesheets\game.css" />
+    <Content Include="public\stylesheets\help.css" />
+    <Content Include="public\stylesheets\main.css" />
+    <Content Include="public\stylesheets\nav.css" />
+    <Content Include="public\resources\images\fights_figureA.jpg" />
+    <Content Include="public\resources\images\fights_figureB.jpg" />
+    <Content Include="views\pages\error.jade" />
+    <Content Include="views\pages\fight.jade" />
+    <Content Include="views\pages\help.jade" />
+    <Content Include="views\pages\home.jade" />
+    <Content Include="views\pages\layout.jade" />
+    <Content Include="views\pages\book\p0.jade" />
+    <Content Include="views\pages\book\p1.jade" />
+    <Content Include="views\pages\book\p12.jade" />
+    <Content Include="views\pages\book\p129.jade" />
+    <Content Include="views\pages\book\p134.jade" />
+    <Content Include="views\pages\book\p155.jade" />
+    <Content Include="views\pages\book\p160.jade" />
+    <Content Include="views\pages\book\p167.jade" />
+    <Content Include="views\pages\book\p172.jade" />
+    <Content Include="views\pages\book\p180.jade" />
+    <Content Include="views\pages\book\p188.jade" />
+    <Content Include="views\pages\book\p204.jade" />
+    <Content Include="views\pages\book\p209.jade" />
+    <Content Include="views\pages\book\p245.jade" />
+    <Content Include="views\pages\book\p248.jade" />
+    <Content Include="views\pages\book\p288.jade" />
+    <Content Include="views\pages\book\p300.jade" />
+    <Content Include="views\pages\book\p318.jade" />
+    <Content Include="views\pages\book\p331.jade" />
+    <Content Include="views\pages\book\p339.jade" />
+    <Content Include="views\pages\book\p57.jade" />
+    <Content Include="views\pages\book\p62.jade" />
+    <Content Include="views\pages\book\p70.jade" />
+    <Content Include="views\pages\book\p78.jade" />
+    <Content Include="views\pages\book\p91.jade" />
+    <Content Include="views\pages\book\page.jade" />
+    <Content Include="views\pages\book\page_fight.jade" />
+    <Content Include="views\pages\help\disciplines.jade" />
+    <Content Include="views\pages\help\equipment.jade" />
+    <Content Include="views\pages\help\fights.jade" />
+    <Content Include="views\pages\help\unknownTopic.jade" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin" />
+    <Folder Include="constants" />
+    <Folder Include="public" />
+    <Folder Include="public\images" />
+    <Folder Include="public\resources" />
+    <Folder Include="public\resources\images" />
+    <Folder Include="public\stylesheets" />
+    <Folder Include="routes" />
+    <Folder Include="views" />
+    <Folder Include="views\pages" />
+    <Folder Include="views\pages\book" />
+    <Folder Include="views\pages\help" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

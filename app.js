@@ -1,11 +1,11 @@
 var express = require('express');
-  path = require('path'),
-  favicon = require('serve-favicon'),
-  logger = require('morgan'),
-  cookieParser = require('cookie-parser'),
-  bodyParser = require('body-parser'),
-  redirect = require("express-redirect"),
-  router = require('./routes/router');
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    redirect = require('express-redirect'),
+    router = require('./routes/router');
 
 var app = express();
 redirect(app);
@@ -26,7 +26,7 @@ app.use('/img', express.static(path.join(__dirname, 'public/resources/images')))
 
 //CUSTOM CODE HERE
 app.use(router);
-app.redirect("/", "/home", 301);
+app.redirect('/', '/home', 301);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,23 +40,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('pages/error', {
-      message: err.message,
-      error: err
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('pages/error', {
+        message: err.message,
+        error: err
     });
   });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('pages/error', {
-    message: err.message,
-    error: {}
-  });
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('pages/error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 

@@ -1,0 +1,2 @@
+C:\Users\felix\Documents\Poly\LOG4420\LivreJeu\obj\Debug\LivreJeu.njsprojResolveAssemblyReference.cache
+C:\Users\felix\Documents\Poly\LOG4420\LivreJeu\bin\Microsoft.NodejsTools.WebRole.dll

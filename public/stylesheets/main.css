@@ -97,6 +97,10 @@ input[type="text"].focus {
     background-color: mediumseagreen;
 }
 
+.button-brown {
+    background-color: saddlebrown;
+}
+
 .button-warning {
     background-color: yellow;
 }

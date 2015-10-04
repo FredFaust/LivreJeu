@@ -59,3 +59,29 @@
 .fight-defeat {
     color: crimson
 }
+
+.tbl-backpack {
+    width: 100%;
+}
+
+.tbl-backpack td {
+    width: 33%;
+    height: 33%;
+    vertical-align: top;
+}
+
+.tbl-backpack td p {
+    font-size: 12px;
+    text-align: center;
+}
+
+
+.img-item-backpack {
+    -moz-box-shadow: 0 0 10px black;
+    box-shadow: 0 0 10px black;
+}
+
+#backpack-modal > div {
+    background: #fff;
+    background: -moz-linear-gradient(saddlebrown, lightgray);
+}

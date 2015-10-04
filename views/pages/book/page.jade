@@ -2,22 +2,30 @@ extends ../layout
 
 block extraHeaders
   link(rel='stylesheet', href='/stylesheets/game.css')
+  link(rel='stylesheet', href='/stylesheets/adventure-sheet.css')
 
 block content
-  // Dummy data, only for the first tps
-  -var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, disciplines: 'Communication Animale, 6e Sens', equipment: 'Marteau de guerre, glaive', fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' } ]};
-  h1 Page ##{pageNumber}
-  block story
-  block fight
-  h2 Statistiques
-  ul
-    li Nom : #{heroname}
-    li Habilet&eacute; : #{hero.ability}
-    li Endurance : #{hero.endurance}
-    li Pi&egrave;ces d'or : #{hero.money}
-    li Disciplines Kai : #{hero.disciplines}
-    li &Eacute;quipement : #{hero.equipment}
-  h3 Derniers Combats
-  ol
-    each fight in hero.fights         
-        li= fight.opponent + ' - ' + fight.result
+    // Dummy data, only for the first tps
+    -var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, disciplines: 'Communication Animale, 6e Sens', equipment: 'Marteau de guerre, glaive', fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' }, { opponent: 'Dracula', result: 'Defaite' } ]};
+    h1 Page ##{pageNumber}
+    div#adventure-sheet
+        h1.hero-name: #[img(src='/images/hero.png')] #{heroname}
+        hr.line-bar-gradient
+        ul 
+            li Habilet&eacute; : #{hero.ability}
+            li Endurance : #{hero.endurance}
+            li Pi&egrave;ces d'or : #{hero.money}
+            li Disciplines Kai : #{hero.disciplines}
+            li &Eacute;quipement : #{hero.equipment}
+        h2: #[img(src='/images/sword.png')] Derniers Combats #[img(src='/images/sword.png')]
+        hr.line-bar-gradient
+        ol
+            each fight in hero.fights
+                -var fightClass = fight.result == 'Victoire' ? 'fight-victory' : 'fight-defeat'
+                -var fightContent = fight.opponent + ' - ' + fight.result
+                -var fightImage = fight.result == 'Victoire' ? '/images/trophy.png' : '/images/skull.png';
+                li(class=fightClass) #{fightContent}
+                    img(src=fightImage)
+        img(src='/images/blood-splash.png')
+    block story
+    block fight

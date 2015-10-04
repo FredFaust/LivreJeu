@@ -1,0 +1,61 @@
+#adventure-sheet h1 img {
+    height: 50px;
+    width: 50px;
+    vertical-align: middle;
+}
+
+#adventure-sheet h2 img {
+    height: 25px;
+    width: 25px;
+    vertical-align: middle;
+}
+
+#adventure-sheet img {
+    height: 100px;
+    width: 100%;
+}
+
+#adventure-sheet h1, h2 {
+    text-align: center;
+}
+
+#adventure-sheet {
+    float: right;
+    padding: 15px 30px;
+    margin: 0 10px;
+    background: url('/images/parchment-background.png') no-repeat 100%;
+    -moz-box-shadow: 0 0 10px black;
+    box-shadow: 0 0 10px black;
+}
+
+#adventure-sheet ul {
+    list-style-image: url('/images/star.png');
+}
+
+#adventure-sheet ol {
+    padding-top: 5px;
+    font-style: italic;
+    font-family: Georgia, Times, serif;
+    font-size: 24px;
+}
+
+#adventure-sheet ol li {
+    padding: 8px;
+    font-style: normal;
+    font-size: 13px;
+    border-left: 1px solid grey;
+}
+
+#adventure-sheet ol li img {
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+
+.fight-victory {
+    color: green;
+}
+
+.fight-defeat {
+    color: crimson
+}

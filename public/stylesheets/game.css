@@ -1,1 +1,13 @@
-/*CSS for game pages*/
+.img-wrap-left {
+    float: left;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.img-wrap-right {
+    float: right;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+}

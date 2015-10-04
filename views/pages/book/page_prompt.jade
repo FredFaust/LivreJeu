@@ -1,0 +1,9 @@
+extends page
+
+block prompt
+  #prompt.modal-dialog
+    div
+      a.modal-close(href="#close", title="Close") X
+      block prompt-title
+      block prompt-message
+      a.button.button-accept(href="#dismiss", title="Okay") Okay

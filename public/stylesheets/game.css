@@ -11,3 +11,13 @@
     padding-left: 15px;
     padding-bottom: 15px;
 }
+
+#prompt > div {
+    background: #fff;
+    background: -moz-linear-gradient(to bottom right, darkred, lightgray);
+}
+
+#prompt > div p strong {
+    color: darkred;
+    font-weight: bold;
+}

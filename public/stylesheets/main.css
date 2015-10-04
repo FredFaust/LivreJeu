@@ -12,6 +12,7 @@ p, ul, ol {
 
 p {
     line-height: 25px;
+    padding: 10px;
 }
 
 h1, h2, h3 {

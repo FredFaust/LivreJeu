@@ -1,3 +1,17 @@
+#adventure-sheet {
+    float: right;
+    padding: 15px 30px;
+    margin: 0 10px;
+    background: url('/images/parchment-background.png') no-repeat 100%;
+    -moz-box-shadow: 0 0 10px black;
+    box-shadow: 0 0 10px black;
+    width: 300px;
+}
+
+#special-objects {
+    float: right;
+}
+
 #adventure-sheet h1 img {
     height: 50px;
     width: 50px;
@@ -17,15 +31,6 @@
 
 #adventure-sheet h1, h2 {
     text-align: center;
-}
-
-#adventure-sheet {
-    float: right;
-    padding: 15px 30px;
-    margin: 0 10px;
-    background: url('/images/parchment-background.png') no-repeat 100%;
-    -moz-box-shadow: 0 0 10px black;
-    box-shadow: 0 0 10px black;
 }
 
 #adventure-sheet ul {
@@ -75,13 +80,12 @@
     text-align: center;
 }
 
-
-.img-item-backpack {
+.img-table-item {
     -moz-box-shadow: 0 0 10px black;
     box-shadow: 0 0 10px black;
 }
 
-#backpack-modal > div {
+#backpack-modal > div, #special-modal > div {
     background: #fff;
     background: -moz-linear-gradient(saddlebrown, lightgray);
 }

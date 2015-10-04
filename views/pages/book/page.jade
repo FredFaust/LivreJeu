@@ -6,7 +6,9 @@ block extraHeaders
 
 block content
     // Dummy data, only for the first tps
-    -var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, disciplines: 'Communication Animale, 6e Sens', equipment: [{ name: 'Marteau de guerre', file: 'warhammer.png' }, { name: 'Glaive', file: 'glaive.png' }, { name: 'Potion de Lampsur', file: 'lampsur.png' }], fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' }, { opponent: 'Dracula', result: 'Defaite' } ]};
+    -var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, equipment: [{ name: 'Marteau de guerre', file: 'warhammer.png' }, { name: 'Glaive', file: 'glaive.png' }, { name: 'Potion de Lampsur', file: 'lampsur.png' }], fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' }, { opponent: 'Dracula', result: 'Defaite' } ]};
+    -hero.specials = [{name : "Gilet de cuir matelasse", file: "quilted-vest.png"}];
+    -hero.disciplines = 'Communication Animale, 6e Sens';
     h1 Page ##{pageNumber}
     #adventure-sheet
         h1.hero-name #[img(src='/images/hero.png')] #{heroname}
@@ -42,5 +44,18 @@ block content
                       p= item.name
                   - }
                 - }
+        a#special-objects.button.button-brown(href="#special-modal") Objets sp&eacute;ciaux
+        #special-modal.modal-dialog
+          div
+            a.modal-close(href="#close", title="Close") X
+            h2 Objets sp&eacute;ciaux
+            table.tbl-backpack
+                tr
+                  td
+                  -var uniqueSpecialItem = hero.specials[0];
+                  td
+                    img.img-table-item(src='/images/' + uniqueSpecialItem.file)
+                    p= uniqueSpecialItem.name
+                  td
     block story
     block fight

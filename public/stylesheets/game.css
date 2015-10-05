@@ -12,12 +12,90 @@
     padding-bottom: 15px;
 }
 
-#prompt > div {
+#prompt.modal-endurance > div {
     background: #fff;
     background: -moz-linear-gradient(to bottom right, darkred, lightgray);
 }
 
-#prompt > div p strong {
+#prompt.modal-endurance > div p strong {
     color: darkred;
     font-weight: bold;
+}
+
+#prompt.modal-item > div {
+    background: #fff;
+    background: -moz-linear-gradient(to bottom right, saddlebrown, lightgray);
+}
+
+#prompt.modal-item > div p strong {
+    color: darkgreen;
+    font-weight: bold;
+}
+
+#prompt.modal-choice > div {
+    background: #fff;
+    background: -moz-linear-gradient(to bottom, lightgray, white);
+}
+
+.check-label {
+    background-color:transparent;
+    margin-left: 5px;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: background-color 1s;
+    -moz-transition: background-color 1s;
+}
+
+.tbl-choice {
+    width: 100%;
+}
+
+.tbl-choice td {
+    width: 50%;
+    height: 50%;
+    vertical-align: top;
+}
+
+.tbl-choice td img {
+    width: 100%;
+    height: 100%;
+    float: left;
+    vertical-align: top;
+}
+
+
+
+input[type="checkbox"] {
+    display: none;
+}
+
+label.check-label {
+    display: inline-block;
+    float: left;
+}
+
+label.check-img  {
+    cursor:pointer;
+    display:inline-block;
+    width:15px;
+    height:15px;
+    clear: left;
+    float: left;
+    padding: 0 0 10px 0;
+    vertical-align: middle;
+    background: url("../images/x-icon.png") no-repeat;
+}
+
+input[type="checkbox"]:checked + label.check-img  {
+    cursor:pointer;
+    display:inline-block;
+    width:15px;
+    height:15px;
+    padding: 0 0 10px 0;
+    vertical-align: middle;
+    background: url("../images/tick-icon.png") no-repeat;
+}
+
+input[type="checkbox"]:checked + label.check-img  + label.check-label {
+    background-color: khaki;
 }

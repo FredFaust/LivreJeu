@@ -1,0 +1,36 @@
+.fight-hero {
+    color: green;
+    font-weight: bold;
+}
+
+.fight-enemy {
+    color: red;
+    font-weight: bold;
+}
+
+.button-fight {
+    background-color: red;
+    margin-right: 5px;
+}
+
+.button-fight:hover {
+    background-color: rgba(255,0,0,0.7);
+}
+
+.combat-history {
+    list-style: none;
+}
+
+.combat-history li {
+    background: url('/images/claw.png') left center no-repeat;
+    padding: 10px 0px 10px 30px;
+}
+
+.attributes {
+    list-style: none;
+}
+
+.attributes li {
+    background: url('/images/shield.png') left center no-repeat;
+    padding: 5px 0px 5px 30px;
+}

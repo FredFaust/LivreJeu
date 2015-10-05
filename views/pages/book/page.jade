@@ -12,14 +12,14 @@ block content
     h1 Page ##{pageNumber}
     #adventure-sheet
         h1.hero-name #[img(src='/images/hero.png')] #{heroname}
-        hr.line-bar-gradient
+        hr
         ul
             li Habilet&eacute; : #{hero.ability}
             li Endurance : #{hero.endurance}
             li Pi&egrave;ces d'or : #{hero.money}
             li Disciplines Kai : #{hero.disciplines}
         h2 #[img(src='/images/sword.png')] Derniers Combats #[img(src='/images/sword.png')]
-        hr.line-bar-gradient
+        hr
         ol
             each fight in hero.fights
                 -var fightClass = fight.result == 'Victoire' ? 'fight-victory' : 'fight-defeat'
@@ -40,7 +40,7 @@ block content
                   - for (var j = 0; j < ligne.length; j++) {
                   -  var item = { name: ligne[j].name, src: '/images/' + ligne[j].file }
                     td
-                      img.img-item-backpack(src=item.src)
+                      img.img-table-backpack(src=item.src)
                       p= item.name
                   - }
                 - }

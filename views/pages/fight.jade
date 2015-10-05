@@ -1,30 +1,34 @@
 extends layout
 
+block extraHeaders
+  link(rel='stylesheet', href='/stylesheets/fight.css')
+
 block content
     //Dummy data for the TP1
     -var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, disciplines: 'Communication Animale, 6e Sens', equipment: 'Marteau de guerre, glaive', fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' } ]};
-    h3 Combat vs. #{name}
+    h2 Combat vs. #{name}
 
-    p(style='color:green') H&eacute;ros: #{heroname}
-    ul
+    p.fight-hero H&eacute;ros: #{heroname}
+    ul.attributes
         li Habilet&eacute; : #{hero.ability}
         li Endurance : #{hero.endurance}
         li Disciplines Kai : #{hero.disciplines}
     
-    p(style='color:red') Ennemi: #{name}
-    ul 
+    p.fight-enemy Ennemi: #{name}
+    ul.attributes
         li Habilet&eacute; : #{ability}
         li Endurance : #{endurance}
 
-    input#random(type='button', value='Attaquez')
-    label(for='random', class='formLabel') 8
+    input.button.button-fight#random(type='button', value='Attaquez')
+    span R&eacute;sultat de l'attaque : <b>8 points</b> de dommages
 
-    p Historique du combat:
-    ul
-        li #{hero.name} inflige 2 points de dommage a #{name}.
-        li #{name} donne une claque a #{hero.name}. Il perd 5 points d'endurance.
-        li #{hero.name} frappe #{name} et il perd 4 points d'endurance.
+    hr
+    h2 Historique du combat:
+    ul.combat-history
+        li <span class="fight-hero">#{hero.name}</span> inflige <b>2 points</b> de dommage a <span class="fight-enemy">#{name}</span>.
+        li <span class="fight-enemy">#{name}</span> donne une claque a <span class="fight-hero">#{hero.name}</span>. Il perd <b>5 points</b> d'endurance.
+        li <span class="fight-hero">#{hero.name}</span> frappe <span class="fight-enemy">#{name}</span> et il perd <b>4 points</b> d'endurance.
 
     form(action='/pages/#{returnPage}')
         input(type='hidden', name="heroname", value='#{heroname}')
-        input(type='submit', value='Terminer le combat')
+        input.button.button-success(type='submit', value='Terminer le combat')

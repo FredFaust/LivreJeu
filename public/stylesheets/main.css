@@ -38,13 +38,10 @@ h1, h2, h3 {
 }
 
 .site-footer {
-    border-width: 1px 0 0 0;
-    border-style: solid;
-    border-color: darkgrey;
     text-align: center;
 }
 
-.line-bar-gradient {
+hr {
     border: 0;
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
@@ -78,6 +75,41 @@ input[type="text"].focus {
     border-bottom: solid 2px mediumseagreen;
 }
 
+input[type="checkbox"] {
+    display: none;
+}
+
+label.check-label {
+    display: inline-block;
+    float: left;
+}
+
+label.check-img  {
+    cursor:pointer;
+    display:inline-block;
+    width:15px;
+    height:15px;
+    clear: left;
+    float: left;
+    padding: 0 3px 10px 0;
+    vertical-align: middle;
+    background: url("../images/x-icon.png") no-repeat;
+}
+
+input[type="checkbox"]:checked + label.check-img  {
+    cursor:pointer;
+    display:inline-block;
+    width:15px;
+    height:15px;
+    padding: 0 0 10px 0;
+    vertical-align: middle;
+    background: url("../images/tick-icon.png") no-repeat;
+}
+
+input[type="checkbox"]:checked + label.check-img  + label.check-label {
+    background-color: khaki;
+}
+
 .button {
     color: white;
     display: inline-block;
@@ -98,20 +130,40 @@ input[type="text"].focus {
     background-color: mediumseagreen;
 }
 
+.button-success:hover {
+    background-color: rgba(60,179,113,0.7);
+}
+
 .button-brown {
     background-color: saddlebrown;
 }
 
+.button-brown:hover {
+    background-color: rgba(139,69,19,0.7);
+}
+
 .button-warning {
-    background-color: yellow;
+    background-color: gold;
     color: black;
+}
+
+.button-warning:hover {
+    background-color: rgba(255,255,0,0.7);
 }
 
 .button-error {
     background-color: red;
 }
 
+.button-error:hover {
+    background-color: rgba(255,0,0,0.7);
+}
+
 .button-accept {
     background-color: lightgray;
     color: black;
+}
+
+.button-accept:hover {
+    background-color: rgba(192,192,192,0.7);
 }

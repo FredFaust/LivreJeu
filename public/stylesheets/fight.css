@@ -19,6 +19,7 @@
 
 .combat-history {
     list-style: none;
+    padding-left: 20px;
 }
 
 .combat-history li {

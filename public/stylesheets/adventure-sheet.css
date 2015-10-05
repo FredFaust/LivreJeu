@@ -33,8 +33,14 @@
     text-align: center;
 }
 
-#adventure-sheet ul {
-    list-style-image: url('/images/star.png');
+.attributes {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.attributes li {
+    background: url('/images/star.png') left center no-repeat;
+    padding: 5px 0px 5px 30px !important;
 }
 
 #adventure-sheet ol {

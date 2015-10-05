@@ -51,6 +51,7 @@ hr {
 body {
   padding: 0 50px;
   font: 14px "Rockwell", Helvetica, Arial, sans-serif;
+  background: url('/images/paper-background.jpg') 100%;
 }
 
 a {
@@ -62,6 +63,7 @@ h1, h2, h3 {
 }
 
 input[type='text'] {
+    background: transparent;
     border: none;
     border-bottom: solid 2px lightgrey;
     padding: 3px;

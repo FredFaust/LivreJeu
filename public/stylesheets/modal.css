@@ -27,8 +27,8 @@
 }
 
 .modal-close {
-    background: #606061;
-    color: #FFFFFF;
+    background: gray;
+    color: white;
     line-height: 25px;
     position: absolute;
     right: -12px;
@@ -43,4 +43,6 @@
     box-shadow: 1px 1px 3px #000;
 }
 
-.modal-close:hover { background: #00d9ff; }
+.modal-close:hover {
+    background: red;
+}

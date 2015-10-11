@@ -1,6 +1,6 @@
 var express = require('express');
     redirect = require('express-redirect'),
-    session = require('express-session0'),
+    session = require('express-session'),
     path = require('path'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
@@ -32,7 +32,7 @@ app.redirect('/', '/home', 301);
 app.use(session({
     secret: 'LivreJeu',
     resave: false,
-    saveUninintialized: true,
+    saveUninitialized: true,
     cookie: { secure: true }
 }));
 

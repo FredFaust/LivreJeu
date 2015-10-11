@@ -1,10 +1,11 @@
 var express = require('express');
+    redirect = require('express-redirect'),
+    session = require('express-session0'),
     path = require('path'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    redirect = require('express-redirect'),
     router = require('./routes/router');
 
 var app = express();
@@ -23,10 +24,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'public/resources/images')));
 
-
 //CUSTOM CODE HERE
 app.use(router);
 app.redirect('/', '/home', 301);
+
+// Set express-session settings
+app.use(session({
+    secret: 'LivreJeu',
+    resave: false,
+    saveUninintialized: true,
+    cookie: { secure: true }
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

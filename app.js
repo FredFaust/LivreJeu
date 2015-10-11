@@ -24,10 +24,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'public/resources/images')));
 
-//CUSTOM CODE HERE
-app.use(router);
-app.redirect('/', '/home', 301);
-
 // Set express-session settings
 app.use(session({
     secret: 'LivreJeu',
@@ -35,6 +31,10 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: true }
 }));
+
+//CUSTOM CODE HERE
+app.use(router);
+app.redirect('/', '/home', 301);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

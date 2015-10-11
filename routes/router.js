@@ -2,7 +2,9 @@ var express = require('express'),
     router = express.Router(),
     url = require('../constants/url'),
     help = require('../constants/help'),
-    game = require('../constants/game');
+    game = require('../constants/game'),
+    rand = require('../utilities/random'),
+    session = require('express-session');
 
 /* GET */
 
@@ -38,8 +40,8 @@ router.get(url.GET.PAGES, function(req, res) {
 router.post(url.POST.CREATE_PLAYER, function(req, res) {
     var disciplines = req.body.disciplines;
     var items = req.body.items;
+    var masteredWeapon = req.body.weapon;
 
-    console.log(disciplines.toString());
     console.log(items.toString());
 
     // TODO : Maybe refactor this, we need to indicate that the form was not valid on client side
@@ -68,17 +70,13 @@ router.post(url.POST.CREATE_PLAYER, function(req, res) {
         var validElements = true;
         for (var i = 0; i < array.length; i++){
             var elem = array[i];
-            console.log(elem);
             if (!container.hasOwnProperty(elem)){
-                console.log(errorMessage + elem);
                 validElements = false;
                 break;
             }
         }
         return validElements;
     };
-
-    console.log(validateArray.toString());
 
     /* Validate disciplines and items
      e.g. {
@@ -101,7 +99,45 @@ router.post(url.POST.CREATE_PLAYER, function(req, res) {
         return;
     }
 
-    console.log("Everything's fine bruh!");
+    var initialCombatSkill = rand.Random.getIntInclusive(0, 9) + 10,
+        initialEndurance = rand.Random.getIntInclusive(0, 9) + 10,
+        weapon = { controls: false, type: null };
+
+    console.log("CS : " + initialCombatSkill + " EN : " + initialEndurance);
+
+    //TODO Fix this
+    // If the user choose this discipline and possesses the appropriate weapon, he gains two points of ability for the specified weapon;
+    if (masteredWeapon && items[masteredWeapon] !== undefined && items[masteredWeapon] !== null &&
+        disciplines[game.DISCIPLINES.ARMS_CONTROL] !== undefined && disciplines[game.DISCIPLINES.ARMS_CONTROL] !== null) {
+        weapon.controls = true;
+        weapon.type = masteredWeapon;
+        console.log("Mastered weapon: " + weapon.type);
+    }
+
+    //TODO Fix this
+    if (items[game.ITEMS.QUILTED_LEATHER_VEST] !== undefined && items[game.ITEMS.QUILTED_LEATHER_VEST] !== null){
+        console.log("Endurance was boosted because of quilted vest!");
+        initialEndurance += 2;
+    }
+
+    var initialPlayer = {
+        combatSkill : {
+            initial: initialCombatSkill,
+            actual: initialCombatSkill
+        },
+        endurance : {
+            initial: initialEndurance,
+            actual: initialEndurance
+        },
+        items : items,
+        disciplines: disciplines,
+        weapon: weapon
+    };
+
+    req.session.hero = initialPlayer;
+
+    //TODO Maybe adjust this
+    res.end();
 
 });
 

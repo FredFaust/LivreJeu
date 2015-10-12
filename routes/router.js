@@ -1,22 +1,22 @@
 var express = require('express'),
     router = express.Router(),
-    url = require('../constants/url'),
+    routes = require('../constants/routes'),
     help = require('../constants/help'),
     game = require('../constants/game'),
-    rand = require('../utilities/random'),
+    random = require('../utilities/random'),
     session = require('express-session');
 
 /* GET */
 
-router.get(url.GET.HOME, function(req, res) {
+router.get(routes.GET.HOME, function(req, res) {
     res.render('pages/home', { title: 'Le Livre de Jeu du Maitre Kai', selectedNav: 'home' });
 });
 
-router.get(url.GET.HELP, function (req, res) {
+router.get(routes.GET.HELP, function (req, res) {
     res.render('pages/help', { title: 'Aide', selectedNav: 'help' });
 });
 
-router.get(url.GET.HELP_TOPIC, function (req, res) {
+router.get(routes.GET.HELP_TOPIC, function (req, res) {
     var topic = req.params.topic;
 
     if (!help.TOPICS.hasOwnProperty(topic)) {
@@ -27,17 +27,17 @@ router.get(url.GET.HELP_TOPIC, function (req, res) {
     res.render('pages/help/' + topic, { title: 'Aide', topic: help.TOPICS[topic], selectedNav: 'help' });
 });
 
-router.get(url.GET.FIGHT, function(req, res) {
+router.get(routes.GET.FIGHT, function(req, res) {
   res.render('pages/fight', { title: 'Combat', heroname: req.query.heroname || 'Felix le Vainqueur' , returnPage: req.query.return_page, name: req.query.name, ability: req.query.ability, endurance: req.query.endurance, selectedNav: 'game' });
 });
 
-router.get(url.GET.PAGES, function(req, res) {
+router.get(routes.GET.PAGES, function(req, res) {
     res.render('pages/book/p' + req.params.pagenumber, { title: 'Pages', heroname: req.query.heroname || 'Felix le Vainqueur', pageNumber: req.params.pagenumber, selectedNav: 'game' });
 });
 
 /* POST */
 
-router.post(url.POST.CREATE_PLAYER, function(req, res) {
+router.post(routes.POST.CREATE_PLAYER, function(req, res) {
     var disciplines = req.body.disciplines;
     var items = req.body.items;
     var masteredWeapon = req.body.weapon;
@@ -45,6 +45,7 @@ router.post(url.POST.CREATE_PLAYER, function(req, res) {
     console.log(items.toString());
 
     // TODO : Maybe refactor this, we need to indicate that the form was not valid on client side
+    // TODO : Yeah, refactor !
     var renderInvalidPage = function(errorMessage){
         console.log(errorMessage);
         res.render('pages/book/p0', {selectedNav: 'game', invalidForm: true});
@@ -99,8 +100,8 @@ router.post(url.POST.CREATE_PLAYER, function(req, res) {
         return;
     }
 
-    var initialCombatSkill = rand.Random.getIntInclusive(0, 9) + 10,
-        initialEndurance = rand.Random.getIntInclusive(0, 9) + 10,
+    var initialCombatSkill = random.getIntInclusive(0, 9) + 10,
+        initialEndurance = random.getIntInclusive(0, 9) + 10,
         weapon = { controls: false, type: null };
 
     console.log("CS : " + initialCombatSkill + " EN : " + initialEndurance);

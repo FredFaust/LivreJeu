@@ -21,7 +21,7 @@
     <Content Include="public\resources\images\fights_figureB.jpg" />
     <Content Include="README.md" />
     <Compile Include="app.js" />
-    <Compile Include="constants\url.js" />
+    <Compile Include="constants\routes.js" />
     <Compile Include="routes\router.js" />
     <Content Include="views\error.jade" />
     <Content Include="views\layout.jade" />

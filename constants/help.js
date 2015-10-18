@@ -7,6 +7,3 @@ var help = {
 };
 
 module.exports = help;
-
-// Object.freeze prevents our constants to be modified
-Object.freeze(help);

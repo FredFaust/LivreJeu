@@ -1,16 +1,12 @@
 var routes = {
-  GET: {
-    HOME: '/home',
-    HELP: '/help',
-    HELP_TOPIC: '/help/:topic',
-    FIGHT: '/fight',
-    PAGES: '/pages/:pagenumber'
+  HOME: '/home',
+  HELP: {
+    MAIN: '/help',
+    TOPIC: '/help/:topic'
   },
-  POST: {
-    CREATE_PLAYER: '/createPlayer'
-  }
+  FIGHT: '/fight',
+  PAGES: '/pages/:pagenumber',
+  PLAYER: '/player'
 };
 
 module.exports = routes;
-
-Object.freeze(routes);

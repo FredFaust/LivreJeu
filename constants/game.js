@@ -27,6 +27,3 @@ var input = {
 };
 
 module.exports = input;
-
-// Object.freeze prevents our constants to be modified
-Object.freeze(input);

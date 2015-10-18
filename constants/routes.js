@@ -1,4 +1,4 @@
-var routes = {
+module.exports = {
   HOME: '/home',
   HELP: {
     MAIN: '/help',
@@ -8,5 +8,3 @@ var routes = {
   PAGES: '/pages/:pagenumber',
   PLAYER: '/player'
 };
-
-module.exports = routes;

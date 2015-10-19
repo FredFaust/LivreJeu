@@ -3,13 +3,11 @@ extends ../layout
 //- Page de creation
 
 mixin checkboxes(idPrefix, items)
-  -var counter=1;
   each val, prop in items
-    -var fullId = idPrefix + counter;
+    -var fullId = idPrefix + prop;
     input(id=fullId, type='checkbox', name=prop)
     label.check-img
     label.check-label(for=fullId) #{val}
-    -counter = counter+1;
 
 block extraScripts
   script(src="/js/create.js", async=true)
@@ -29,12 +27,14 @@ block content
       #discs.checkbox-container
         p Choisissez 5
           span &nbsp;disciplines
-        +checkboxes('d', gameInfo.DISCIPLINES)
+        +checkboxes('DISC_', gameInfo.DISCIPLINES)
 
       #equip.checkbox-container
         p Choisissez 2
           span &nbsp;items
-        +checkboxes('i', gameInfo.ITEMS)
+        +checkboxes('ITEM_', gameInfo.ITEMS)
+
+      p#mastered-weapon.invisible
 
     br
     input.button.button-success(type='button', value='Debuter l\'aventure!')

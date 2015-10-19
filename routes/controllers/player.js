@@ -1,105 +1,87 @@
-var random = require('../../utilities/random');
+var random = require('../../utilities/random'),
+    game = require('../../constants/game');
 
 exports.postPlayer = function(req, res) {
+
+  var heroName = req.body.name;
   var disciplines = req.body.disciplines;
   var items = req.body.items;
-  var masteredWeapon = req.body.weapon;
+  var masteredWeapon = req.body.masteredWeapon;
 
-  console.log(items.toString());
-
-  // TODO : Maybe refactor this, we need to indicate that the form was not valid on client side
-  // TODO : Yeah, refactor !
   var renderInvalidPage = function(errorMessage) {
     console.log(errorMessage);
-    res.render('pages/book/p0', {selectedNav: 'game', invalidForm: true});
+
+    req.session.errorMessage = errorMessage;
+
+    res.status(200).send({
+      redirect: '/pages/0'
+    });
   };
 
-  if (!disciplines || !items) {
-    renderInvalidPage('Items or disciplines is null or undefined...');
+  if (!_.isString(heroName)) {
+    renderInvalidPage("Nom du hero invalide");
     return;
   }
 
-  if (!Array.isArray(disciplines) || !Array.isArray(items)) {
-    renderInvalidPage('Items or disciplines is not an array...');
+  if (!disciplines || !items) {
+    renderInvalidPage('Valeurs invalides');
+    return;
+  }
+
+  if (!_.isArray(disciplines) || _.isArray(items)) {
+    renderInvalidPage('Valeurs invalides');
     return;
   }
 
   // It must be EXACTLY 5 disciplines and 2 items
   if (disciplines.length != 5 || items.length != 2) {
-    renderInvalidPage('Incorrect number of disciplines or items... Disciplines: ' + disciplines.length + ' Items: ' + items.length);
+    renderInvalidPage("Nombre incorrect de disciplines ou d'equipement... Disciplines: " + disciplines.length + ' Equipement: ' + items.length);
     return;
   }
 
-  var validateArray = function(array, container, errorMessage) {
-    var validElements = true;
-    for (var i = 0; i < array.length; i++) {
-      var elem = array[i];
-      if (!container.hasOwnProperty(elem)) {
-        validElements = false;
-        break;
-      }
-    }
-    return validElements;
-  };
-
-  /* Validate disciplines and items
-   e.g. {
-   "disciplines" :  [ "CAMOUFLAGE", "HUNT", "SIXTH_SENSE", "ORIENTATION", "HEALING" ],
-   "items" : ["SWORD", "SABRE"]
-   }
-   -> VALID
-   {
-   "disciplines" :  [ "WHAT", "YOLO", "HUEHUE", "ORIENTATION", "HEALING" ],
-   "items" : ["SWORD", "SABRUH"]
-   }
-   -> INVALID */
-  if (!validateArray(disciplines, game.DISCIPLINES, "Invalid discipline was found! ")) {
-    renderInvalidPage("Invalid disciplines were found in submitted form.");
+  if (!_.every(disciplines, function(d) {
+        return game.DISCIPLINES.hasOwnProperty(d);
+      })) {
+    renderInvalidPage("Disciplines invalides dans le formulaire");
     return;
   }
 
-  if (!validateArray(items, game.ITEMS, "Invalid item was found! ")) {
-    renderInvalidPage("Invalid items were found in submitted form.");
+  if (!_.every(items, function(i) {
+        return game.ITEMS.hasOwnProperty(i);
+      })) {
+    renderInvalidPage("Equipement invalide dans le formulaire");
     return;
   }
 
   var initialCombatSkill = random.getIntInclusive(0, 9) + 10,
+      actualCombatSkill = initialCombatSkill,
       initialEndurance = random.getIntInclusive(0, 9) + 10,
-      weapon = {controls: false, type: null};
+      actualEndurance = initialEndurance;
 
-  console.log("CS : " + initialCombatSkill + " EN : " + initialEndurance);
-
-  //TODO Fix this
-  // If the user choose this discipline and possesses the appropriate weapon, he gains two points of ability for the specified weapon;
-  if (masteredWeapon && items[masteredWeapon] !== undefined && items[masteredWeapon] !== null &&
-      disciplines[game.DISCIPLINES.ARMS_CONTROL] !== undefined && disciplines[game.DISCIPLINES.ARMS_CONTROL] !== null) {
-    weapon.controls = true;
-    weapon.type = masteredWeapon;
-    console.log("Mastered weapon: " + weapon.type);
+  if (_.contains(disciplines, 'ARMS_CONTROL') && _.contains(items, masteredWeapon)) {
+    actualCombatSkill += 2;
   }
 
-  //TODO Fix this
-  if (items[game.ITEMS.QUILTED_LEATHER_VEST] !== undefined && items[game.ITEMS.QUILTED_LEATHER_VEST] !== null) {
-    console.log("Endurance was boosted because of quilted vest!");
-    initialEndurance += 2;
+  if (_.contains(items, 'QUILTED_LEATHER_VEST')) {
+    actualEndurance += 2;
   }
 
   var initialPlayer = {
+    name: heroName,
     combatSkill: {
       initial: initialCombatSkill,
-      actual: initialCombatSkill
+      actual: actualCombatSkill
     },
     endurance: {
       initial: initialEndurance,
-      actual: initialEndurance
+      actual: actualEndurance
     },
     items: items,
     disciplines: disciplines,
-    weapon: weapon
+    weapon: masteredWeapon
   };
 
   req.session.hero = initialPlayer;
 
-  //TODO Maybe adjust this
-  res.end();
+  res.status(200).send({redirect: '/pages/1'});
 };

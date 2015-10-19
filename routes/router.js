@@ -7,6 +7,7 @@ var homeController = require('./controllers/home'),
     helpController = require('./controllers/help'),
     fightController = require('./controllers/fight'),
     pagesController = require('./controllers/pages'),
+    gameController = require('./controllers/game'),
     playerController = require('./controllers/player');
 
 router.route(routes.HOME)
@@ -23,6 +24,9 @@ router.route(routes.FIGHT)
 
 router.route(routes.PAGES)
     .get(pagesController.getPage);
+
+router.route(routes.GAME.WEAPONS)
+    .get(gameController.getWeapons);
 
 router.route(routes.PLAYER)
     .post(playerController.postPlayer);

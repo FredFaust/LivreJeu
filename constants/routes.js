@@ -6,5 +6,9 @@ module.exports = {
   },
   FIGHT: '/fight',
   PAGES: '/pages/:pagenumber',
-  PLAYER: '/player'
+  PLAYER: '/player',
+  GAME: {
+    MAIN: '/game',
+    WEAPONS: '/game/weapons'
+  }
 };

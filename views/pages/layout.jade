@@ -6,7 +6,8 @@ html
     link(rel='stylesheet', href='/stylesheets/nav.css')
     link(rel='stylesheet', href='/stylesheets/modal.css')
     link(rel='stylesheet', href='/stylesheets/modal.css')
-    script(src="/lib/jquery-2.1.4.min.js")
+    script(src='/lib/jquery-2.1.4.min.js')
+    script(src='/lib/underscore-1.8.3.min.js')
     block extraScripts
     block extraHeaders
   body
@@ -20,7 +21,9 @@ html
           li
             a(href='/help', class=selectedNav === 'help' ? 'nav-selected' : 'nav-not-selected') Aide
         hr
-
+      if errorMessage
+        #error-block
+          p #{errorMessage}
       block content
     footer.site-footer()
       hr

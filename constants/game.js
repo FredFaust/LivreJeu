@@ -23,5 +23,17 @@ module.exports = {
     QUILTED_LEATHER_VEST: 'Gilet de cuir matelasse',
     LAMPSUR_POTION: 'Potion de lampsur',
     SPECIAL_RATIONS: 'Rations speciales'
+  },
+  MASTER: {
+    POIGNARD: 'Le Poignard',
+    LANCE: 'La Lance',
+    MACE: 'La Mace',
+    SABRE: 'Le Sabre',
+    WARHAMMER: 'Le Marteau de guerre',
+    SWORD: "L'epee",
+    AXE: 'La Hache',
+    SWORD2: "L'epee",
+    STICK: 'Le Baton',
+    GLAIVE: 'Le Glaive'
   }
 };

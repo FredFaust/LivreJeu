@@ -1,4 +1,4 @@
-var random = {
+module.exports = {
   // Returns a random number between 0 (inclusive) and 1 (exclusive)
   get: function() {
     return Math.random();
@@ -21,7 +21,3 @@ var random = {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 };
-
-module.exports = random;
-
-Object.freeze(random);

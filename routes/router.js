@@ -39,6 +39,9 @@ router.route(routes.PLAYER)
 router.route(routes.JSON.PLAYER)
     .get(playerController.getPlayerJSON);
 
+router.route(routes.JSON.FIGHT)
+    .get(fightController.getFightJSON);
+
 module.exports = router;
 
 

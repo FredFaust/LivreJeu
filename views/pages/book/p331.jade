@@ -1,5 +1,8 @@
 extends page_prompt
 
+block extraScripts
+  script(src="/js/choice.js", async=true)
+
 block extraModalClasses
   -var extraModalClasses = "modal-endurance";
 
@@ -19,5 +22,7 @@ block story
   p Utilisez la Table de Hasard pour obtenir un chiffre.
 
   div#decision
-      p Si vous tirez un chiffre entre 0 et 4, #[a(href="/pages/62") rendez-vous au 62].
-      p Entre 5 et 9, #[a(href="/pages/288") rendez-vous au 288].
+      p Si vous tirez un chiffre entre 0 et 4, rendez-vous au 62.
+      p Entre 5 et 9, rendez-vous au 288.
+
+  input.button.button-warning(type='button', value='Table de hasard')

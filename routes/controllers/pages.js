@@ -1,4 +1,6 @@
-var gameInfo = require('../../constants/game');
+var gameInfo = require('../../constants/game'),
+    choice = require('../../constants/choice'),
+    pages = require('../../constants/pages');
 
 exports.getPage = function(req, res) {
   var pageInfo = {
@@ -15,5 +17,18 @@ exports.getPage = function(req, res) {
     pageInfo.gameInfo = gameInfo;
   }
 
-  res.render('pages/book/p' + req.params.pagenumber, pageInfo);
+  if (_.contains(pages, parseInt(pageInfo.pageNumber, 10))){
+    res.render('pages/book/p' + req.params.pagenumber, pageInfo);
+  }
+  else{
+    res.render('pages/book/page_not_found');
+  }
+};
+
+exports.getChoice = function(req, res) {
+  var page = parseInt(req.params.pagenumber, 10);
+  var resultPage = choice.makeChoice(page, req.session.hero);
+  var pageOptions = resultPage === 331 ? '#prompt' : '';
+
+  res.redirect('/pages/' + resultPage + pageOptions);
 };

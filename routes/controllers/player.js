@@ -28,7 +28,7 @@ exports.postPlayer = function(req, res) {
     return;
   }
 
-  if (!_.isArray(disciplines) || _.isArray(items)) {
+  if (!_.isArray(disciplines) || !_.isArray(items)) {
     renderInvalidPage('Valeurs invalides');
     return;
   }
@@ -84,4 +84,8 @@ exports.postPlayer = function(req, res) {
   req.session.hero = initialPlayer;
 
   res.status(200).send({redirect: '/pages/1'});
+};
+
+exports.getPlayerJSON = function(req, res) {
+  res.json(req.session.hero);
 };

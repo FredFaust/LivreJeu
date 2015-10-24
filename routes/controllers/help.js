@@ -10,7 +10,7 @@ exports.getMain = function(req, res) {
 exports.getTopic = function(req, res) {
   var topic = req.params.topic;
 
-  if (!help.TOPICS.hasOwnProperty(topic)) {
+  if (!help.TOPICS.hasOwnProperty(topic.toUpperCase())) {
     res.render('pages/help/unknownTopic', {
       title: 'Aide',
       topic: topic,

@@ -10,6 +10,7 @@ var homeController = require('./controllers/home'),
     gameController = require('./controllers/game'),
     playerController = require('./controllers/player');
 
+//Pages
 router.route(routes.HOME)
     .get(homeController.getHome);
 
@@ -25,11 +26,18 @@ router.route(routes.FIGHT)
 router.route(routes.PAGES)
     .get(pagesController.getPage);
 
+router.route(routes.CHOICE)
+    .get(pagesController.getChoice);
+
 router.route(routes.GAME.WEAPONS)
     .get(gameController.getWeapons);
 
 router.route(routes.PLAYER)
     .post(playerController.postPlayer);
+
+//JSON
+router.route(routes.JSON.PLAYER)
+    .get(playerController.getPlayerJSON);
 
 module.exports = router;
 

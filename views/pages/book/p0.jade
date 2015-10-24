@@ -2,12 +2,22 @@ extends ../layout
 
 //- Page de creation
 
+mixin checkboxes(idPrefix, items)
+  each val, prop in items
+    -var fullId = idPrefix + prop;
+    input(id=fullId, type='checkbox', name=prop)
+    label.check-img
+    label.check-label(for=fullId) #{val}
+
+block extraScripts
+  script(src="/js/create.js", async=true)
+
 block extraHeaders
   link(rel='stylesheet', href='/stylesheets/create.css')
 
 block content
   h1 Cr&eacute;ation d'un h&eacute;ro
-  form(action='/pages/1')
+  form#create-player(action='/player')
     label#hero-lbl(for='heroname') Nom du h&eacute;ro : &nbsp;
     input#heroname.txt-box-underlined(type='text', name='heroname')
     br
@@ -17,90 +27,14 @@ block content
       #discs.checkbox-container
         p Choisissez 5
           span &nbsp;disciplines
-
-        input#d1(type="checkbox", value='camo')
-        label.check-img
-        label.check-label(for='d1') Camouflage
-
-        input#d2(type='checkbox', value='sixth-sense')
-        label.check-img
-        label.check-label(for='d2') 6e Sens
-
-        input#d3(type='checkbox', value='orientation')
-        label.check-img
-        label.check-label(for='d3') Orientation
-
-        input#d4(type='checkbox', value='healing')
-        label.check-img
-        label.check-label(for='d4') Gu&eacute;rison
-
-        input#d5(type='checkbox', value='arms-mastery')
-        label.check-img
-        label.check-label(for='d5') Ma&icirc;trise des Armes
-
-        input#d6(type='checkbox', value='psych-shield')
-        label.check-img
-        label.check-label(for='d6') Bouclier Psychique
-
-        input#d7(type='checkbox', value='psych-power')
-        label.check-img
-        label.check-label(for='d7') Puissance Psychique
-
-        input#d8(type='checkbox', value='animal-whisperer')
-        label.check-img
-        label.check-label(for='d8') Communication Animale
-
-        input#d9(type='checkbox', value='matter-mastery')
-        label.check-img
-        label.check-label(for='d9') Ma&icirc;trise Psychique de la Mati&egrave;re
+        +checkboxes('DISC_', gameInfo.DISCIPLINES)
 
       #equip.checkbox-container
         p Choisissez 2
           span &nbsp;items
+        +checkboxes('ITEM_', gameInfo.ITEMS)
 
-        input#e1(type="checkbox", value='sword')
-        label.check-img
-        label.check-label(for='e1') &Eacute;p&eacute;e
-
-        input#e2(type='checkbox', value='sabre')
-        label.check-img
-        label.check-label(for='e2') Sabre
-
-        input#e3(type='checkbox', value='lance')
-        label.check-img
-        label.check-label(for='e3') Lance
-
-        input#e4(type='checkbox', value='mace')
-        label.check-img
-        label.check-label(for='e4') Masse d'armes
-
-        input#e5(type='checkbox', value='warhammer')
-        label.check-img
-        label.check-label(for='e5') Marteau de guerre
-
-        input#e6(type='checkbox', value='axe')
-        label.check-img
-        label.check-label(for='e6') H&acirc;che
-
-        input#e7(type='checkbox', value='stick')
-        label.check-img
-        label.check-label(for='e7') B&acirc;ton
-
-        input#e8(type='checkbox', value='glaive')
-        label.check-img
-        label.check-label(for='e8') Glaive
-
-        input#e9(type='checkbox', value='leather-jacket')
-        label.check-img
-        label.check-label(for='e9') Gilet de cuir matelass&eacute;
-
-        input#e10(type='checkbox', value='lampsur-potion')
-        label.check-img
-        label.check-label(for='e10') Potion de Lampsur
-
-        input#e11(type='checkbox', value='special-food')
-        label.check-img
-        label.check-label(for='e11') Rations sp&eacute;ciales
+      p#mastered-weapon.invisible
 
     br
-    input.button.button-success(type='submit', value='Debuter l\'aventure!')
+    input.button.button-success(type='button', value='Debuter l\'aventure!')

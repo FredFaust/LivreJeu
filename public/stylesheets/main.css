@@ -112,6 +112,13 @@ input[type="checkbox"]:checked + label.check-img  + label.check-label {
     background-color: khaki;
 }
 
+#error-block p {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .button {
     color: white;
     display: inline-block;

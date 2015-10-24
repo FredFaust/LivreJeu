@@ -24,7 +24,7 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Compile Include="app.js" />
-    <Compile Include="constants\url.js" />
+    <Compile Include="constants\routes.js" />
     <Compile Include="routes\router.js" />
     <Content Include="public\images\p1.png" />
     <Content Include="public\images\p245.png" />

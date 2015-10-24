@@ -1,11 +1,13 @@
 var express = require('express');
+    redirect = require('express-redirect'),
+    session = require('express-session'),
     path = require('path'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    redirect = require('express-redirect'),
-    router = require('./routes/router');
+    router = require('./routes/router'),
+    _ = require('underscore');
 
 var app = express();
 redirect(app);
@@ -20,8 +22,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+// Set express-session settings
+app.use(session({
+  secret: 'LivreJeu',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 6000000 }
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'public/resources/images')));
+
 
 
 //CUSTOM CODE HERE

@@ -27,3 +27,14 @@
 .checkbox-container > p > span {
     font-style:italic;
 }
+
+.invisible {
+    display:none;
+}
+
+.visible {
+    display: block;
+    text-align: center;
+    font-weight: 600;
+}
+

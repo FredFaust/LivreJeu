@@ -30,5 +30,5 @@ exports.getChoice = function(req, res) {
   var resultPage = choice.makeChoice(page, req.session.hero);
   var pageOptions = resultPage === 331 ? '#prompt' : '';
 
-  res.redirect('/pages/' + resultPage + pageOptions);
+  res.redirect('/game/' + resultPage + pageOptions);
 };

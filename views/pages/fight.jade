@@ -29,6 +29,6 @@ block content
         li <span class="fight-enemy">#{name}</span> donne une claque a <span class="fight-hero">#{hero.name}</span>. Il perd <b>5 points</b> d'endurance.
         li <span class="fight-hero">#{hero.name}</span> frappe <span class="fight-enemy">#{name}</span> et il perd <b>4 points</b> d'endurance.
 
-    form(action='/pages/#{returnPage}')
+    form(action='/game/#{returnPage}')
         input(type='hidden', name="heroname", value='#{heroname}')
         input.button.button-success(type='submit', value='Terminer le combat')

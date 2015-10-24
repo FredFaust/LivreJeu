@@ -5,15 +5,12 @@ module.exports = {
     TOPIC: '/help/:topic'
   },
   FIGHT: '/fight',
-  PAGES: '/pages/:pagenumber',
+  PAGES: '/game/:pagenumber',
   CHOICE: '/choixaleatoire/:pagenumber',
   PLAYER: '/player',
-  GAME: {
-    MAIN: '/game',
-    WEAPONS: '/game/weapons'
-  },
   JSON: {
+    FIGHT: '/json/combat/:player/:enemy',
     PLAYER: '/json/player',
-    FIGHT: '/json/combat/:player/:enemy'
+    WEAPONS: '/json/weapons'
   }
 };

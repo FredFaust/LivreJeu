@@ -29,11 +29,9 @@ router.route(routes.PAGES)
 router.route(routes.CHOICE)
     .get(pagesController.getChoice);
 
-router.route(routes.GAME.WEAPONS)
-    .get(gameController.getWeapons);
-
 router.route(routes.PLAYER)
     .post(playerController.postPlayer);
+
 
 //JSON
 router.route(routes.JSON.PLAYER)
@@ -41,6 +39,9 @@ router.route(routes.JSON.PLAYER)
 
 router.route(routes.JSON.FIGHT)
     .get(fightController.getFightJSON);
+
+router.route(routes.JSON.WEAPONS)
+    .get(gameController.getWeaponsJSON);
 
 module.exports = router;
 

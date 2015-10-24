@@ -14,7 +14,7 @@ exports.postPlayer = function(req, res) {
     req.session.errorMessage = errorMessage;
 
     res.status(200).send({
-      redirect: '/pages/0'
+      redirect: '/game/0'
     });
   };
 
@@ -83,7 +83,7 @@ exports.postPlayer = function(req, res) {
 
   req.session.hero = initialPlayer;
 
-  res.status(200).send({redirect: '/pages/1'});
+  res.status(200).send({redirect: '/game/1'});
 };
 
 exports.getPlayerJSON = function(req, res) {

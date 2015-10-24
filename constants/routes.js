@@ -13,6 +13,7 @@ module.exports = {
     WEAPONS: '/game/weapons'
   },
   JSON: {
-    PLAYER: '/json/player'
+    PLAYER: '/json/player',
+    FIGHT: '/json/combat/:player/:enemy'
   }
 };

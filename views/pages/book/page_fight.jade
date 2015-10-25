@@ -3,4 +3,4 @@ block fight
     form(action='/fight')
       block fightInfo
       input(type='hidden', name="heroname", value='#{heroname}')
-      input.button.button-warning(type='submit', value='Commencer le combat')
+      block startFight

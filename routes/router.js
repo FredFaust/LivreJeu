@@ -6,8 +6,8 @@ var express = require('express'),
 var homeController = require('./controllers/home'),
     helpController = require('./controllers/help'),
     fightController = require('./controllers/fight'),
-    pagesController = require('./controllers/pages'),
     gameController = require('./controllers/game'),
+    weaponController = require('./controllers/weapon'),
     playerController = require('./controllers/player');
 
 //Pages
@@ -24,16 +24,14 @@ router.route(routes.FIGHT)
     .get(fightController.getFight);
 
 router.route(routes.PAGES)
-    .get(pagesController.getPage);
+    .get(gameController.getPage);
 
 router.route(routes.CHOICE)
-    .get(pagesController.getChoice);
-
-router.route(routes.GAME.WEAPONS)
-    .get(gameController.getWeapons);
+    .get(gameController.getChoice);
 
 router.route(routes.PLAYER)
     .post(playerController.postPlayer);
+
 
 //JSON
 router.route(routes.JSON.PLAYER)
@@ -41,6 +39,12 @@ router.route(routes.JSON.PLAYER)
 
 router.route(routes.JSON.FIGHT)
     .get(fightController.getFightJSON);
+
+router.route(routes.JSON.WEAPONS)
+    .get(weaponController.getWeaponsJSON);
+
+router.route(routes.JSON.PAGE)
+    .get(gameController.getPageJSON);
 
 module.exports = router;
 

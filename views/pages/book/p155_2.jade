@@ -1,9 +1,9 @@
-extends page_decision
+extends p155_1
 
-block story
-  p.
-      Le vent glacé de la montagne à tôt fait de dissiper les brumes de l'aube. Epuisé, transi jusqu'à la moelle et encore sous le choc des récents événements, vous escaladez l'impitoyable paroi de roc jusqu'à ce que vous parveniez enfin sur une large corniche où vous vous sentez plus en sécurité. Vous êtes affamé, et il vous faut prendre un Repas avant de continuer, sinon, vous perdrez 3 points d'ENDURANCE. N'oubliez pas de rayer ce Repas de votre Feuille d'Aventure.
+block extraScripts
+  script(src="/js/choice.js", async=true)
 
+block section2
   p.
        La corniche en rejoint une autre que vous avez beaucoup de mal à parcourir. Lorsque, enfin, vous arrivezau bout, vous vous trouvez au sommet d'une paroi impressionnante. Pour descendre dans l'étroit défilé que vous apercevez à 300 mètres au-dessous, il vous faudra emprunter un escalier particulièrement raide et dangereux dont les marches sont taillées dans la glace.
 
@@ -13,3 +13,7 @@ block story
   div#decision
       p Si le total obtenu se situe entre -2 et 2, rendez-vous au 248.
       p S'il est de 3 à 10, rendez-vous au 191.
+
+      input.button.button-warning(type='button', value='Table de hasard')
+
+block expired-content

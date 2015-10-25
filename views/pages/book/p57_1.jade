@@ -1,0 +1,36 @@
+extends page_prompt
+
+block extraModalClasses
+  -var extraModalClasses = "modal-choice";
+
+block prompt-title
+  h1 Choix d'items
+
+block prompt-message
+  p Vous y d&eacute;couvrez une &Eacute;p&eacute;e d'Os et un Disque de Pierre Bleu. Vous pouvez conserver l'un ou l'autre de ces objets (ou les deux).
+  table.tbl-choice
+    tr
+      td
+        img(src='/images/bone-sword.png')
+        input#d1(type="checkbox", value='bone-sword')
+        label.check-img
+        label.check-label(for='d1') &Eacute;p&eacute;e d'Os
+      td
+        img(src='/images/blue-disc.png')
+        input#d2(type="checkbox", value='blue-disc')
+        label.check-img
+        label.check-label(for='d2') Disque de Pierre Bleu
+block x-button
+  a.modal-close(href="/game/57/2", title="Close") X
+block prompt-buttons
+  a.button.button-accept(href="/game/57/2", title="Okay") Okay
+
+
+block sections
+  p.
+      Vous cachez le cadavre sous l'escalier et vous vous hatez de le fouiller.
+
+  block expired-content
+    a.button.button-success(href="#prompt") Fouiller
+
+  block section2

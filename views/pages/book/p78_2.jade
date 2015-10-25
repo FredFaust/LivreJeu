@@ -1,0 +1,18 @@
+extends p78_1
+
+block monster-image
+  img.img-wrap-left(src="/images/p78.png" width="193px" height="330px")
+
+block section2
+  p Une ombre sur votre droite trahit la présence du Bakanal qui bondit sur vous. Vous n'avez plus le temps d'éviter son Assaut, et il vous faut le combattre jusqu'à la mort.
+
+block fightInfo
+  input(type='hidden', name="return_page", value='78')
+  input(type='hidden', name="return_section", value='3')
+  input(type='hidden', name="name", value='BAKANAL')
+  input(type='hidden', name="ability", value='19')
+  input(type='hidden', name="endurance", value='30')
+block startFight
+  input.button.button-warning(type='submit', value='Commencer le combat')
+
+block expired-content

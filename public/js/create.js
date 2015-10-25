@@ -44,7 +44,7 @@ $('#DISC_ARMS_CONTROL').click(function() {
 
     $.ajax({
       type: "GET",
-      url: '/game/weapons',
+      url: '/json/weapons',
       success: function(data) {
         if (!data) {
           return;

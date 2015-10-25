@@ -6,6 +6,7 @@ exports.getFight = function(req, res) {
     title: 'Combat',
     heroname: req.query.heroname || 'Felix le Vainqueur',
     returnPage: req.query.return_page,
+    returnSection: req.query.return_section,
     name: req.query.name,
     ability: req.query.ability, endurance: req.query.endurance, selectedNav: 'game'
   });

@@ -37,6 +37,7 @@ app.use('/img', express.static(path.join(__dirname, 'public/resources/images')))
 //CUSTOM CODE HERE
 app.use(router);
 app.redirect('/', '/home', 301);
+app.redirect('/game/:pagenumber', '/game/:pagenumber/1', 301);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

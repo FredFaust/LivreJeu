@@ -43,6 +43,9 @@ router.route(routes.JSON.FIGHT)
 router.route(routes.JSON.WEAPONS)
     .get(weaponController.getWeaponsJSON);
 
+router.route(routes.JSON.PAGE)
+    .get(gameController.getPageJSON);
+
 module.exports = router;
 
 

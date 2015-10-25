@@ -13,15 +13,15 @@ exports.getPage = function(req, res) {
 
   req.session.errorMessage = null;
   // Creation form - we send the game information to the client
-  if (req.params.pagenumber === '0'){
+  if (req.params.pagenumber === '0') {
     pageInfo.gameInfo = gameInfo;
   }
 
   //TODO: it would be nice to check in the file system to validate if page number and section are there
-  if (_.contains(pages, parseInt(req.params.pagenumber, 10)) && _.contains([1,2,3], parseInt(req.params.section, 10))){
+  if (_.contains(pages.pagesNumbers, parseInt(req.params.pagenumber, 10)) && _.contains([1, 2, 3], parseInt(req.params.section, 10))) {
     res.render('pages/book/p' + req.params.pagenumber + '_' + req.params.section, pageInfo);
   }
-  else{
+  else {
     res.render('pages/book/page_not_found');
   }
 };
@@ -32,4 +32,42 @@ exports.getChoice = function(req, res) {
   var pageOptions = resultPage === 331 ? '#prompt' : '';
 
   res.redirect('/game/' + resultPage + pageOptions);
+};
+
+
+exports.getPageJSON = function(req, res) {
+  var pageJSON = {
+    id: req.params.pagenumber,
+    html: {},
+    range: []
+  };
+
+  var index = 1, stop = false;
+
+  var readFile = function(filename, i) {
+    res.render(filename, function(err, html) {
+      if (err) {
+        console.log(err);
+        stop = true;
+        return;
+      }
+      pageJSON.html['section' + i] = html;
+    });
+  };
+
+  while (!stop) {
+    readFile('pages/book/p' + pageJSON.id + '_' + index, index);
+    index++;
+  }
+
+  var page = _.findWhere(pages.pagesInfo, { id: parseInt(pageJSON.id, 10) });
+  if (page) {
+    pageJSON.range = page.range;
+
+    if (page.combatInfo) {
+      pageJSON.combatInfo = page.combatInfo;
+    }
+  }
+
+  res.json(pageJSON);
 };

@@ -10,6 +10,7 @@ module.exports = {
   PLAYER: '/player',
   JSON: {
     FIGHT: '/json/combat/:player/:enemy',
+    PAGE: '/json/page/:pagenumber',
     PLAYER: '/json/player',
     WEAPONS: '/json/weapons'
   }

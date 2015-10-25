@@ -5,7 +5,7 @@ module.exports = {
     TOPIC: '/help/:topic'
   },
   FIGHT: '/fight',
-  PAGES: '/game/:pagenumber',
+  PAGES: '/game/:pagenumber/:section',
   CHOICE: '/choixaleatoire/:pagenumber',
   PLAYER: '/player',
   JSON: {

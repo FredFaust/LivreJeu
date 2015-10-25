@@ -6,7 +6,8 @@ block prompt
   -var modalClasses = 'modal-dialog ' + extraModalClasses;
   #prompt(class='#{modalClasses}')
     div
-      a.modal-close(href="#close", title="Close") X
+      block x-button
+        a.modal-close(href="#close", title="Close") X
       block prompt-title
       block prompt-message
       block prompt-buttons

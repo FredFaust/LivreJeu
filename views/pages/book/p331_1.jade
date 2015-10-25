@@ -1,0 +1,23 @@
+extends page_prompt
+
+block extraModalClasses
+  -var extraModalClasses = "modal-endurance";
+block prompt-title
+  h1 Perte d'endurance
+block prompt-message
+  p  Vos orteils, vos doigts et votre nez ont subi la morsure du gel et, à moins que vous ne maîtrisiez la Discipline Kaï de la Guérison, <strong>vous perdez 4 points d'ENDURANCE.</strong>
+block x-button
+  a.modal-close(href="/game/331/2", title="Close") X
+block prompt-buttons
+  a.button.button-accept(href="/game/331/2", title="Okay") Okay
+
+block sections
+  p.
+      Le lendemain, la température descend et un froid rigoureux s'installe. Des vents du nord amènent une grêle de glace qui vous cingle le visage et vos lèvres gercées se mettent à saigner. Vers midi, vous êtes pris dans un blizzard qui rend votre progression difficile et épuisante. Le vent violent vous force à descendre du traîneau pour le pousser. Vous êtes exténué, vos mains et vos orteils sont engourdis par le froid et la transpiration provoquée par vos efforts harassants a gelé sur votre peau, déposant à l'intérieur de vos moufles et de vos bottes une couche de glace.
+  p.
+      Lorsque vous atteignez enfin le glacier, la nuit est presque tombée, et vous êtes tous si fatigués que vous avez à peine suffisamment de force pour dresser la tente et prendre un repas. La situation frise le désastre.
+
+  block expired-content
+    a.button.button-success(href='#prompt') Continuer
+
+  block section2

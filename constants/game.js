@@ -35,5 +35,12 @@ module.exports = {
     SWORD2: "L'epee",
     STICK: 'Le Baton',
     GLAIVE: 'Le Glaive'
+  },
+  WORLD_ITEMS: {
+    BLUE_DISC: 'Disque de Pierre Bleu',
+    BONE_SWORD: "Épée d'os",
+    COVER: 'Couvertures en Fourrure',
+    MEAL: 'Repas',
+    ROPE: 'Corde'
   }
 };

@@ -14,11 +14,16 @@ exports.postPlayer = function(req, res) {
     req.session.errorMessage = errorMessage;
 
     res.status(200).send({
-      redirect: '/game/0'
+      redirect: '/game/0/'
     });
   };
 
   if (!_.isString(heroName)) {
+    renderInvalidPage("Nom du hero invalide");
+    return;
+  }
+
+  if (_.isString(heroName) && heroName.length === 0) {
     renderInvalidPage("Nom du hero invalide");
     return;
   }
@@ -66,7 +71,8 @@ exports.postPlayer = function(req, res) {
     actualEndurance += 2;
   }
 
-  var initialPlayer = {
+  //Enregistrement du joueur sur la session
+  req.session.hero = {
     name: heroName,
     combatSkill: {
       initial: initialCombatSkill,
@@ -81,8 +87,7 @@ exports.postPlayer = function(req, res) {
     weapon: masteredWeapon
   };
 
-  req.session.hero = initialPlayer;
-
+  //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
   res.status(200).send({redirect: '/game/1'});
 };
 

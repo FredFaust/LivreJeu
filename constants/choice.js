@@ -67,11 +67,11 @@ var numbers = [
   }
 ];
 
-exports.makeChoice = function(page, player) {
-  var result = _.first(_.where(numbers, { id: page }));
+exports.makeChoice = function(pageNumber, player) {
+  var result = _.first(_.where(numbers, { id: pageNumber }));
   if (result) {
     return result.rand(player);
   } else {
-    return page;
+    return pageNumber;
   }
 };

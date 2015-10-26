@@ -6,9 +6,9 @@ module.exports = {
   },
   FIGHT: '/fight',
   PAGES: '/game/:pagenumber/:section',
-  CHOICE: '/choixaleatoire/:pagenumber',
   PLAYER: '/player',
   JSON: {
+    CHOICE: '/json/choixaleatoire/:pagenumber',
     FIGHT: '/json/combat/:player/:enemy',
     PAGE: '/json/page/:pagenumber',
     PLAYER: '/json/player',

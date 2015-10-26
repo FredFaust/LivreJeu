@@ -54,7 +54,7 @@ $('#DISC_ARMS_CONTROL').click(function() {
           return;
         }
 
-        var weapons = _.pairs(data);
+        var weapons = _.pairs(JSON.parse(data));
         //On sauvegarde temporairement l'arme maîtrisé
         localStorage.setItem('random-weapon-key', weapons[randomWeaponIndex][0]);
         localStorage.setItem('random-weapon-value', weapons[randomWeaponIndex][1]);
@@ -68,11 +68,10 @@ $('#DISC_ARMS_CONTROL').click(function() {
         alert('Impossible de recuperer les armes du jeu sur le serveur...');
       }
     });
-
   } else {
     //On cache l'élément car le checkbox "Maîtrise des armes" à été clicker à nouveau
     masteredWeaponText.removeClass('mastered-weapon').addClass('invisible');
-    //On supprimes les valeurs du localstorage
+    //On supprimes les valeurs du localStorage
     localStorage.removeItem('random-weapon-key');
     localStorage.removeItem('random-weapon-value');
   }

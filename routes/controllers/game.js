@@ -1,41 +1,47 @@
 var gameInfo = require('../../constants/game'),
-    choice = require('../../constants/choice'),
     pages = require('../../constants/pages');
 
 exports.getPage = function(req, res) {
   var pageInfo = {
     title: 'Pages',
-    heroname: req.query.heroname || 'Felix le Vainqueur',
+    heroname: req.session.hero ? req.session.hero.name : 'Felix le Vainqueur',
     pageNumber: req.params.pagenumber,
     selectedNav: 'game',
+    gameInfo: gameInfo,
     errorMessage: req.session.errorMessage
   };
 
+  //On supprime le message d'erreur qui vient d'arriver de la session pour que la donnee ne soit pas
+  //persistante.
   req.session.errorMessage = null;
-  // Creation form - we send the game information to the client
-  if (req.params.pagenumber === '0') {
-    pageInfo.gameInfo = gameInfo;
-  }
 
-  //TODO: it would be nice to check in the file system to validate if page number and section are there
-  if (_.contains(pages.pagesNumbers, parseInt(req.params.pagenumber, 10)) && _.contains([1, 2, 3], parseInt(req.params.section, 10))) {
-    res.render('pages/book/p' + req.params.pagenumber + '_' + req.params.section, pageInfo);
-  }
-  else {
-    res.render('pages/book/page_not_found');
-  }
+  var pageToRender = 'pages/book/p'.concat(req.params.pagenumber, '_', req.params.section);
+
+  res.render(pageToRender, pageInfo, function(err, html) {
+    if (err) {
+      //Si une erreur s'est produite, on affiche simplement que la page du livre n'a pas ete trouvee.
+      console.error(err);
+      res.render('pages/book/page_not_found');
+    }
+    else {
+      // Dans le cas contraire, on termine la requete en envoyant le code HTML produit.
+      res.end(html);
+    }
+  });
 };
 
-exports.getChoice = function(req, res) {
-  var page = parseInt(req.params.pagenumber, 10);
-  var resultPage = choice.makeChoice(page, req.session.hero);
-  var pageOptions = resultPage === 331 ? '#prompt' : '';
+exports.getChoiceJSON = function(req, res) {
+  var pageNumber = parseInt(req.params.pagenumber, 10);
+  //On utilise la fonction makeChoice afin d'appeller la fonction de choix aléatoire pour une page spécifique
+  //Celle-ci va prendre un chiffre au hasard, en fonction du contexte de la page, retournera le numéro de la page
+  //qu'on doit maintenant visiter
+  var resultPage = pages.makeChoice(pageNumber, req.session.hero);
 
-  res.redirect('/game/' + resultPage + pageOptions);
+  res.json(JSON.stringify({ redirect: '/game/' + resultPage }));
 };
-
 
 exports.getPageJSON = function(req, res) {
+  //Initialisation de l'objet
   var pageJSON = {
     id: req.params.pagenumber,
     html: {},
@@ -44,10 +50,11 @@ exports.getPageJSON = function(req, res) {
 
   var index = 1, stop = false;
 
+  //Lecture du fichier filename et ajout de son html à l'objet pageJSON
   var readFile = function(filename, i) {
     res.render(filename, function(err, html) {
       if (err) {
-        console.log(err);
+        console.error(err);
         stop = true;
         return;
       }
@@ -55,19 +62,23 @@ exports.getPageJSON = function(req, res) {
     });
   };
 
+  //Boucle qui permet de trouver tous les fichiers associé à un numéro de page
   while (!stop) {
     readFile('pages/book/p' + pageJSON.id + '_' + index, index);
     index++;
   }
 
+  //On va chercher la page dans notre fichier de constantes de pages
   var page = _.findWhere(pages.pagesInfo, { id: parseInt(pageJSON.id, 10) });
   if (page) {
+    //On ajoute les chemins possibles (autres pages) qu'on peut accéder à partir de celle-ci
     pageJSON.range = page.range;
 
+    //Si cette page contient un combat, on ajoute ses infos à notre objet pageJSON
     if (page.combatInfo) {
       pageJSON.combatInfo = page.combatInfo;
     }
   }
 
-  res.json(pageJSON);
+  res.json(JSON.stringify(pageJSON));
 };

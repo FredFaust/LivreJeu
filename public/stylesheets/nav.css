@@ -20,4 +20,6 @@
     color: whitesmoke;
     background-color: lightskyblue;
     font-size: 20px;
+    pointer-events: none;
+    cursor: default;
 }

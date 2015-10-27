@@ -26,14 +26,13 @@ router.route(routes.FIGHT)
 router.route(routes.PAGES)
     .get(gameController.getPage);
 
-router.route(routes.CHOICE)
-    .get(gameController.getChoice);
-
 router.route(routes.PLAYER)
     .post(playerController.postPlayer);
 
-
 //JSON
+router.route(routes.JSON.CHOICE)
+    .get(gameController.getChoiceJSON);
+
 router.route(routes.JSON.PLAYER)
     .get(playerController.getPlayerJSON);
 

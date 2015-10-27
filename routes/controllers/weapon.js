@@ -1,3 +1,3 @@
 exports.getWeaponsJSON = function(req, res) {
-  res.json(require('../../constants/game').MASTER);
+  res.json(JSON.stringify(require('../../constants/game').MASTER));
 };

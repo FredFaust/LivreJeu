@@ -2,6 +2,7 @@ doctype html
 html
   head
     title= title
+    meta(http-equiv="content-type", content="#{contentType}; charset=UTF-8")
     link(rel='stylesheet', href='/stylesheets/main.css')
     link(rel='stylesheet', href='/stylesheets/nav.css')
     link(rel='stylesheet', href='/stylesheets/modal.css')
@@ -17,7 +18,7 @@ html
           li
             a(href='/home', class=selectedNav === 'home' ? 'nav-selected' : 'nav-not-selected') Accueil
           li
-            a(href='/game/0', class=selectedNav === 'game' ? 'nav-selected' : 'nav-not-selected') Jeu
+            a(href='/game/0/', class=selectedNav === 'game' ? 'nav-selected' : 'nav-not-selected') Jeu
           li
             a(href='/help', class=selectedNav === 'help' ? 'nav-selected' : 'nav-not-selected') Aide
         hr

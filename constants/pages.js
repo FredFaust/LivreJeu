@@ -1,6 +1,8 @@
+var random = require('../utilities/random');
+
 exports.pagesNumbers = [0, 1, 12, 57, 62, 70, 78, 91, 129, 134, 155, 160, 167, 172, 180, 188, 204, 209, 245, 248, 288, 300, 318, 331, 339];
 
-exports.pagesInfo = [
+var info = [
   {
     id: 0,
     range: [1]
@@ -35,16 +37,56 @@ exports.pagesInfo = [
     range: [155]
   }, {
     id: 134,
-    range: [57, 188, 331]
+    range: [57, 188, 331],
+    choice: function(player) {
+      var result = random.getIntInclusive(0, 9);
+      if (result >= 0 && result <= 3) {
+        return this.range[0];
+      }
+      else if (result > 3 && result <= 6) {
+        return this.range[1];
+      }
+      else {
+        return this.range[2];
+      }
+    }
   }, {
     id: 155,
-    range: [191, 248]
+    range: [191, 248],
+    choice: function(player) {
+      var result = random.getIntInclusive(0, 9);
+
+      if (player) {
+        var endurance = player.endurance.actual;
+        if (endurance < 10) {
+          result -= 2;
+        }
+        else if (endurance > 20) {
+          result++;
+        }
+      }
+
+      if (result >= -2 && result <= 2) {
+        return this.range[0];
+      }
+      else {
+        return this.range[1];
+      }
+    }
   }, {
     id: 160,
     range: [78, 204, 318]
   }, {
     id: 167,
-    range: [85, 300]
+    range: [85, 300],
+    choice: function(player) {
+      var result = random.getIntInclusive(0, 9);
+      if (result >= 0 && result <= 6) {
+        return this.range[0];
+      } else {
+        return this.range[1];
+      }
+    }
   }, {
     id: 172,
     range: [134]
@@ -82,9 +124,28 @@ exports.pagesInfo = [
     range: [134]
   }, {
     id: 331,
-    range: [62, 288]
+    range: [62, 288],
+    choice: function(player) {
+      var result = random.getIntInclusive(0, 9);
+      if (result >= 0 && result <= 4)
+        return this.range[0];
+      else
+        return this.range[1];
+    }
   }, {
     id: 339,
     range: []
   }
 ];
+
+exports.pagesInfo = info;
+
+exports.makeChoice = function(pageNumber, player) {
+  var result = _.first(_.where(info, {id: pageNumber}));
+  if (result) {
+    if (_.isFunction(result.choice)) {
+      return result.choice(player);
+    }
+  }
+  return pageNumber;
+};

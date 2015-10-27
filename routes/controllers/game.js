@@ -2,14 +2,10 @@ var gameInfo = require('../../constants/game'),
     pages = require('../../constants/pages');
 
 exports.getPage = function(req, res) {
-  // Si le hero a deja ete cree precedemment, lorsqu'on selectionne 'Jeu' dans la barre de navigation,
-  // on retourne a la page 1 plutot qu'a la page de creation puisque le hero est deja defini.
   var pageInfo = {
     title: 'Pages',
     heroname: req.session.hero ? req.session.hero.name : 'Felix le Vainqueur',
-    pageNumber: req.params.pagenumber == 0
-                  ? (req.session.hero ? 1 : 0)
-                  : req.params.pagenumber,
+    pageNumber: req.params.pagenumber,
     selectedNav: 'game',
     gameInfo: gameInfo,
     errorMessage: req.session.errorMessage

@@ -6,12 +6,14 @@ module.exports = {
   },
   FIGHT: '/fight',
   PAGES: '/game/:pagenumber/:section',
-  PLAYER: '/player',
+  PLAYERS: '/players',
+  SINGLE_PLAYER: '/players/:id',
   JSON: {
     CHOICE: '/json/choixaleatoire/:pagenumber',
     FIGHT: '/json/combat/:player/:enemy',
     PAGE: '/json/page/:pagenumber',
-    PLAYER: '/json/player',
+    PLAYERS: '/json/players',
+    SINGLE_PLAYER: '/json/players/:id',
     WEAPONS: '/json/weapons'
   }
 };

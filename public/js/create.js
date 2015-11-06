@@ -1,3 +1,6 @@
+//TODO: onPageLoad remove randomweaponkey in localstorage ?
+
+
 //Effectuer un callback après un click sur le bouton "Débuter l'aventure" du formulaire
 $('input.button.button-success').click(function() {
       var disciplines = [],
@@ -25,7 +28,7 @@ $('input.button.button-success').click(function() {
       //Requête ajax POST pour envoyer les infos du joueur en JSON
       $.ajax({
         type: "POST",
-        url: "/player",
+        url: "/players",
         success: function(data) {
           if (typeof(data.redirect) == 'string') {
             //On redirige l'utilisateur vers le nom de la page qui à été renvoyé par le service web

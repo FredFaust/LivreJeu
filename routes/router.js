@@ -8,7 +8,8 @@ var homeController = require('./controllers/home'),
     fightController = require('./controllers/fight'),
     gameController = require('./controllers/game'),
     weaponController = require('./controllers/weapon'),
-    playerController = require('./controllers/player');
+    playerController = require('./controllers/player'),
+    progressionController = require('./controllers/progression');
 
 //Pages
 router.route(routes.HOME)
@@ -32,6 +33,14 @@ router.route(routes.PLAYERS)
 router.route(routes.SINGLE_PLAYER)
     .put(playerController.putPlayer)
     .delete(playerController.deletePlayer);
+
+router.route(routes.PROGRESSIONS)
+    .post(progressionController.postProgression);
+
+router.route(routes.SINGLE_PROGRESSION)
+    .get(progressionController.getProgression)
+    .put(progressionController.putProgression)
+    .delete(progressionController.deleteProgression);
 
 //JSON
 router.route(routes.JSON.CHOICE)

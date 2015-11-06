@@ -12,25 +12,20 @@ var renderInvalidPage = function(errorMessage, req, res) {
   });
 };
 
-var validateInput = function(heroName, disciplines, items, req, res, callback) {
+var validateInput = function(heroName, disciplines, req, res, callback) {
   if (!_.isString(heroName) || heroName.length === 0) {
     callback("Nom du hero invalide", req, res);
     return false;
   }
 
-  if (!disciplines || !items) {
+  if (!disciplines || !_.isArray(disciplines)) {
     callback('Valeurs invalides', req, res);
     return false;
   }
 
-  if (!_.isArray(disciplines) || !_.isArray(items)) {
-    callback('Valeurs invalides', req, res);
-    return false;
-  }
-
-  // It must be EXACTLY 5 disciplines and 2 items
-  if (disciplines.length != 5 || items.length != 2) {
-    callback("Nombre incorrect de disciplines ou d'equipement... Disciplines: " + disciplines.length + ' Equipement: ' + items.length, req, res);
+  // It must be EXACTLY 5 disciplines
+  if (disciplines.length != 5) {
+    callback("Nombre incorrect de disciplines... Nb de Disciplines: " + disciplines.length, req, res);
     return false;
   }
 
@@ -41,25 +36,7 @@ var validateInput = function(heroName, disciplines, items, req, res, callback) {
     return false;
   }
 
-  if (!_.every(items, function(i) {
-        return game.ITEMS.hasOwnProperty(i);
-      })) {
-    callback("Equipement invalide dans le formulaire", req, res);
-    return false;
-  }
-
   return true;
-};
-
-var mongoConnect = function(callback) {
-  mongodb.client.connect(mongodb.url, function(err, db) {
-    if (!err) {
-      callback(db);
-    } else {
-      console.log('Unable to connect to database');
-      console.log(err);
-    }
-  });
 };
 
 exports.postPlayer = function(req, res) {
@@ -87,20 +64,38 @@ exports.postPlayer = function(req, res) {
 
   var player = {
     name: heroName,
-    combatSkill: {
-      initial: initialCombatSkill,
-      actual: actualCombatSkill
-    },
-    endurance: {
-      initial: initialEndurance,
-      actual: actualEndurance
-    },
-    items: items,
+    combatSkill: initialCombatSkill,
+    endurance: initialEndurance,
     disciplines: disciplines,
     masteredWeapon: masteredWeapon
   };
 
-  mongoConnect(function(db) {
+  var createProgression = function(db) {
+    var prog = {
+      playerId: req.session.playerId,
+      endurance: actualEndurance,
+      combatSkill: actualCombatSkill,
+      items: items,
+      page: 1
+    };
+
+    mongodb.insertProgression(prog, db, function(err, result) {
+      db.close();
+
+      if (!err && result && result.insertedCount) {
+        console.log('Progression inserted in the collection');
+
+        //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
+        res.status(200).send({ redirect: '/game/1' });
+      } else if (err) {
+        console.log('Error occurred while inserting a progression');
+        console.log(err);
+        renderInvalidPage(err, req, res);
+      }
+    });
+  };
+
+  var createPlayer = function(db) {
     //Enregistrement dans la database
     mongodb.insertPlayer(player, db, function(err, result) {
       db.close();
@@ -109,10 +104,9 @@ exports.postPlayer = function(req, res) {
         if (result.insertedCount) {
           console.log('Player inserted in the collection');
           //Enregistrement de l'identifiant du joueur sur la session
-          req.session.hero = result.insertedId;
+          req.session.playerId = result.insertedId;
 
-          //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
-          res.status(200).send({ redirect: '/game/1' });
+          mongodb.connect(createProgression);
         } else {
           renderInvalidPage('Le joueur n\'a pas plus etre cree dans la base de donnees...', req, res);
         }
@@ -122,12 +116,14 @@ exports.postPlayer = function(req, res) {
         renderInvalidPage('Probleme lors de la creation du joueur, veuillez re-essayer! ;)', req, res);
       }
     });
-  });
+  };
+
+  mongodb.connect(createPlayer);
 };
 
 
 exports.getPlayerJSON = function(req, res) {
-  mongoConnect(function(db) {
+  mongodb.connect(function(db) {
       //Recherche dans la database
       mongodb.findPlayer(req.params.id, db, function(err, result) {
         db.close();
@@ -150,7 +146,7 @@ exports.getPlayerJSON = function(req, res) {
 
 exports.putPlayer = function(req, res) {
   if (validateInput(req.body.name, req.body.disciplines, req.body.items, req, res, function() {})) {
-    mongoConnect(function(db) {
+    mongodb.connect(function(db) {
       //Mise a jour d'un joueur dans la database
       mongodb.updatePlayer(req.params.id, req.body, db, function(err, result) {
         db.close();
@@ -177,7 +173,7 @@ exports.putPlayer = function(req, res) {
 };
 
 exports.deletePlayer = function(req, res) {
-  mongoConnect(function(db) {
+  mongodb.connect(function(db) {
     //Suppresion d'un joueur dans la database
     mongodb.deletePlayer(req.params.id, db, function(err, result) {
       db.close();
@@ -209,7 +205,7 @@ exports.deletePlayer = function(req, res) {
 };
 
 exports.getPlayersJSON = function(req, res) {
-  mongoConnect(function(db) {
+  mongodb.connect(function(db) {
     //Recherche dans la database
     mongodb.getPlayers(db, function(err, result) {
       db.close();

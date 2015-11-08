@@ -10,7 +10,7 @@ var dbCallback = function(err, res, cb) {
 
 var validateId = function(id, callback) {
   if (!id.match(/^[0-9a-fA-F]{24}$/)){
-    callback( { errorId: 'Id was invalid...' }, null );
+    callback({ errorId: 'Id was invalid...' }, null );
     return false;
   }
   return true;
@@ -47,7 +47,7 @@ module.exports = {
   },
   updatePlayer: function(id, player, db, callback) {
     if (validateId(id, callback)) {
-      db.collection(this.collections.players).updateOne({_id: ObjectId(id)}, player, function(err, result) {
+      db.collection(this.collections.players).updateOne({ _id: ObjectId(id) }, player, function(err, result) {
         dbCallback(err, result, callback);
       });
     }
@@ -55,12 +55,23 @@ module.exports = {
   deletePlayer: function(id, db, callback) {
     if (validateId(id, callback)) {
       db.collection(this.collections.players).deleteOne({ _id : ObjectId(id) }, function(err, result) {
-        dbCallback(err, result, callback);
+        if (err) {
+          dbCallback(err, result, callback);
+        } else {
+          db.collection('progressions').deleteOne({ playerId : id }, function(error, res) {
+            dbCallback(error, res, callback);
+          });
+        }
       });
     }
   },
   getPlayers: function(db, callback) {
     db.collection(this.collections.players).find().toArray(function(err, docs) {
+      dbCallback(err, docs, callback);
+    });
+  },
+  getProgressions: function(db, callback) {
+    db.collection(this.collections.progressions).find().toArray(function(err, docs) {
       dbCallback(err, docs, callback);
     });
   },
@@ -81,7 +92,13 @@ module.exports = {
   deleteProgression: function(id, db, callback) {
     if (validateId(id, callback)) {
       db.collection(this.collections.progressions).deleteOne({ playerId : id }, function(err, result) {
-        dbCallback(err, result, callback);
+        if (err) {
+          dbCallback(err, result, callback);
+        } else {
+          db.collection('players').deleteOne({ _id : ObjectId(id) }, function(error, res) {
+            dbCallback(error, res, callback);
+          });
+        }
       });
     }
   }

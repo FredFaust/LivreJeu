@@ -45,82 +45,79 @@ exports.postPlayer = function(req, res) {
   var items = req.body.items;
   var masteredWeapon = req.body.masteredWeapon;
 
-  if (!validateInput(heroName, disciplines, items, req, res, renderInvalidPage)) {
-    return;
-  }
+  if (validateInput(heroName, disciplines, req, res, renderInvalidPage)) {
+    var initialCombatSkill = random.getIntInclusive(0, 9) + 10,
+        actualCombatSkill = initialCombatSkill,
+        initialEndurance = random.getIntInclusive(0, 9) + 10,
+        actualEndurance = initialEndurance;
 
-  var initialCombatSkill = random.getIntInclusive(0, 9) + 10,
-      actualCombatSkill = initialCombatSkill,
-      initialEndurance = random.getIntInclusive(0, 9) + 10,
-      actualEndurance = initialEndurance;
+    if (_.contains(disciplines, 'ARMS_CONTROL') && _.contains(items, masteredWeapon)) {
+      actualCombatSkill += 2;
+    }
 
-  if (_.contains(disciplines, 'ARMS_CONTROL') && _.contains(items, masteredWeapon)) {
-    actualCombatSkill += 2;
-  }
+    if (_.contains(items, 'QUILTED_LEATHER_VEST')) {
+      actualEndurance += 2;
+    }
 
-  if (_.contains(items, 'QUILTED_LEATHER_VEST')) {
-    actualEndurance += 2;
-  }
-
-  var player = {
-    name: heroName,
-    combatSkill: initialCombatSkill,
-    endurance: initialEndurance,
-    disciplines: disciplines,
-    masteredWeapon: masteredWeapon
-  };
-
-  var createProgression = function(db) {
-    var prog = {
-      playerId: req.session.playerId,
-      endurance: actualEndurance,
-      combatSkill: actualCombatSkill,
-      items: items,
-      page: 1
+    var player = {
+      name: heroName,
+      combatSkill: initialCombatSkill,
+      endurance: initialEndurance,
+      disciplines: disciplines,
+      masteredWeapon: masteredWeapon
     };
 
-    mongodb.insertProgression(prog, db, function(err, result) {
-      db.close();
+    var createProgression = function(db) {
+      var prog = {
+        playerId: req.session.playerId,
+        endurance: actualEndurance,
+        combatSkill: actualCombatSkill,
+        items: items,
+        page: 1
+      };
 
-      if (!err && result && result.insertedCount) {
-        console.log('Progression inserted in the collection');
+      mongodb.insertProgression(prog, db, function(err, result) {
+        db.close();
 
-        //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
-        res.status(200).send({ redirect: '/game/1' });
-      } else if (err) {
-        console.log('Error occurred while inserting a progression');
-        console.log(err);
-        renderInvalidPage(err, req, res);
-      }
-    });
-  };
+        if (!err && result && result.insertedCount) {
+          console.log('Progression inserted in the collection');
 
-  var createPlayer = function(db) {
-    //Enregistrement dans la database
-    mongodb.insertPlayer(player, db, function(err, result) {
-      db.close();
-
-      if (!err && result) {
-        if (result.insertedCount) {
-          console.log('Player inserted in the collection');
-          //Enregistrement de l'identifiant du joueur sur la session
-          req.session.playerId = result.insertedId;
-
-          mongodb.connect(createProgression);
-        } else {
-          renderInvalidPage('Le joueur n\'a pas plus etre cree dans la base de donnees...', req, res);
+          //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
+          res.status(200).send({ redirect: '/game/1' });
+        } else if (err) {
+          console.log('Error occurred while inserting a progression');
+          console.log(err);
+          renderInvalidPage(err, req, res);
         }
-      } else if (err) {
-        console.log('Error occurred while inserting a player');
-        console.log(err);
-        renderInvalidPage('Probleme lors de la creation du joueur, veuillez re-essayer! ;)', req, res);
-      }
-    });
-  };
+      });
+    };
 
-  mongodb.connect(createPlayer);
+    var createPlayer = function(db) {
+      //Enregistrement dans la database
+      mongodb.insertPlayer(player, db, function(err, result) {
+        db.close();
+
+        if (!err && result) {
+          if (result.insertedCount) {
+            console.log('Player inserted in the collection');
+            //Enregistrement de l'identifiant du joueur sur la session
+            req.session.playerId = String(result.insertedId);
+
+            mongodb.connect(createProgression);
+          } else {
+            renderInvalidPage('Le joueur n\'a pas plus etre cree dans la base de donnees...', req, res);
+          }
+        } else if (err) {
+          console.log('Error occurred while inserting a player');
+          console.log(err);
+          renderInvalidPage('Probleme lors de la creation du joueur, veuillez re-essayer! ;)', req, res);
+        }
+      });
+    };
+
+    mongodb.connect(createPlayer);
+  }
 };
-
 
 exports.getPlayerJSON = function(req, res) {
   mongodb.connect(function(db) {
@@ -211,7 +208,7 @@ exports.getPlayersJSON = function(req, res) {
       db.close();
 
       if (!err && result) {
-        res.json({players: result});
+        res.json({ players: result });
       } else if (err) {
         console.log('Error occurred while retrieving player(s)');
         console.log(err);

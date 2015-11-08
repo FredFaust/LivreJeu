@@ -28,13 +28,16 @@ router.route(routes.PAGES)
     .get(gameController.getPage);
 
 router.route(routes.PLAYERS)
-    .post(playerController.postPlayer);
+    .post(playerController.postPlayer)
+    .get(playerController.getPlayersJSON);
 
 router.route(routes.SINGLE_PLAYER)
     .put(playerController.putPlayer)
+    .get(playerController.getPlayerJSON)
     .delete(playerController.deletePlayer);
 
 router.route(routes.PROGRESSIONS)
+    .get(progressionController.getProgressions)
     .post(progressionController.postProgression);
 
 router.route(routes.SINGLE_PROGRESSION)

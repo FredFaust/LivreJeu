@@ -43,9 +43,7 @@ var validateInput = function(req, res, callback) {
 
 var validationFailedCb = function(msg, req, res) {
   console.log(msg);
-  res.status(422).send({
-    error: msg
-  });
+  res.status(422).send({ error: msg });
 };
 
 exports.postProgression = function(req, res) {
@@ -57,7 +55,7 @@ exports.postProgression = function(req, res) {
 
         if (!err && result && result.insertedCount) {
           console.log('Progression inserted in the collection');
-          res.status(200).send({_id: result.insertedId});
+          res.status(200).send({ _id: result.insertedId });
         } else if (err) {
           console.log('Error occurred while inserting a progression');
           console.log(err);
@@ -81,14 +79,32 @@ exports.getProgression = function(req, res) {
         console.log(err);
 
         if (err.errorId) {
-          res.status(400).send({error: err.errorId});
+          res.status(400).send({ error: err.errorId });
         } else {
-          res.status(200).send({error: err.message});
+          res.status(200).send({ error: err.message });
         }
       }
     });
   });
 };
+
+exports.getProgressions = function(req, res) {
+  mongodb.connect(function(db) {
+    //Recherche dans la database
+    mongodb.getProgressions(db, function(err, result) {
+      db.close();
+
+      if (!err && result) {
+        res.json({ progressions: result });
+      } else if (err) {
+        console.log('Error occurred while retrieving progression(s)');
+        console.log(err);
+        res.status(200).send({ error: err.message });
+      }
+    });
+  });
+};
+
 
 exports.putProgression = function(req, res) {
   if (validateInput(req, res, validationFailedCb)) {
@@ -98,15 +114,15 @@ exports.putProgression = function(req, res) {
         db.close();
 
         if (!err && result) {
-          res.json({player: result});
+          res.json({ player: result });
         } else if (err) {
           console.log('Error occurred while updating a player');
           console.log(err);
 
           if (err.errorId) {
-            res.status(400).send({error: err.errorId});
+            res.status(400).send({ error: err.errorId });
           } else {
-            res.status(200).send({error: err.message});
+            res.status(200).send({ error: err.message });
           }
         }
       });
@@ -137,9 +153,9 @@ exports.deleteProgression = function(req, res) {
         console.log(err);
 
         if (err.errorId) {
-          res.status(400).send({error: err.errorId});
+          res.status(400).send({ error: err.errorId });
         } else {
-          res.status(200).send({error: err.message});
+          res.status(200).send({ error: err.message });
         }
       }
     });

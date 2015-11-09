@@ -1,45 +1,5 @@
-var game = require('../../constants/game'),
-    mongodb = require('../../utilities/mongodb'),
-    pages = require('../../constants/pages');
-
-var validateInput = function(req, res, callback) {
-  var prog = req.body;
-
-  if (!_.contains(pages.pagesNumbers, prog.page)) {
-    callback('Page invalide dans la progression', req, res);
-    return false;
-  }
-
-  if (prog.endurance < 0) {
-    callback('Endurance invalide dans la progression', req, res);
-    return false;
-  }
-
-  if (prog.combatSkill < 0) {
-    callback('Points d\'habilete invalide dans la progression', req, res);
-    return false;
-  }
-
-  if (!prog.items || !_.isArray(prog.items)) {
-    callback('Valeurs invalides', req, res);
-    return false;
-  }
-
-  // It must be EXACTLY 2 items
-  if (prog.items.length != 2) {
-    callback("Nombre incorrect d'items... Nb items:" + prog.items.length, req, res);
-    return false;
-  }
-
-  if (!_.every(prog.items, function(i) {
-        return game.ITEMS.hasOwnProperty(i) || game.WORLD_ITEMS.hasOwnProperty(i);
-      })) {
-    callback("Equipement invalide dans la progression", req, res);
-    return false;
-  }
-
-  return true;
-};
+var mongodb = require('../../utilities/mongodb'),
+    validation = require('../../utilities/validation');
 
 var validationFailedCb = function(msg, req, res) {
   console.log(msg);
@@ -47,7 +7,7 @@ var validationFailedCb = function(msg, req, res) {
 };
 
 exports.postProgression = function(req, res) {
-  if (validateInput(req, res, validationFailedCb)) {
+  if (validation.validateProgression(req.body, req, res, validationFailedCb)) {
     mongodb.connect(function(db) {
       //Recherche dans la database
       mongodb.insertProgression(req.body, db, function(err, result) {
@@ -107,7 +67,7 @@ exports.getProgressions = function(req, res) {
 
 
 exports.putProgression = function(req, res) {
-  if (validateInput(req, res, validationFailedCb)) {
+  if (validation.validateProgression(req.body, req, res, validationFailedCb)) {
     mongodb.connect(function(db) {
       //Mise a jour d'un joueur dans la database
       mongodb.updatePlayer(req.params.playerid, req.body, db, function(err, result) {

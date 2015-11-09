@@ -1,6 +1,6 @@
 var random = require('../../utilities/random'),
-    game = require('../../constants/game'),
-    mongodb = require('../../utilities/mongodb');
+    mongodb = require('../../utilities/mongodb'),
+    validation = require('../../utilities/validation');
 
 var renderInvalidPage = function(errorMessage, req, res) {
   console.log(errorMessage);
@@ -12,40 +12,13 @@ var renderInvalidPage = function(errorMessage, req, res) {
   });
 };
 
-var validateInput = function(heroName, disciplines, req, res, callback) {
-  if (!_.isString(heroName) || heroName.length === 0) {
-    callback("Nom du hero invalide", req, res);
-    return false;
-  }
-
-  if (!disciplines || !_.isArray(disciplines)) {
-    callback('Valeurs invalides', req, res);
-    return false;
-  }
-
-  // It must be EXACTLY 5 disciplines
-  if (disciplines.length != 5) {
-    callback("Nombre incorrect de disciplines... Nb de Disciplines: " + disciplines.length, req, res);
-    return false;
-  }
-
-  if (!_.every(disciplines, function(d) {
-        return game.DISCIPLINES.hasOwnProperty(d);
-      })) {
-    callback("Disciplines invalides dans le formulaire", req, res);
-    return false;
-  }
-
-  return true;
-};
-
 exports.postPlayer = function(req, res) {
   var heroName = req.body.name;
   var disciplines = req.body.disciplines;
   var items = req.body.items;
   var masteredWeapon = req.body.masteredWeapon;
 
-  if (validateInput(heroName, disciplines, req, res, renderInvalidPage)) {
+  if (validation.validatePlayer(heroName, disciplines, req, res, renderInvalidPage) && validation.validateItems(items, req, res, renderInvalidPage)) {
     var initialCombatSkill = random.getIntInclusive(0, 9) + 10,
         actualCombatSkill = initialCombatSkill,
         initialEndurance = random.getIntInclusive(0, 9) + 10,
@@ -142,7 +115,7 @@ exports.getPlayerJSON = function(req, res) {
 };
 
 exports.putPlayer = function(req, res) {
-  if (validateInput(req.body.name, req.body.disciplines, req.body.items, req, res, function() {})) {
+  if (validation.validatePlayer(req.body.name, req.body.disciplines, req, res, function() {})) {
     mongodb.connect(function(db) {
       //Mise a jour d'un joueur dans la database
       mongodb.updatePlayer(req.params.id, req.body, db, function(err, result) {

@@ -1,10 +1,10 @@
 var gameInfo = require('../../constants/game'),
-    pages = require('../../constants/pages');
+    pages = require('../../constants/pages'),
+    mongodb = require('../../utilities/mongodb');
 
 exports.getPage = function(req, res) {
   var pageInfo = {
     title: 'Pages',
-    heroname: req.session.hero ? req.session.hero.name : 'Felix le Vainqueur',
     pageNumber: req.params.pagenumber,
     selectedNav: 'game',
     gameInfo: gameInfo,
@@ -35,9 +35,21 @@ exports.getChoiceJSON = function(req, res) {
   //On utilise la fonction makeChoice afin d'appeller la fonction de choix aléatoire pour une page spécifique
   //Celle-ci va prendre un chiffre au hasard, en fonction du contexte de la page, retournera le numéro de la page
   //qu'on doit maintenant visiter
-  var resultPage = pages.makeChoice(pageNumber, req.session.hero);
 
-  res.json(JSON.stringify({ redirect: '/game/' + resultPage }));
+  mongodb.connect(function(db) {
+    mongodb.findProgression(req.session.playerId, db, function(err, result) {
+      db.close();
+
+      if (!err && result) {
+        var resultPage = pages.makeChoice(pageNumber, result);
+        res.json(JSON.stringify({ redirect: '/game/' + resultPage }));
+      } else if (err) {
+        console.log('Error occurred while retrieving a progression');
+        console.log(err);
+        res.redirect(500, '/game/' +  pageNumber + '/');
+      }
+    });
+  });
 };
 
 exports.getPageJSON = function(req, res) {

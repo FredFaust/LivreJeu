@@ -8,6 +8,8 @@ module.exports = {
   PAGES: '/game/:pagenumber/:section',
   PLAYERS: '/players',
   SINGLE_PLAYER: '/players/:id',
+  PROGRESSIONS: '/progressions',
+  SINGLE_PROGRESSION: '/progressions/:playerid',
   JSON: {
     CHOICE: '/json/choixaleatoire/:pagenumber',
     FIGHT: '/json/combat/:player/:enemy',

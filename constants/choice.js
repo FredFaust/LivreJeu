@@ -4,7 +4,7 @@ var numbers = [
   {
     id: 167,
     range: [85, 300],
-    rand: function(player) {
+    rand: function(progression) {
       var result = rand.getIntInclusive(0, 9);
       if (result >= 0 && result <= 6) {
         return this.range[0];
@@ -16,7 +16,7 @@ var numbers = [
   {
     id: 134,
     range: [57, 188, 331],
-    rand: function(player) {
+    rand: function(progression) {
       var result = rand.getIntInclusive(0, 9);
       if (result >= 0 && result <= 3) {
         return this.range[0];
@@ -32,11 +32,11 @@ var numbers = [
   {
     id: 155,
     range: [248, 191],
-    rand: function(player){
+    rand: function(progression){
       var result = rand.getIntInclusive(0, 9);
 
-      if (player){
-        var endurance = player.endurance.actual;
+      if (progression){
+        var endurance = progression.endurance;
         if (endurance < 10){
           result -= 2;
         }
@@ -57,7 +57,7 @@ var numbers = [
   {
     id: 331,
     range: [62, 288],
-    rand: function(player) {
+    rand: function(progression) {
       var result = rand.getIntInclusive(0, 9);
       if (result >= 0 && result <= 4)
         return this.range[0];
@@ -67,10 +67,10 @@ var numbers = [
   }
 ];
 
-exports.makeChoice = function(pageNumber, player) {
+exports.makeChoice = function(pageNumber, progression) {
   var result = _.first(_.where(numbers, { id: pageNumber }));
   if (result) {
-    return result.rand(player);
+    return result.rand(progression);
   } else {
     return pageNumber;
   }

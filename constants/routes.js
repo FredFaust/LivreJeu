@@ -5,8 +5,11 @@ module.exports = {
     TOPIC: '/help/:topic'
   },
   FIGHT: '/fight',
+  NEW_GAME: '/create',
   PAGES: '/game/:pagenumber/:section',
   PLAYERS: '/players',
+  STORY: '/story',
+  STORY_PAGE_SECTION: '/story/:pagenumber/:section',
   SINGLE_PLAYER: '/players/:id',
   PROGRESSIONS: '/progressions',
   SINGLE_PROGRESSION: '/progressions/:playerid',

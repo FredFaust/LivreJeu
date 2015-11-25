@@ -9,6 +9,7 @@ var homeController = require('./controllers/home'),
     gameController = require('./controllers/game'),
     weaponController = require('./controllers/weapon'),
     playerController = require('./controllers/player'),
+    storyController = require('./controllers/story'),
     progressionController = require('./controllers/progression');
 
 //Pages
@@ -23,6 +24,15 @@ router.route(routes.HELP.TOPIC)
 
 router.route(routes.FIGHT)
     .get(fightController.getFight);
+
+router.route(routes.NEW_GAME)
+    .get(gameController.newGame);
+
+router.route(routes.STORY)
+    .get(storyController.getStory);
+
+router.route(routes.STORY_PAGE_SECTION)
+    .get(storyController.getStoryPage);
 
 router.route(routes.PAGES)
     .get(gameController.getPage);

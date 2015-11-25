@@ -1,23 +1,25 @@
-extends ../layout
-
+extends layout
 block extraHeaders
   link(rel='stylesheet', href='/stylesheets/game.css')
   link(rel='stylesheet', href='/stylesheets/adventure-sheet.css')
 block angularScripts
-  script(src='/lib/angular/angular.js')
+  script(src='/lib/angular-1.4.7.js')
+  script(src='/lib/angular-route-1.4.7.js')
   script(src='/js/app.js')
+block extraScripts
+  script(src='/js/story.js')
+
 mixin backpackRow(array, start, finish)
   tr
     -for (var i = start; i < finish; i++) {
-      - var item = { name: 'Vide', src: '/images/backpack-empty.png' };
-      - if (i < array.length) {
-        - item = { name: array[i].name, src: '/images/' + array[i].file }
-      -}
-      td
-        img.img-table-backpack(src=item.src)
-        p= item.name
+    - var item = { name: 'Vide', src: '/images/backpack-empty.png' };
+    - if (i < array.length) {
+    - item = { name: array[i].name, src: '/images/' + array[i].file }
     -}
-
+    td
+      img.img-table-backpack(src=item.src)
+      p= item.name
+    -}
 block content
   // Dummy data, only for the first tps
   -var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, equipment: [{ name: 'Marteau de guerre', file: 'warhammer.png' }, { name: 'Glaive', file: 'glaive.png' }, { name: 'Potion de Lampsur', file: 'lampsur.png' }], fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' }, { opponent: 'Dracula', result: 'Defaite' } ]};
@@ -51,7 +53,6 @@ block content
           +backpackRow(hero.equipment, 0, 3)
           +backpackRow(hero.equipment, 3, 6)
           +backpackRow(hero.equipment, 6, 8)
-
     a#special-objects.button.button-brown(href="#special-modal") Objets sp&eacute;ciaux
     #special-modal.modal-dialog
       div
@@ -65,8 +66,10 @@ block content
               img.img-table-item(src='/images/' + uniqueSpecialItem.file)
               p= uniqueSpecialItem.name
             td
-
   block sections
   block prompt
   block fight
   block decision
+
+  #story(ng-controller="storyController")
+    div(ng-view)

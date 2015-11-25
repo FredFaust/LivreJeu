@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app="LivreJeu")
   head
     title= title
     meta(http-equiv="content-type", content="#{contentType}; charset=UTF-8")
@@ -11,6 +11,7 @@ html
     script(src='/lib/jquery-2.1.4.min.js')
     script(src='/lib/underscore-1.8.3.min.js')
     block extraScripts
+    block angularScripts
   body
     .page-wrap
       nav()
@@ -18,7 +19,7 @@ html
           li
             a(href='/home', class=selectedNav === 'home' ? 'nav-selected' : 'nav-not-selected') Accueil
           li
-            a(href='/game/0/', class=selectedNav === 'game' ? 'nav-selected' : 'nav-not-selected') Jeu
+            a(href='/create', class=selectedNav === 'game' ? 'nav-selected' : 'nav-not-selected') Jeu
           li
             a(href='/help', class=selectedNav === 'help' ? 'nav-selected' : 'nav-not-selected') Aide
         hr

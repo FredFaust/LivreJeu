@@ -2,12 +2,7 @@ extends layout
 block extraHeaders
   link(rel='stylesheet', href='/stylesheets/game.css')
   link(rel='stylesheet', href='/stylesheets/adventure-sheet.css')
-block angularScripts
-  script(src='/lib/angular-1.4.7.js')
-  script(src='/lib/angular-route-1.4.7.js')
-  script(src='/js/app.js')
-block extraScripts
-  script(src='/js/story.js')
+
 
 mixin backpackRow(array, start, finish)
   tr
@@ -71,5 +66,4 @@ block content
   block fight
   block decision
 
-  #story(ng-controller="storyController")
-    div(ng-view)
+

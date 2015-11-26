@@ -1,0 +1,28 @@
+extends layout
+
+block body
+  .page-wrap(ng-controller='AppCtrl')
+    nav()
+      ul.navlinks
+        li
+          a(href='/home', id='home', class='section-nav-link') Accueil
+        li
+          a(href='/create', id='story', class='section-nav-link') Jeu
+        li
+          a(href='/help', id='help', class='section-nav-link') Aide
+      hr
+    if errorMessage
+      #error-block
+        p #{errorMessage}
+
+    #view(ng-view)
+
+  footer.site-footer()
+    hr
+    p.no-padding Laboratoire #2  /  Présenté à M. Konstantinos Lambrou-Latreille  /  Par Jean-Frédéric Faust et Félix Pelletier
+    p.no-padding 4 octobre 2015
+
+  script(src='/lib/angular-1.4.7.js')
+  script(src='/lib/angular-route-1.4.7.js')
+  script(src='/js/app.js')
+  script(src='/js/controllers.js')

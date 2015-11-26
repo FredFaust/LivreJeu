@@ -1,16 +1,20 @@
-var app = angular.module('LivreJeu', ['ngRoute']);
-
-// configure our routes
-app.config(function($routeProvider) {
+angular.module('LivreJeu', [
+  'ngRoute',
+  'LivreJeu.controllers'
+]).
+config(function($routeProvider, $locationProvider) {
   $routeProvider
-      .when('/partials', {
-        templateUrl : 'story/160/1',
-        controller  : 'storyController'
+      .when('/home', {
+        templateUrl : 'partials/home',
+        controller  : 'homeController'
+      })
+      .when('/help', {
+        templateUrl : 'partials/help',
+        controller  : 'helpController'
+      }).
+      otherwise({
+        redirectTo: '/home'
       });
-});
 
-// create the controller and inject Angular's $scope
-app.controller('storyController', function($scope) {
-  // create a message to display in our view
-  $scope.message = 'Everyone come and see how good I look!';
+  $locationProvider.html5Mode(true);
 });

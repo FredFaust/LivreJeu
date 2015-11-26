@@ -10,10 +10,30 @@ var homeController = require('./controllers/home'),
     weaponController = require('./controllers/weapon'),
     playerController = require('./controllers/player'),
     storyController = require('./controllers/story'),
-    progressionController = require('./controllers/progression');
+    progressionController = require('./controllers/progression'),
+    spaController = require('./controllers/single-page-app');
 
-//Pages
-router.route(routes.HOME)
+//Single page application
+router.route(routes.INDEX)
+    .get(spaController.getIndex);
+
+router.route(routes.PARTIALS)
+    .get(spaController.getPartial);
+
+//API SHOULD BE HERE
+//API SHOULD BE HERE
+//API SHOULD BE HERE
+//API SHOULD BE HERE
+
+//CATCH-ALL MUST BE LAST
+router.route(routes.CATCH_ALL)
+    .get(spaController.getIndex);
+
+
+
+//Api
+//disabled for the moment, HOME has been changed to crap
+/*router.route(routes.HOME)
     .get(homeController.getHome);
 
 router.route(routes.HELP.MAIN)
@@ -26,7 +46,7 @@ router.route(routes.FIGHT)
     .get(fightController.getFight);
 
 router.route(routes.NEW_GAME)
-    .get(gameController.newGame);
+    .get(storyController.newGame);
 
 router.route(routes.STORY)
     .get(storyController.getStory);
@@ -72,7 +92,7 @@ router.route(routes.JSON.WEAPONS)
     .get(weaponController.getWeaponsJSON);
 
 router.route(routes.JSON.PAGE)
-    .get(gameController.getPageJSON);
+    .get(gameController.getPageJSON);*/
 
 module.exports = router;
 

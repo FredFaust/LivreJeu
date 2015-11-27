@@ -8,8 +8,25 @@ config(function($routeProvider, $locationProvider) {
         templateUrl : 'partials/home',
         controller  : 'homeController'
       })
+      .when('/create', {
+        templateUrl : 'partials/create',
+        controller  : 'createController'
+      })
+      .when('/story/:pageid/:sectionid', {
+        templateUrl: function(params) {
+          console.log(params.sectionid);
+          return 'partials/story/' + params.pageid + '/' + params.sectionid;
+        },
+        controller  : 'createController'
+      })
       .when('/help', {
-        templateUrl : 'partials/help',
+        templateUrl : 'partials/help/main',
+        controller  : 'helpController'
+      }).
+      when('/help/:topic', {
+        templateUrl: function(params) {
+          return 'partials/help/' + params.topic;
+        },
         controller  : 'helpController'
       }).
       otherwise({

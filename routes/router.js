@@ -20,10 +20,30 @@ router.route(routes.INDEX)
 router.route(routes.PARTIALS)
     .get(spaController.getPartial);
 
+router.route(routes.HELP_PARTIALS)
+    .get(spaController.getHelpPartial);
+
+router.route(routes.STORY_PARTIALS)
+    .get(spaController.getStoryPartial);
+
 //API SHOULD BE HERE
-//API SHOULD BE HERE
-//API SHOULD BE HERE
-//API SHOULD BE HERE
+router.route(routes.API.PLAYERS)
+    .post(playerController.postPlayer)
+    .get(playerController.getPlayersJSON);
+
+router.route(routes.API.PLAYER)
+    .put(playerController.putPlayer)
+    .get(playerController.getPlayerJSON)
+    .delete(playerController.deletePlayer);
+
+router.route(routes.API.PROGRESSIONS)
+    .get(progressionController.getProgressions)
+    .post(progressionController.postProgression);
+
+router.route(routes.API.PROGRESSION)
+    .get(progressionController.getProgression)
+    .put(progressionController.putProgression)
+    .delete(progressionController.deleteProgression);
 
 //CATCH-ALL MUST BE LAST
 router.route(routes.CATCH_ALL)

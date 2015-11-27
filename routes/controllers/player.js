@@ -56,7 +56,7 @@ exports.postPlayer = function(req, res) {
           console.log('Progression inserted in the collection');
 
           //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
-          res.status(200).send({ redirect: '/story' });
+          res.status(200).send({ redirect: '/story/1/1' });
         } else if (err) {
           console.log('Error occurred while inserting a progression');
           console.log(err);

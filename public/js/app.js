@@ -14,7 +14,7 @@ config(function($routeProvider, $locationProvider) {
       })
       .when('/story/:pageid/:sectionid', {
         templateUrl: function(params) {
-          console.log(params.sectionid);
+          console.log('test');
           return 'partials/story/' + params.pageid + '/' + params.sectionid;
         },
         controller  : 'createController'

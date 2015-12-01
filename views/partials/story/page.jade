@@ -1,5 +1,7 @@
 link(rel='stylesheet', href='/stylesheets/game.css')
 link(rel='stylesheet', href='/stylesheets/adventure-sheet.css')
+block extraScripts
+  script(src="/js/story.js", async=true)
 
 mixin backpackRow(array, start, finish)
   tr
@@ -17,7 +19,6 @@ mixin backpackRow(array, start, finish)
 -var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, equipment: [{ name: 'Marteau de guerre', file: 'warhammer.png' }, { name: 'Glaive', file: 'glaive.png' }, { name: 'Potion de Lampsur', file: 'lampsur.png' }], fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' }, { opponent: 'Dracula', result: 'Defaite' } ]};
 -hero.specials = [{name : "Gilet de cuir matelasse", file: "quilted-vest.png"}];
 -hero.disciplines = 'Communication Animale, 6e Sens';
-h1 Page ##{pageNumber}
 
 #adventure-sheet
   h1.hero-name #[img(src='/images/hero.png')] #{heroname}
@@ -61,6 +62,7 @@ h1 Page ##{pageNumber}
             p= uniqueSpecialItem.name
           td
 
+block story-header
 block story
 block prompt
 block fight

@@ -14,10 +14,23 @@ exports.getPartial = function(req, res) {
     res.json({ error: 'filename was wrong' });
   }
 
-  console.log('bonour');
-
-  //ADD GAMEINFO MAYBE ?
   res.render("partials/" + name, { gameInfo: gameInfo });
+};
+
+exports.getFightPartial = function(req, res) {
+  //TODO: verify returnPage and returnSection
+
+  //TODO : make a call to retreive the info for this fight or maybe use gameInfo ??
+
+  res.render("partials/fight", {
+    gameInfo: gameInfo,
+    heroname: 'Felix le Vainqueur',
+    returnPage: req.params.pageid, //req.query.return_page,
+    returnSection: 1 + parseInt(req.params.sectionid), //req.query.return_section,
+    name: 'Languabarbu', //req.query.name,
+    ability: req.query.ability,
+    endurance: req.query.endurance
+  });
 };
 
 exports.getHelpPartial = function(req, res) {
@@ -38,5 +51,5 @@ exports.getStoryPartial = function(req, res) {
   }
 
   //ADD GAMEINFO MAYBE ?
-  res.render("partials/story/p" + page + '_' + section, { gameInfo: gameInfo });
+  res.render("partials/story/p" + page + '_' + section, { gameInfo: gameInfo, pageNumber: page, sectionNumber: section });
 };

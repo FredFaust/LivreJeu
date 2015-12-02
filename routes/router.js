@@ -17,14 +17,17 @@ var homeController = require('./controllers/home'),
 router.route(routes.INDEX)
     .get(spaController.getIndex);
 
-router.route(routes.PARTIALS)
-    .get(spaController.getPartial);
-
-router.route(routes.HELP_PARTIALS)
+router.route(routes.PARTIALS.HELP)
     .get(spaController.getHelpPartial);
 
-router.route(routes.STORY_PARTIALS)
+router.route(routes.PARTIALS.FIGHT)
+    .get(spaController.getFightPartial);
+
+router.route(routes.PARTIALS.STORY)
     .get(spaController.getStoryPartial);
+
+router.route(routes.PARTIALS)
+    .get(spaController.getPartial);
 
 //API SHOULD BE HERE
 router.route(routes.API.PLAYERS)

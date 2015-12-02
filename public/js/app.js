@@ -14,10 +14,15 @@ config(function($routeProvider, $locationProvider) {
       })
       .when('/story/:pageid/:sectionid', {
         templateUrl: function(params) {
-          console.log('test');
           return 'partials/story/' + params.pageid + '/' + params.sectionid;
         },
-        controller  : 'createController'
+        controller  : 'storyController'
+      })
+      .when('/fight/:pageid/:sectionid', {
+        templateUrl: function(params) {
+          return 'partials/fight/' + params.pageid + '/' + params.sectionid;
+        },
+        controller  : 'fightController'
       })
       .when('/help', {
         templateUrl : 'partials/help/main',

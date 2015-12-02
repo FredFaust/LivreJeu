@@ -1,14 +1,17 @@
 module.exports = {
   INDEX: '/',
-  PARTIALS: '/partials/:name',
-  HELP_PARTIALS: '/partials/help/:name',
-  STORY_PARTIALS: '/partials/story/:pageid/:sectionid',
   CATCH_ALL: '*',
   API: {
     PLAYERS: '/players',
     PLAYER: '/players/:id',
     PROGRESSIONS: '/progressions',
     PROGRESSION: '/progressions/:playerid'
+  },
+  PARTIALS: {
+    NAME: '/partials/:name',
+    HELP: '/partials/help/:name',
+    STORY: '/partials/story/:pageid/:sectionid',
+    FIGHT: '/partials/fight/:pageid/:sectionid'
   }
 };
 

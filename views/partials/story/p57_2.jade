@@ -1,8 +1,11 @@
-extends p57_1
+extends page
 
-block expired-content
+block story
+  p.
+      Vous cachez le cadavre sous l'escalier et vous vous hatez de le fouiller.
 
-block section2
   p.
       Vous abandonnez ensuite le cadavre et vous montez l'escalier quatre &agrave; quatre.
-      #[a(class="story-link" href="/game/331") Rendez-vous au 331].
+
+  div#decision
+    p #[a(class="story-link" href="/story/331") Rendez-vous au 331].

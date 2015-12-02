@@ -27,6 +27,18 @@ angular.module('LivreJeu.controllers', []).
       $scope.message = 'Everyone come and see how good I lookin my HOME';
       updateNavBar('story');
     }).
+    controller('storyController', function($scope) {
+      $scope.message = 'Everyone come and see how good I lookin my HOME';
+      updateNavBar('story');
+    }).
+    controller('fightController', function($scope) {
+      $scope.message = 'Everyone come and see how good I lookin my HOME';
+      updateNavBar('story');
+    }).
+    controller('createController', function($scope) {
+      $scope.message = 'Everyone come and see how good I lookin my HOME';
+      updateNavBar('story');
+    }).
     controller('helpController', function($scope) {
       $scope.message = 'HELP ! DAQUAN KING OF THE STREETS IS ATTACKING ME!!1!';
       updateNavBar('help');

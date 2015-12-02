@@ -1,0 +1,22 @@
+extends page
+
+block extraScripts
+  script(src="/js/choice.js", async=true)
+
+block story
+  p.
+      Le vent glacé de la montagne à tôt fait de dissiper les brumes de l'aube. Epuisé, transi jusqu'à la moelle et encore sous le choc des récents événements, vous escaladez l'impitoyable paroi de roc jusqu'à ce que vous parveniez enfin sur une large corniche où vous vous sentez plus en sécurité.
+
+  p.
+      La corniche en rejoint une autre que vous avez beaucoup de mal à parcourir. Lorsque, enfin, vous arrivezau bout, vous vous trouvez au sommet d'une paroi impressionnante. Pour descendre dans l'étroit défilé que vous apercevez à 300 mètres au-dessous, il vous faudra emprunter un escalier particulièrement raide et dangereux dont les marches sont taillées dans la glace.
+
+  p.
+      Utilisez la Table de Hasard pour obtenir un chiffre. Si votre total d'ENDURANCE actuel est inférieur à 10, vous ôterez 2 au chiffre obtenu. Si ce total est supérieur à 20, vous ajouterez 1 au chiffre donné par la Table.
+
+  div#decision
+      p Si le total obtenu se situe entre -2 et 2, rendez-vous au 248.
+      p S'il est de 3 à 10, rendez-vous au 191.
+
+
+      p TODO TABLE DE HASARD
+      input.button.button-warning(type='button', value='Table de hasard')

@@ -26,7 +26,7 @@ router.route(routes.PARTIALS.FIGHT)
 router.route(routes.PARTIALS.STORY)
     .get(spaController.getStoryPartial);
 
-router.route(routes.PARTIALS)
+router.route(routes.PARTIALS.ANY)
     .get(spaController.getPartial);
 
 //API SHOULD BE HERE

@@ -1,10 +1,12 @@
-mixin checkboxes(idPrefix, items)
-  each val, prop in items
-    -var fullId = idPrefix + prop;
-    input(id=fullId, type='checkbox', name=prop)
+mixin checkboxesRepeat(idPrefix, items, status, validate)
+  -var repeatStatement = '(val, prop) in ' + items;
+  -var idStatement = "{{ '" + idPrefix + "' + val }}";
+  -var modelStatement =  status + '[val]';
+  -var changeStatement = validate + '(' + modelStatement + ')';
+  div(ng-repeat=repeatStatement)
+    input(ng-attr-id=idStatement, type='checkbox', ng-attr-name="{{prop}}", ng-model=modelStatement, ng-change=changeStatement)
     label.check-img
-    label.check-label(for=fullId) #{val}
-
+    label.check-label(ng-attr-for=idStatement) {{prop}}
 
 block extraScripts
   script(src="/js/create.js", async=true)
@@ -14,7 +16,7 @@ block extraHeaders
 h1 Cr&eacute;ation d'un h&eacute;ro
 form#create-player(action='/player')
   label#hero-lbl(for='heroname') Nom du h&eacute;ro : &nbsp;
-  input#heroname.txt-box-underlined(type='text', name='heroname')
+  input#heroname.txt-box-underlined(type='text', name='heroname', ng-model='user.name')
   br
   br
   fieldset(class='form-fieldset')
@@ -22,14 +24,13 @@ form#create-player(action='/player')
     #discs.checkbox-container
       p Choisissez 5
         span &nbsp;disciplines
-      +checkboxes('DISC_', gameInfo.DISCIPLINES)
-
+      +checkboxesRepeat('DISC_', 'disciplines', 'user.disciplinesStatus', 'validateDisciplines')
     #equip.checkbox-container
       p Choisissez 2
         span &nbsp;items
-      +checkboxes('ITEM_', gameInfo.ITEMS)
+      +checkboxesRepeat('ITEMS_', 'items', 'user.itemsStatus', 'validateItems')
 
     p#mastered-weapon.invisible
 
   br
-  input.button.button-success(type='button', value='Debuter l\'aventure!')
+  input.button(type='button', value='Debuter l\'aventure!', ng-disabled='canSubmit', ng-class="canSubmit ? 'button-success' : 'button-disabled'")

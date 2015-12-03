@@ -22,14 +22,14 @@ exports.getFightPartial = function(req, res) {
 
   //TODO : make a call to retreive the info for this fight or maybe use gameInfo ??
 
+  fight = _.find(gameInfo.FIGHT, function(fightInfo){ return fightInfo.page === req.params.pageid; });
+
   res.render("partials/fight", {
     gameInfo: gameInfo,
     heroname: 'Felix le Vainqueur',
     returnPage: req.params.pageid, //req.query.return_page,
     returnSection: 1 + parseInt(req.params.sectionid), //req.query.return_section,
-    name: 'Languabarbu', //req.query.name,
-    ability: req.query.ability,
-    endurance: req.query.endurance
+    fight: fight
   });
 };
 

@@ -12,6 +12,11 @@ config(function($routeProvider, $locationProvider) {
         templateUrl : 'partials/create',
         controller  : 'createController'
       })
+      .when('/story/:pageid', {
+        redirectTo: function(params) {
+          return '/story/' + params.pageid + '/1';
+        }
+      })
       .when('/story/:pageid/:sectionid', {
         templateUrl: function(params) {
           return 'partials/story/' + params.pageid + '/' + params.sectionid;

@@ -3,7 +3,7 @@ var updateNavBar = function(selected) {
   $('#' + selected).removeClass('nav-not-selected').addClass('nav-selected');
 };
 
-angular.module('LivreJeu.controllers', []).
+angular.module('LivreJeu.controllers', []); /*.
     controller('AppCtrl', function($scope, $http) {
       console.log('PASSED INTO THE CLIENT ROUTER / AppController');
       $scope.message = 'I AM IN CONTROL OF THE APPLICATION';
@@ -17,7 +17,7 @@ angular.module('LivreJeu.controllers', []).
        error(function(data, status, headers, config) {
        $scope.name = 'Error!';
        });
-       */
+
     }).
     controller('homeController', function($scope) {
       $scope.message = 'Everyone come and see how good I lookin my HOME';
@@ -43,3 +43,4 @@ angular.module('LivreJeu.controllers', []).
       $scope.message = 'HELP ! DAQUAN KING OF THE STREETS IS ATTACKING ME!!1!';
       updateNavBar('help');
     });
+*/

@@ -8,7 +8,7 @@ module.exports = {
     PROGRESSION: '/progressions/:playerid'
   },
   PARTIALS: {
-    NAME: '/partials/:name',
+    ANY: '/partials/:name',
     HELP: '/partials/help/:name',
     STORY: '/partials/story/:pageid/:sectionid',
     FIGHT: '/partials/fight/:pageid/:sectionid'

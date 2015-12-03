@@ -1,7 +1,7 @@
 extends layout
 
 block body
-  .page-wrap(ng-controller='AppCtrl')
+  .page-wrap
     nav()
       ul.navlinks
         li
@@ -21,8 +21,3 @@ block body
     hr
     p.no-padding Laboratoire #2  /  Présenté à M. Konstantinos Lambrou-Latreille  /  Par Jean-Frédéric Faust et Félix Pelletier
     p.no-padding 4 octobre 2015
-
-  script(src='/lib/angular-1.4.7.js')
-  script(src='/lib/angular-route-1.4.7.js')
-  script(src='/js/app.js')
-  script(src='/js/controllers.js')

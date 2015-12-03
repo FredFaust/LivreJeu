@@ -24,6 +24,19 @@ module.exports = {
     LAMPSUR_POTION: 'Potion de lampsur',
     SPECIAL_RATIONS: 'Rations speciales'
   },
+  FIGHT: [
+    {
+      page: '78',
+      enemy: 'BAKANAL',
+      ability: '19',
+      endurance: '30'
+    }, {
+      page: '180',
+      enemy: 'LANGUABARB',
+      ability: '11',
+      endurance: '35'
+    }
+  ],
   MASTER: {
     POIGNARD: 'Le Poignard',
     LANCE: 'La Lance',

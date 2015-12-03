@@ -135,6 +135,10 @@ input[type="checkbox"]:checked + label.check-img  + label.check-label {
     text-decoration: none;
 }
 
+.button-disabled {
+    background-color: grey;
+}
+
 .button-success {
     background-color: mediumseagreen;
 }

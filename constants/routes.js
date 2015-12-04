@@ -5,7 +5,11 @@ module.exports = {
     PLAYERS: '/players',
     PLAYER: '/players/:id',
     PROGRESSIONS: '/progressions',
-    PROGRESSION: '/progressions/:playerid'
+    PROGRESSION: '/progressions/:playerid',
+    GAMEINFO : {
+      ALL: '/gameinfo/all',
+      MASTER_WEAPONS: '/gameinfo/master'
+    }
   },
   PARTIALS: {
     ANY: '/partials/:name',

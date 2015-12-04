@@ -7,7 +7,7 @@ var homeController = require('./controllers/home'),
     helpController = require('./controllers/help'),
     fightController = require('./controllers/fight'),
     gameController = require('./controllers/game'),
-    weaponController = require('./controllers/weapon'),
+    objectController = require('./controllers/object'),
     playerController = require('./controllers/player'),
     storyController = require('./controllers/story'),
     progressionController = require('./controllers/progression'),
@@ -48,11 +48,14 @@ router.route(routes.API.PROGRESSION)
     .put(progressionController.putProgression)
     .delete(progressionController.deleteProgression);
 
+router.route(routes.API.GAMEINFO.ALL)
+    .get(objectController.getGameInfoJSON);
+
 //CATCH-ALL MUST BE LAST
 router.route(routes.CATCH_ALL)
     .get(spaController.getIndex);
 
-
+module.exports = router;
 
 //Api
 //disabled for the moment, HOME has been changed to crap
@@ -112,11 +115,7 @@ router.route(routes.JSON.FIGHT)
     .get(fightController.getFightJSON);
 
 router.route(routes.JSON.WEAPONS)
-    .get(weaponController.getWeaponsJSON);
+    .get(objectController.getWeaponsJSON);
 
 router.route(routes.JSON.PAGE)
     .get(gameController.getPageJSON);*/
-
-module.exports = router;
-
-

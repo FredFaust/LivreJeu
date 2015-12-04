@@ -137,6 +137,7 @@ input[type="checkbox"]:checked + label.check-img  + label.check-label {
 
 .button-disabled {
     background-color: grey;
+    cursor: default;
 }
 
 .button-success {

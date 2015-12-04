@@ -36,9 +36,12 @@ exports.postPlayer = function(req, res) {
       name: heroName,
       combatSkill: initialCombatSkill,
       endurance: initialEndurance,
-      disciplines: disciplines,
-      masteredWeapon: masteredWeapon
+      disciplines: disciplines
     };
+
+    if (masteredWeapon) {
+      player.masteredWeapon = masteredWeapon;
+    }
 
     var createProgression = function(db) {
       var prog = {

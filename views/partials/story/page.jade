@@ -20,6 +20,10 @@ mixin backpackRow(array, start, finish)
 -hero.specials = [{name : "Gilet de cuir matelasse", file: "quilted-vest.png"}];
 -hero.disciplines = 'Communication Animale, 6e Sens';
 
+if errorMessage
+  #error-block
+    p #{errorMessage}
+
 #adventure-sheet
   h1.hero-name #[img(src='/images/hero.png')] #{heroname}
   hr

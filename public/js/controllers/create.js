@@ -1,14 +1,29 @@
-angular.module('LivreJeu.controllers', []).controller('createController', function($scope, $http, $q, $window) {
-
-  var self = this;
+angular.module('LivreJeu.controllers').controller('createController', function($scope, $http, $q, $window) {
 
   $scope.user = {
     disciplinesStatus : {},
     itemsStatus : {},
     name: ''
   };
+  $scope.canSubmit = false;
 
-  $scope.disciplines = {
+  $.ajax({
+    type: "GET",
+    url: "/gameinfo/all",
+    success: function(data) {
+      if (!_.isUndefined(data) && !_.isNull(data)) {
+        console.log(data);
+        var deserializedData = JSON.parse(data);
+        $scope.disciplines = deserializedData.DISCIPLINES;
+        $scope.items = deserializedData.ITEMS;
+      }
+    },
+    error: function(jqXHR, exception) {
+      console.log('Une erreur est survenue lors du de la requete avec le serveur...');
+    }
+  });
+
+  /*$scope.disciplines = {
     CAMOUFLAGE: 'Camouflage',
     HUNT: 'Chasse',
     SIXTH_SENSE: '6e sens',
@@ -33,14 +48,11 @@ angular.module('LivreJeu.controllers', []).controller('createController', functi
     QUILTED_LEATHER_VEST: 'Gilet de cuir matelasse',
     LAMPSUR_POTION: 'Potion de lampsur',
     SPECIAL_RATIONS: 'Rations speciales'
-  };
+  };*/
 
-  self.nbSelectedDisciplines = 0;
-  self.nbSelectedItems = 0;
 
-  $scope.canSubmit = false;
 
-  self.updateSubmit = function() {
+  $scope.updateSubmit = function() {
     var customCountBy = function(object) {
       return (_.countBy(object, function(name, bool) {
         return bool ? 'checked': 'unchecked';
@@ -49,23 +61,63 @@ angular.module('LivreJeu.controllers', []).controller('createController', functi
     var discs = customCountBy($scope.user.disciplinesStatus),
         items = customCountBy($scope.user.itemsStatus);
 
+    console.log($scope.user);
     $scope.canSubmit = discs === 5 && items === 2 && $scope.user.name;
   };
 
-  $scope.validateDisciplines = function(disciplineIsChecked) {
-    self.nbSelectedDisciplines = disciplineIsChecked
-        ? self.nbSelectedDisciplines + 1
-        : self.nbSelectedDisciplines - 1;
+  $scope.formSubmit = function() {
+    //action='/player' was removed from the jade because the form was always submitted
+    // now that it is removed, only this function will be called and we can decide to ajax on /players or not
+    if ($scope.canSubmit) {
+      var disciplines = [],
+          items = [];
 
-    self.updateSubmit();
-  };
+      var keepSelectedCheckboxes = function(input, output) {
+        _.map(input, function(value, key) {
+          if (value) {
+            output.push(key);
+          }
+        });
+      };
 
-  $scope.validateItems = function(itemIsChecked) {
-    self.nbSelectedItems = itemIsChecked
-        ? self.nbSelectedItems + 1
-        : self.nbSelectedItems - 1;
+      keepSelectedCheckboxes($scope.user.disciplinesStatus, disciplines);
+      keepSelectedCheckboxes($scope.user.itemsStatus, items);
 
-    self.updateSubmit();
+      /*$("#discs input:checked").each(function() {
+        disciplines.push(this.name);
+      });
+      $("#equip input:checked").each(function() {
+        items.push(this.name);
+      });*/
+
+      var data = {
+        name: $scope.user.name,
+        disciplines: disciplines,
+        items: items
+      };
+
+      //TODO: verify maitrise des armes code
+      /*var masteredWeapon = localStorage.getItem('random-weapon-key');
+      if (masteredWeapon) {
+        data.masteredWeapon = masteredWeapon;
+      }*/
+
+      //Requête ajax POST pour envoyer les infos du joueur en JSON
+      $.ajax({
+        type: "POST",
+        url: "/players",
+        success: function(data) {
+          if (typeof(data.redirect) == 'string') {
+            //On redirige l'utilisateur vers le nom de la page qui à été renvoyé par le service web
+            window.location = data.redirect;
+          }
+        },
+        data: JSON.stringify(data),
+        dataType: "json",
+        contentType: "application/json"
+      });
+
+    }
   };
 
   console.log('create ctrl defined');

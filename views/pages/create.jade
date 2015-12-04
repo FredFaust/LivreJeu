@@ -9,9 +9,6 @@ mixin checkboxes(idPrefix, items)
     label.check-img
     label.check-label(for=fullId) #{val}
 
-block extraScripts
-  script(src="/js/create.js", async=true)
-
 block extraHeaders
   link(rel='stylesheet', href='/stylesheets/create.css')
 

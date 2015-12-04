@@ -6,10 +6,8 @@ mixin checkboxesRepeat(idPrefix, items, status, validate)
   div(ng-repeat=repeatStatement)
     input(ng-attr-id=idStatement, type='checkbox', ng-attr-name="{{prop}}", ng-model=modelStatement, ng-change=changeStatement)
     label.check-img
-    label.check-label(ng-attr-for=idStatement) {{prop}}
+    label.check-label(ng-attr-for=idStatement, ng-click="val == 'ARMS_CONTROL' && toggleMasteredWeapon()") {{prop}}
 
-block extraScripts
-  script(src="/js/create.js", async=true)
 block extraHeaders
   link(rel='stylesheet', href='/stylesheets/create.css')
 
@@ -34,7 +32,9 @@ form#create-player(ng-submit='formSubmit()')
         span &nbsp;items
       +checkboxesRepeat('ITEMS_', 'items', 'user.itemsStatus', 'updateSubmit')
 
-    p#mastered-weapon.invisible
+    p#mastered-weapon(ng-class="{'invisible': masteredWeapon.value === null}") Arme maitrise : {{masteredWeapon.value}}
 
   br
-  input.button(type='submit', value='Debuter l\'aventure!', ng-disabled='!canSubmit', ng-class="canSubmit ? 'button-success' : 'button-disabled'")
+  .button-group
+    input.button(type='submit', value="Debuter l'aventure!", ng-disabled='!canSubmit || submitSent', ng-class="canSubmit ? 'button-success' : 'button-disabled'")
+    img.loading-animation(src='/images/loading.gif' ng-show='submitSent')

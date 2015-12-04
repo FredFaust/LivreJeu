@@ -51,6 +51,9 @@ router.route(routes.API.PROGRESSION)
 router.route(routes.API.GAMEINFO.ALL)
     .get(objectController.getGameInfoJSON);
 
+router.route(routes.API.GAMEINFO.MASTER_WEAPONS)
+    .get(objectController.getMasterWeaponsJSON);
+
 //CATCH-ALL MUST BE LAST
 router.route(routes.CATCH_ALL)
     .get(spaController.getIndex);

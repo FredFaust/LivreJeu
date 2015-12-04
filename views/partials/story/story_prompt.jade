@@ -1,0 +1,14 @@
+extends page
+
+block prompt
+  -var extraModalClasses = '';
+  block extraModalClasses
+  -var modalClasses = 'modal-dialog ' + extraModalClasses;
+  #prompt(class='#{modalClasses}')
+    div
+      block x-button
+        a.modal-close(href="#close", title="Close") X
+      block prompt-title
+      block prompt-message
+      block prompt-buttons
+        a.button.button-accept(href="#dismiss", title="Okay") Okay

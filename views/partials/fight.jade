@@ -1,0 +1,30 @@
+block extraHeaders
+  link(rel='stylesheet', href='/stylesheets/fight.css')
+
+//Dummy data for the TP1
+-var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, disciplines: 'Communication Animale, 6e Sens', equipment: 'Marteau de guerre, glaive', fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' } ]};
+h2 Combat vs. #{fight.enemy}
+
+p.fight-hero H&eacute;ros: #{heroname}
+ul.attributes
+    li Habilet&eacute; : #{hero.ability}
+    li Endurance : #{hero.endurance}
+    li Disciplines Kai : #{hero.disciplines}
+
+p.fight-enemy Ennemi: #{name}
+ul.attributes
+    li Habilet&eacute; : #{ability}
+    li Endurance : #{endurance}
+
+input.button.button-fight#random(type='button', value='Attaquez')
+span R&eacute;sultat de l'attaque : <b>8 points</b> de dommages
+
+hr
+h2 Historique du combat:
+ul.combat-history
+    li <span class="fight-hero">#{hero.name}</span> inflige <b>2 points</b> de dommage a <span class="fight-enemy">#{name}</span>.
+    li <span class="fight-enemy">#{name}</span> donne une claque a <span class="fight-hero">#{hero.name}</span>. Il perd <b>5 points</b> d'endurance.
+    li <span class="fight-hero">#{hero.name}</span> frappe <span class="fight-enemy">#{name}</span> et il perd <b>4 points</b> d'endurance.
+
+form(action='/story/#{returnPage}/#{returnSection}')
+    input.button.button-success(type='submit', value='Terminer le combat')

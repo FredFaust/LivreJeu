@@ -1,0 +1,40 @@
+mixin checkboxesRepeat(idPrefix, items, status, validate)
+  -var repeatStatement = '(val, prop) in ' + items;
+  -var idStatement = "{{ '" + idPrefix + "' + val }}";
+  -var modelStatement =  status + '[val]';
+  -var changeStatement = validate + '(' + modelStatement + ')';
+  div(ng-repeat=repeatStatement)
+    input(ng-attr-id=idStatement, type='checkbox', ng-attr-name="{{prop}}", ng-model=modelStatement, ng-change=changeStatement)
+    label.check-img
+    label.check-label(ng-attr-for=idStatement, ng-click="val == 'ARMS_CONTROL' && toggleMasteredWeapon()") {{prop}}
+
+block extraHeaders
+  link(rel='stylesheet', href='/stylesheets/create.css')
+
+if errorMessage
+  #error-block
+    p #{errorMessage}
+
+h1 Cr&eacute;ation d'un h&eacute;ro
+form#create-player(ng-submit='formSubmit()')
+  label#hero-lbl(for='heroname') Nom du h&eacute;ro : &nbsp;
+  input#heroname.txt-box-underlined(type='text', name='heroname', ng-model='user.name', ng-change='updateSubmit()')
+  br
+  br
+  fieldset(class='form-fieldset')
+    legend Disciplines et &eacute;quipement
+    #discs.checkbox-container
+      p Choisissez 5
+        span &nbsp;disciplines
+      +checkboxesRepeat('DISC_', 'disciplines', 'user.disciplinesStatus', 'updateSubmit')
+    #equip.checkbox-container
+      p Choisissez 2
+        span &nbsp;items
+      +checkboxesRepeat('ITEMS_', 'items', 'user.itemsStatus', 'updateSubmit')
+
+    p#mastered-weapon(ng-class="{'invisible': masteredWeapon.value === null}") Arme maitrise : {{masteredWeapon.value}}
+
+  br
+  .button-group
+    input.button(type='submit', value="Debuter l'aventure!", ng-disabled='!canSubmit || submitSent', ng-class="canSubmit ? 'button-success' : 'button-disabled'")
+    img.loading-animation(src='/images/loading.gif' ng-show='submitSent')

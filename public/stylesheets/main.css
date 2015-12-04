@@ -135,6 +135,11 @@ input[type="checkbox"]:checked + label.check-img  + label.check-label {
     text-decoration: none;
 }
 
+.button-disabled {
+    background-color: grey;
+    cursor: default;
+}
+
 .button-success {
     background-color: mediumseagreen;
 }
@@ -175,4 +180,15 @@ input[type="checkbox"]:checked + label.check-img  + label.check-label {
 
 .button-accept:hover {
     background-color: rgba(192,192,192,0.7);
+}
+
+.loading-animation {
+    padding: 5px;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.button-group {
+    display: inline-block;
 }

@@ -1,0 +1,24 @@
+h1 Combats
+p.
+  Durant l'aventure, le joueur peut être impliqué dans plusieurs combats. À chaque fois,
+  les points d'HABILETÉ et d'ENDURANCE de l'ennemi seront spécifiés. Le joueur devra
+  alors s'efforcer de tuer son adversaire en réduisant à zéro ses points d'ENDURANCE,
+  tout en essayant lui-même de perdre le moins possible de points d'ENDURANCE. Chaque
+  combat se déroule de la manière suivante :
+ol
+  li Ajouter au total d'HABILETÉ du joueurs les points supplémentaires associés à certaines disciplines.
+  li  Un nombre aléatoire entre 0 et 9 est choisi. En utilisant ce nombre et le quotient d'attaque, on consulte
+    | la table de correspondance illustrée aux figures 1a et 1b, afin de déterminer le nombre de points d'ENDURANCE
+    | qui seront perdus par le joueur et l'ennemi.
+  li Soustraire de ce total les points d'HABILETÉ de l'adversaire. Ce résultat représente le quotient d'attaque.
+  li Un nombre aléatoire entre 0 et 9 est choisi. En utilisant ce nombre et le quotient d'attaque, on consulte la
+    | table de correspondance illustrée aux figures 1a et 1b, afin de déterminer le nombre de points d'ENDURANCE qui
+    | seront perdus par le joueur et l'ennemi.
+  li On diminue les points d'ENDURANCE du joueur et de l'ennemi.
+  li À moins qu'une possibilité de fuite soit oerte ou que des indications diérentes soient fournies, on recommence
+    | un nouveau round de combat, en retournant à l'étape 3. On continue ainsi jusqu'à ce qu'un des deux combattant soit mort.
+p.
+  Si le joueur a la possibilité de fuir, il peut le faire à la fin d'un round, après avoir
+  diminué ses points d'ENDURANCE.
+
+p Retour vers l'<a href='/help/main'>aide</a>

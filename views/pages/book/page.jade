@@ -3,7 +3,9 @@ extends ../layout
 block extraHeaders
   link(rel='stylesheet', href='/stylesheets/game.css')
   link(rel='stylesheet', href='/stylesheets/adventure-sheet.css')
-
+block angularScripts
+  script(src='/lib/angular/angular.js')
+  script(src='/js/app.js')
 mixin backpackRow(array, start, finish)
   tr
     -for (var i = start; i < finish; i++) {

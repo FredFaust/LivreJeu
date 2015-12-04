@@ -8,7 +8,7 @@ var renderInvalidPage = function(errorMessage, req, res) {
   req.session.errorMessage = errorMessage;
 
   res.status(200).send({
-    redirect: '/game/0/'
+    redirect: '/create'
   });
 };
 
@@ -36,9 +36,12 @@ exports.postPlayer = function(req, res) {
       name: heroName,
       combatSkill: initialCombatSkill,
       endurance: initialEndurance,
-      disciplines: disciplines,
-      masteredWeapon: masteredWeapon
+      disciplines: disciplines
     };
+
+    if (masteredWeapon) {
+      player.masteredWeapon = masteredWeapon;
+    }
 
     var createProgression = function(db) {
       var prog = {
@@ -56,7 +59,7 @@ exports.postPlayer = function(req, res) {
           console.log('Progression inserted in the collection');
 
           //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
-          res.status(200).send({ redirect: '/game/1' });
+          res.status(200).send({ redirect: '/story/1/1' });
         } else if (err) {
           console.log('Error occurred while inserting a progression');
           console.log(err);

@@ -1,0 +1,20 @@
+extends layout
+
+block body
+  .page-wrap
+    nav()
+      ul.navlinks
+        li
+          a(href='/home', id='home', class='section-nav-link') Accueil
+        li
+          a(href='/create', id='story', class='section-nav-link') Jeu
+        li
+          a(href='/help/main', id='help', class='section-nav-link') Aide
+      hr
+
+    #view(ng-view)
+
+  footer.site-footer()
+    hr
+    p.no-padding Laboratoire #2  /  Présenté à M. Konstantinos Lambrou-Latreille  /  Par Jean-Frédéric Faust et Félix Pelletier
+    p.no-padding 4 octobre 2015

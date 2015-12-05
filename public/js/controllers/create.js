@@ -84,7 +84,6 @@ angular.module('LivreJeu.controllers').controller('createController', function($
       if (data.page) {
         $scope.$parent.player = player;
         $scope.$parent.progression = data;
-
         $location.path('/story/' + data.page);
       }
     });
@@ -138,7 +137,10 @@ angular.module('LivreJeu.controllers').controller('createController', function($
             data: data
           }
       ).success(function(data) {
-          if (data && typeof(data.redirect) == 'string') {
+          if (data && data.redirect) {
+            $scope.$parent.player = data.player;
+            $scope.$parent.progression = data.progression;
+
             //On redirige l'utilisateur vers le nom de la page qui à été renvoyé par le service web
             $location.path(data.redirect);
           }

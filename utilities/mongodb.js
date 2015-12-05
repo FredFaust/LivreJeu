@@ -89,6 +89,13 @@ module.exports = {
       });
     }
   },
+  updateProgression: function(id, prog, db, callback) {
+    if (validateId(id, callback)) {
+      db.collection(this.collections.progressions).updateOne({ playerId: id }, prog, function(err, result) {
+        dbCallback(err, result, callback);
+      });
+    }
+  },
   deleteProgression: function(id, db, callback) {
     if (validateId(id, callback)) {
       db.collection(this.collections.progressions).deleteOne({ playerId : id }, function(err, result) {

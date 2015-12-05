@@ -69,14 +69,14 @@ exports.getProgressions = function(req, res) {
 exports.putProgression = function(req, res) {
   if (validation.validateProgression(req.body, req, res, validationFailedCb)) {
     mongodb.connect(function(db) {
-      //Mise a jour d'un joueur dans la database
-      mongodb.updatePlayer(req.params.playerid, req.body, db, function(err, result) {
+      //Mise a jour d'une progression dans la database
+      mongodb.updateProgression(req.params.playerid, req.body, db, function(err, result) {
         db.close();
 
         if (!err && result) {
-          res.json({ player: result });
+          res.json({ progression: result });
         } else if (err) {
-          console.log('Error occurred while updating a player');
+          console.log('Error occurred while updating a progression');
           console.log(err);
 
           if (err.errorId) {

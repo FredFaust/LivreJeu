@@ -49,7 +49,8 @@ exports.postPlayer = function(req, res) {
         endurance: actualEndurance,
         combatSkill: actualCombatSkill,
         items: items,
-        page: 1
+        page: 1,
+        money: 0
       };
 
       mongodb.insertProgression(prog, db, function(err, result) {
@@ -59,7 +60,13 @@ exports.postPlayer = function(req, res) {
           console.log('Progression inserted in the collection');
 
           //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
-          res.status(200).send({ redirect: '/story/1/1' });
+          var data = {
+            redirect: '/story/1/1',
+            player: player,
+            progression: prog
+          };
+
+          res.status(200).send(data);
         } else if (err) {
           console.log('Error occurred while inserting a progression');
           console.log(err);

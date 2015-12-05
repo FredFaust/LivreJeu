@@ -3,6 +3,12 @@ link(rel='stylesheet', href='/stylesheets/adventure-sheet.css')
 block extraScripts
   script(src="/js/story.js", async=true)
 
+mixin storyLink(page, section)
+  -var s = section ? ',' + section : '';
+  -var clickStatement = 'goToPage(' + page + s + ')';
+  a(href='', ng-click=clickStatement) Rendez-vous au #{page}.
+
+
 mixin backpackRow(array, start, finish)
   tr
     -for (var i = start; i < finish; i++) {

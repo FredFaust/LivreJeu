@@ -99,8 +99,8 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   /********************* FORM SUBMIT ****************************************/
   $scope.updateSubmit = function() {
     var customCountBy = function(object) {
-      return (_.countBy(object, function(name, bool) {
-        return bool ? 'checked': 'unchecked';
+      return (_.countBy(object, function(value) {
+        return value ? 'checked': 'unchecked';
       })).checked;
     };
     var discs = customCountBy($scope.user.disciplinesStatus),

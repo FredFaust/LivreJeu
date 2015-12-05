@@ -38,3 +38,11 @@
     font-weight: 600;
 }
 
+.player-continue:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#players-list {
+    margin-top: 20px;
+}

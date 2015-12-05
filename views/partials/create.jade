@@ -1,8 +1,8 @@
-mixin checkboxesRepeat(idPrefix, items, status, validate)
+mixin checkboxesRepeat(idPrefix, items, status)
   -var repeatStatement = '(val, prop) in ' + items;
   -var idStatement = "{{ '" + idPrefix + "' + val }}";
   -var modelStatement =  status + '[val]';
-  -var changeStatement = validate + '(' + modelStatement + ')';
+  -var changeStatement = 'updateSubmit(' + modelStatement + ')';
   div(ng-repeat=repeatStatement)
     input(ng-attr-id=idStatement, type='checkbox', ng-attr-name="{{prop}}", ng-model=modelStatement, ng-change=changeStatement)
     label.check-img
@@ -26,11 +26,11 @@ form#create-player(ng-submit='formSubmit()')
     #discs.checkbox-container
       p Choisissez 5
         span &nbsp;disciplines
-      +checkboxesRepeat('DISC_', 'disciplines', 'user.disciplinesStatus', 'updateSubmit')
+      +checkboxesRepeat('DISC_', 'disciplines', 'user.disciplinesStatus')
     #equip.checkbox-container
       p Choisissez 2
         span &nbsp;items
-      +checkboxesRepeat('ITEMS_', 'items', 'user.itemsStatus', 'updateSubmit')
+      +checkboxesRepeat('ITEMS_', 'items', 'user.itemsStatus')
 
     p#mastered-weapon(ng-class="{'invisible': masteredWeapon.value === null}") Arme maitrise : {{masteredWeapon.value}}
 
@@ -39,13 +39,11 @@ form#create-player(ng-submit='formSubmit()')
     input.button(type='submit', value="Debuter l'aventure!", ng-disabled='!canSubmit || submitSent', ng-class="canSubmit ? 'button-success' : 'button-disabled'")
     img.loading-animation(src='/images/loading.gif' ng-show='submitSent')
 
-fieldset.form-fieldset
+fieldset#players-list.form-fieldset
   legend Joueurs actifs
   p(ng-show='players.length === 0') Aucun joueur existant
   table
     tr(ng-repeat='player in players')
-      td {{player.name}}
+      td.player-continue(ng-click='continueStory(player._id)') {{player.name}}
       td
         input.button.small-button.button-error(type='button', value="Supprimer", ng-click='deletePlayer(player._id)')
-      td
-        input.button.small-button.button-success(type='button', value="Continuer", ng-click='continueStory(player._id)')

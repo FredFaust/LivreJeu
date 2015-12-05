@@ -1,5 +1,5 @@
-angular.module('LivreJeu.controllers').controller('createController', function($scope, $http, $q, $window, $timeout) {
-
+angular.module('LivreJeu.controllers').controller('createController', function($scope, $http, $timeout, $location) {
+  console.log('createController was created');
   /********************* SCOPE DEFINITION ****************************************/
   $scope.canSubmit = false;
   $scope.submitSent = false;
@@ -97,7 +97,7 @@ angular.module('LivreJeu.controllers').controller('createController', function($
       url: "/progressions/" + player._id
     }).success(function(data) {
       if (data.page) {
-        window.location = '/story/' + data.page;
+        $location.path('/story/' + data.page);
       }
     });
   };
@@ -152,7 +152,7 @@ angular.module('LivreJeu.controllers').controller('createController', function($
       ).success(function(data) {
           if (data && typeof(data.redirect) == 'string') {
             //On redirige l'utilisateur vers le nom de la page qui à été renvoyé par le service web
-            window.location = data.redirect;
+            $location.path(data.redirect);
           }
       });
 

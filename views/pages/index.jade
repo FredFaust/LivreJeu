@@ -12,7 +12,8 @@ block body
           a(href='/help/main', id='help', class='section-nav-link') Aide
       hr
 
-    #view(ng-view)
+    div(ng-controller='playerController')
+      #view(ng-view)
 
   footer.site-footer()
     hr

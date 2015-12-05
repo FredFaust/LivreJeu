@@ -24,6 +24,19 @@ module.exports = {
     LAMPSUR_POTION: 'Potion de lampsur',
     SPECIAL_RATIONS: 'Rations speciales'
   },
+  ITEMS_FILES: {
+    SWORD: '/images/sword.png',
+    SABRE: '/images/sword.png',
+    SPEAR: '/images/sword.png',
+    MACE: '/images/sword.png',
+    WAR_HAMMER: '/images/sword.png',
+    AXE: '/images/sword.png',
+    STICK: '/images/sword.png',
+    GLAIVE: '/images/sword.png',
+    QUILTED_LEATHER_VEST: '/images/sword.png',
+    LAMPSUR_POTION: '/images/sword.png',
+    SPECIAL_RATIONS: '/images/sword.png'
+  },
   FIGHT: [
     {
       page: '78',

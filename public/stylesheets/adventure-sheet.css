@@ -3,6 +3,7 @@
     padding: 15px 30px;
     margin: 0 10px;
     background: url('/images/parchment-background.png') no-repeat 100%;
+    background-size: cover;
     -moz-box-shadow: 0 0 10px black;
     box-shadow: 0 0 10px black;
     width: 300px;
@@ -33,13 +34,19 @@
     text-align: center;
 }
 
-.attributes {
+.attributes, .disciplines {
     list-style: none;
-    padding-left: 20px;
+    padding-left: 10px;
+    padding-bottom: 10px;
 }
 
 .attributes li {
     background: url('/images/star.png') left center no-repeat;
+    padding: 5px 0px 5px 30px !important;
+}
+
+.disciplines li {
+    background: url('/images/blue_star.png') left center no-repeat;
     padding: 5px 0px 5px 30px !important;
 }
 

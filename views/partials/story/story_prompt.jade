@@ -1,10 +1,14 @@
 extends page
 
+mixin promptButton(text)
+  -var clickStatement = 'showCustomPrompt()';
+  a.button.button-success(href='', ng-click=clickStatement) #{text}
+
 block prompt
   -var extraModalClasses = '';
   block extraModalClasses
   -var modalClasses = 'modal-dialog ' + extraModalClasses;
-  #prompt(class='#{modalClasses}')
+  #prompt(class='#{modalClasses}', ng-class="{'show-modal': prompt.showCustom}")
     div
       block x-button
         a.modal-close(href="#close", title="Close") X

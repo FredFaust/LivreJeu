@@ -10,10 +10,10 @@ block prompt-message
   p Un vent glacial souffle sur ces montagnes hostiles. Si vous ne vous êtes pas precedemment enduit le corps d'huile de Bakanal, <strong>vous perdez 3 points d'ENDURANCE.</strong>
 
 block x-button
-  a.modal-close(href="/story/129/2", title="Close") X
+  a.modal-close(href="", title="Close", ng-click='goToPage(129,2)') X
 
 block prompt-buttons
-  a.button.button-accept(href="/story/129/2", title="Okay") Okay
+  a.button.button-accept(href="", title="Okay", ng-click='goToPage(129,2)') Okay
 
 block story
   p.
@@ -28,4 +28,4 @@ block story
   p.
       Bien que vous soyez toujours dans un état second, vous parvenez malgré tout à découvrir un chemin escarpé qui vous permet de poursuivre votre route.
 
-  a.button.button-success.prompt-button(href='') Continuer
+  +promptButton('Continuer')

@@ -4,6 +4,7 @@ angular.module('LivreJeu.controllers').controller('playerController', function($
   $scope.progression = {};
   $scope.disciplines = {};
   $scope.items = {};
+  $scope.itemsFiles = {};
 
   $http({
     method: "GET",
@@ -16,6 +17,7 @@ angular.module('LivreJeu.controllers').controller('playerController', function($
       $timeout(function () {
         $scope.disciplines = deserializedData.DISCIPLINES;
         $scope.items = deserializedData.ITEMS;
+        $scope.itemsFiles = deserializedData.ITEMS_FILES;
       }, 0);
     }
   });

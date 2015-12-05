@@ -135,6 +135,10 @@ input[type="checkbox"]:checked + label.check-img  + label.check-label {
     text-decoration: none;
 }
 
+.small-button {
+    padding: 3px 6px !important;
+}
+
 .button-disabled {
     background-color: grey;
     cursor: default;

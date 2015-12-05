@@ -21,7 +21,7 @@ form#create-player(ng-submit='formSubmit()')
   input#heroname.txt-box-underlined(type='text', name='heroname', ng-model='user.name', ng-change='updateSubmit()')
   br
   br
-  fieldset(class='form-fieldset')
+  fieldset.form-fieldset
     legend Disciplines et &eacute;quipement
     #discs.checkbox-container
       p Choisissez 5
@@ -38,3 +38,14 @@ form#create-player(ng-submit='formSubmit()')
   .button-group
     input.button(type='submit', value="Debuter l'aventure!", ng-disabled='!canSubmit || submitSent', ng-class="canSubmit ? 'button-success' : 'button-disabled'")
     img.loading-animation(src='/images/loading.gif' ng-show='submitSent')
+
+fieldset.form-fieldset
+  legend Joueurs actifs
+  p(ng-show='players.length === 0') Aucun joueur existant
+  table
+    tr(ng-repeat='player in players')
+      td {{player.name}}
+      td
+        input.button.small-button.button-error(type='button', value="Supprimer", ng-click='deletePlayer(player._id)')
+      td
+        input.button.small-button.button-success(type='button', value="Continuer", ng-click='continueStory(player._id)')

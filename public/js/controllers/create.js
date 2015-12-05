@@ -1,19 +1,22 @@
 angular.module('LivreJeu.controllers').controller('createController', function($scope, $http, $q, $window, $timeout) {
+
+  /********************* SCOPE DEFINITION ****************************************/
+  $scope.canSubmit = false;
+  $scope.submitSent = false;
   $scope.disciplines = {};
   $scope.items = {};
   $scope.masteredWeapon = {
-    key : null, value : null
+    key : null,
+    value : null
   };
-
   $scope.user = {
     disciplinesStatus : {},
     itemsStatus : {},
     name: ''
   };
+  $scope.players = [];
 
-  $scope.canSubmit = false;
-  $scope.submitSent = false;
-
+  /********************* MASTERED WEAPON ****************************************/
   $scope.toggleMasteredWeapon = function() {
     if (!$scope.masteredWeapon.key && !$scope.masteredWeapon.value) {
       var randomWeaponIndex = Math.floor(Math.random() * (9 - 1)) + 1;
@@ -37,6 +40,7 @@ angular.module('LivreJeu.controllers').controller('createController', function($
     }
   };
 
+  /********************* HTTP REQUESTS ****************************************/
   $http({
     method: "GET",
     url: "/gameinfo/all"
@@ -52,6 +56,47 @@ angular.module('LivreJeu.controllers').controller('createController', function($
     }
   });
 
+  $http({
+    method: "GET",
+    url: "/players"
+  }).success(function(data) {
+    if (!_.isUndefined(data) && !_.isNull(data)) {
+      console.log(data);
+
+      //Updates the model whenever possible
+      $timeout(function () {
+        $scope.players = data.players;
+      }, 0);
+    }
+  });
+
+  /********************* PLAYER ACTIONS ****************************************/
+  $scope.deletePlayer = function(id) {
+    $http({
+      method: "DELETE",
+      url: "/players/" + id
+    }).success(function(data) {
+        //Filter our the deleted player
+        $timeout(function () {
+          $scope.players = $scope.players.filter(function(p) {
+            return p._id != id;
+          });
+        }, 0);
+    });
+  };
+
+  $scope.continueStory = function(id) {
+    $http({
+      method: "GET",
+      url: "/progressions/" + id
+    }).success(function(data) {
+      if (data.page) {
+        window.location = '/story/' + data.page;
+      }
+    });
+  };
+
+  /********************* FORM SUBMIT ****************************************/
   $scope.updateSubmit = function() {
     var customCountBy = function(object) {
       return (_.countBy(object, function(name, bool) {
@@ -108,6 +153,4 @@ angular.module('LivreJeu.controllers').controller('createController', function($
       $scope.submitSent = true;
     }
   };
-
-  console.log('create ctrl defined');
 });

@@ -3,6 +3,8 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   /********************* SCOPE DEFINITION ****************************************/
   $scope.canSubmit = false;
   $scope.submitSent = false;
+  $scope.deleteSent = false;
+  $scope.loadingPlayers = true;
   $scope.disciplines = {};
   $scope.items = {};
   $scope.masteredWeapon = {
@@ -60,35 +62,39 @@ angular.module('LivreJeu.controllers').controller('createController', function($
     method: "GET",
     url: "/players"
   }).success(function(data) {
+    $scope.loadingPlayers = false;
     if (!_.isUndefined(data) && !_.isNull(data)) {
-      console.log(data);
-
       //Updates the model whenever possible
       $timeout(function () {
         $scope.players = data.players;
+        _.each($scope.players, function(p) {
+          p.deleteSent = false;
+        });
+        console.log($scope.players);
       }, 0);
     }
   });
 
   /********************* PLAYER ACTIONS ****************************************/
-  $scope.deletePlayer = function(id) {
+  $scope.deletePlayer = function(player) {
+    player.deleteSent = true;
     $http({
       method: "DELETE",
-      url: "/players/" + id
+      url: "/players/" + player._id
     }).success(function(data) {
         //Filter our the deleted player
         $timeout(function () {
           $scope.players = $scope.players.filter(function(p) {
-            return p._id != id;
+            return p._id != player._id;
           });
         }, 0);
     });
   };
 
-  $scope.continueStory = function(id) {
+  $scope.continueStory = function(player) {
     $http({
       method: "GET",
-      url: "/progressions/" + id
+      url: "/progressions/" + player._id
     }).success(function(data) {
       if (data.page) {
         window.location = '/story/' + data.page;

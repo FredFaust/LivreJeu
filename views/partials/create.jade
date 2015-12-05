@@ -8,6 +8,9 @@ mixin checkboxesRepeat(idPrefix, items, status)
     label.check-img
     label.check-label(ng-attr-for=idStatement, ng-click="val == 'ARMS_CONTROL' && toggleMasteredWeapon()") {{prop}}
 
+mixin loadingAnimation(condition)
+  img.loading-animation(src='/images/loading.gif' ng-show=condition)
+
 block extraHeaders
   link(rel='stylesheet', href='/stylesheets/create.css')
 
@@ -37,13 +40,15 @@ form#create-player(ng-submit='formSubmit()')
   br
   .button-group
     input.button(type='submit', value="Debuter l'aventure!", ng-disabled='!canSubmit || submitSent', ng-class="canSubmit ? 'button-success' : 'button-disabled'")
-    img.loading-animation(src='/images/loading.gif' ng-show='submitSent')
+    +loadingAnimation('submitSent')
 
 fieldset#players-list.form-fieldset
   legend Joueurs actifs
-  p(ng-show='players.length === 0') Aucun joueur existant
+  p(ng-show='!loadingPlayers && players.length === 0') Aucun joueur existant
+  +loadingAnimation('loadingPlayers')
   table
     tr(ng-repeat='player in players')
-      td.player-continue(ng-click='continueStory(player._id)') {{player.name}}
+      td.player-continue(ng-click='continueStory(player)') {{player.name}}
       td
-        input.button.small-button.button-error(type='button', value="Supprimer", ng-click='deletePlayer(player._id)')
+        input.button.small-button.button-error(type='button', value="Supprimer", ng-disabled='player.deleteSent', ng-click='deletePlayer(player)')
+        +loadingAnimation('player.deleteSent')

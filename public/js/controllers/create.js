@@ -5,8 +5,8 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   $scope.submitSent = false;
   $scope.deleteSent = false;
   $scope.loadingPlayers = true;
-  $scope.disciplines = {};
-  $scope.items = {};
+  $scope.disciplines = $scope.$parent.disciplines;
+  $scope.items = $scope.$parent.items;
   $scope.masteredWeapon = {
     key : null,
     value : null
@@ -43,21 +43,6 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   };
 
   /********************* HTTP REQUESTS ****************************************/
-  $http({
-    method: "GET",
-    url: "/gameinfo/all"
-  }).success(function(data) {
-    if (!_.isUndefined(data) && !_.isNull(data)) {
-      var deserializedData = JSON.parse(data);
-
-      //Updates the model whenever possible
-      $timeout(function () {
-        $scope.disciplines = deserializedData.DISCIPLINES;
-        $scope.items = deserializedData.ITEMS;
-      }, 0);
-    }
-  });
-
   $http({
     method: "GET",
     url: "/players"
@@ -97,6 +82,9 @@ angular.module('LivreJeu.controllers').controller('createController', function($
       url: "/progressions/" + player._id
     }).success(function(data) {
       if (data.page) {
+        $scope.$parent.player = player;
+        $scope.$parent.progression = data;
+
         $location.path('/story/' + data.page);
       }
     });

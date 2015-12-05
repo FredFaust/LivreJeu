@@ -18,20 +18,21 @@ mixin backpackRow(array, start, finish)
 // Dummy data, only for the first tps
 -var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, equipment: [{ name: 'Marteau de guerre', file: 'warhammer.png' }, { name: 'Glaive', file: 'glaive.png' }, { name: 'Potion de Lampsur', file: 'lampsur.png' }], fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' }, { opponent: 'Dracula', result: 'Defaite' } ]};
 -hero.specials = [{name : "Gilet de cuir matelasse", file: "quilted-vest.png"}];
--hero.disciplines = 'Communication Animale, 6e Sens';
 
 if errorMessage
   #error-block
     p #{errorMessage}
 
 #adventure-sheet
-  h1.hero-name #[img(src='/images/hero.png')] #{heroname}
+  h1.hero-name #[img(src='/images/hero.png')] {{info.player.name}}
   hr
   ul.attributes
-    li Habilet&eacute; : #{hero.ability}
-    li Endurance : #{hero.endurance}
-    li Pi&egrave;ces d'or : #{hero.money}
-    li Disciplines Kai : #{hero.disciplines}
+    li Habilet&eacute; : {{info.progression.combatSkill}}
+    li Endurance : {{info.progression.endurance}}
+    li Pi&egrave;ces d'or : {{info.progression.money}}
+    li Disciplines Kai :
+      ul(ng-repeat='discipline in info.player.disciplines')
+        li {{$parent.disciplines[discipline]}}
   h2 #[img(src='/images/sword.png')] Derniers Combats #[img(src='/images/sword.png')]
   hr
   ol

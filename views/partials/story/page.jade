@@ -3,12 +3,12 @@ link(rel='stylesheet', href='/stylesheets/adventure-sheet.css')
 
 mixin storyLink(page, section)
   -var s = section ? ',' + section : '';
-  -var clickStatement = 'goToPage(' + page + s + ')';
+  -var clickStatement = 'goToStory(' + page + s + ')';
   a(href='', ng-click=clickStatement) Rendez-vous au #{page}.
 
-// Dummy data, only for the first tps
--var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, equipment: [{ name: 'Marteau de guerre', file: 'warhammer.png' }, { name: 'Glaive', file: 'glaive.png' }, { name: 'Potion de Lampsur', file: 'lampsur.png' }], fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' }, { opponent: 'Dracula', result: 'Defaite' } ]};
--hero.specials = [{name : "Gilet de cuir matelasse", file: "quilted-vest.png"}];
+mixin tooltipInfo(title, refreshHelpInfo)
+  -var titleStatement = "{{" + title + "}}";
+  img.help-icon(src="/images/helpInfo.png" ng-attr-title=titleStatement, ng-mouseover=refreshHelpInfo)
 
 if errorMessage
   #error-block
@@ -19,18 +19,20 @@ if errorMessage
   hr
   ul.attributes
     li Habilet&eacute; : {{info.progression.combatSkill}}
+      +tooltipInfo('help.combatInfo', 'updateCombatInfo()')
     li Endurance : {{info.progression.endurance}}
+      +tooltipInfo('help.enduranceInfo', 'updateEnduranceInfo()')
     li Pi&egrave;ces d'or : {{info.progression.money}}
   p Disciplines Kai :
     ul.disciplines
-      li(ng-repeat='discipline in info.player.disciplines') {{$parent.disciplines[discipline]}}
+      li(ng-repeat='discipline in info.player.disciplines') {{context.disciplines[discipline]}}
   h2 #[img(src='/images/sword.png')] Derniers Combats #[img(src='/images/sword.png')]
   hr
   ol
     li(ng-repeat='fight in fights', ng-class="fight.result == 'Victoire' ? 'fight-victory' : 'fight-defeat'") {{fight.versus + ' - ' + fight.result}}
       img(ng-src="{{fight.result == 'Victoire' ? '/images/trophy.png' : '/images/skull.png'}}")
 
-  img(src='/images/blood-splash.png')
+  img#blood-splash(src='/images/blood-splash.png')
   a.button.button-brown(href="", ng-click='showBackpackPrompt()') Sac &agrave; dos
   #backpack-modal.modal-dialog(ng-class="{'show-modal': prompt.showBackpack}")
     div

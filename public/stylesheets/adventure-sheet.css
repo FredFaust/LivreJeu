@@ -25,9 +25,13 @@
     vertical-align: middle;
 }
 
-#adventure-sheet img {
+#blood-splash {
     height: 100px;
     width: 100%;
+}
+
+.help-icon {
+    vertical-align: middle;
 }
 
 #adventure-sheet h1, h2 {
@@ -38,6 +42,7 @@
     list-style: none;
     padding-left: 10px;
     padding-bottom: 10px;
+    display: inline-block;
 }
 
 .attributes li {

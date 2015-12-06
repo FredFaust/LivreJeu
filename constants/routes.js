@@ -2,13 +2,13 @@ module.exports = {
   INDEX: '/',
   CATCH_ALL: '*',
   API: {
-    PLAYERS: '/players',
-    PLAYER: '/players/:id',
-    PROGRESSIONS: '/progressions',
-    PROGRESSION: '/progressions/:playerid',
+    PLAYERS: '/api/players',
+    PLAYER: '/api/players/:id',
+    PROGRESSIONS: '/api/progressions',
+    PROGRESSION: '/api/progressions/:playerid',
     GAMEINFO : {
-      ALL: '/gameinfo/all',
-      MASTER_WEAPONS: '/gameinfo/master'
+      ALL: '/api/gameinfo/all',
+      MASTER_WEAPONS: '/api/gameinfo/master'
     }
   },
   PARTIALS: {
@@ -33,15 +33,15 @@ module.exports = {
  INDEX: '/home',
  STORY: '/story',
  STORY_PAGE_SECTION: '/story/:pagenumber/:section',
- SINGLE_PLAYER: '/players/:id',
- PROGRESSIONS: '/progressions',
- SINGLE_PROGRESSION: '/progressions/:playerid',
+ SINGLE_PLAYER: '/api/players/:id',
+ PROGRESSIONS: '/api/progressions',
+ SINGLE_PROGRESSION: '/api/progressions/:playerid',
  JSON: {
  CHOICE: '/json/choixaleatoire/:pagenumber',
  FIGHT: '/json/combat/:player/:enemy',
  PAGE: '/json/page/:pagenumber',
  PLAYERS: '/json/players',
- SINGLE_PLAYER: '/json/players/:id',
+ SINGLE_PLAYER: '/json/api/players/:id',
  WEAPONS: '/json/weapons'
  }
  };*/

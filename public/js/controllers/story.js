@@ -7,18 +7,49 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
     showBackpack: false,
     showSpecialObjects: false
   };
-
-  $scope.info = {
-    player: $scope.$parent.player,
-    progression: $scope.$parent.progression
+  $scope.help = {
+    combatInfo: '',
+    enduranceInfo: ''
   };
-
   $scope.fights = [];
 
   $scope.itemsTableArray = [];
   $scope.specialObjectsTableArray = [];
 
-  $scope.$parent.updateNavBar('story');
+  $scope.updateNavBar('story');
+
+  /************************** TOOLTIP INFO  *************************************/
+
+  $scope.updateCombatInfo = function() {
+    console.log('update CI');
+    var text = 'Initial ('  + $scope.info.player.combatSkill + ') ';
+
+    if (_.contains($scope.info.player.disciplines, 'ARMS_CONTROL') &&
+        $scope.info.player.masteredWeapon &&
+        _.contains($scope.info.progression.items, $scope.info.player.masteredWeapon)) {
+      text += '+ Arme maitrisee (2) ';
+    }
+
+    text += '= Total (' + $scope.info.progression.combatSkill + ')';
+
+    $scope.help.combatInfo = text;
+  };
+
+  $scope.updateEnduranceInfo = function() {
+    console.log('update EI');
+    var text = 'Initial ('  + $scope.info.player.endurance + ') ';
+
+    if (_.contains($scope.info.progression.specialObjects, 'QUILTED_LEATHER_VEST')) {
+      text += '+ Veste de cuir matelasse (2) ';
+    }
+
+    text += '= Total (' + $scope.info.progression.endurance + ')';
+
+    $scope.help.enduranceInfo = text;
+  };
+
+  //$scope.updateCombatInfo();
+  //$scope.updateEnduranceInfo();
 
   /************************** PROMPT/MODAL FUNCTIONS  *************************************/
   $scope.showCustomPrompt = function() {
@@ -44,8 +75,8 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
 
           if (index < $scope.info.progression.items.length) {
             item.key = $scope.info.progression.items[index];
-            item.name = $scope.$parent.items[item.key];
-            item.src = $scope.$parent.itemsFiles[item.key];
+            item.name = $scope.context.items[item.key];
+            item.src = $scope.context.itemsFiles[item.key];
           }
 
           rowArray.push(item);
@@ -70,8 +101,8 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
 
           if (index < $scope.info.progression.specialObjects.length) {
             item.key = $scope.info.progression.specialObjects[index];
-            item.name = $scope.$parent.specialObjects[item.key];
-            item.src = $scope.$parent.specialObjectsFiles[item.key];
+            item.name = $scope.context.specialObjects[item.key];
+            item.src = $scope.context.specialObjectsFiles[item.key];
           }
 
           rowArray.push(item);
@@ -94,23 +125,23 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
 
   /************************** SORT FIGHTS FROM PROGRESSION  *************************************/
   //TODO: DO WE WANT TO SHOW THE LAST FIGHT AS THE FIRST ELEMENT OF OUR ORDERED LIST ??
-  $scope.fights = _.sortBy($scope.info.progression.fights, 'id');
+  $scope.fights = _.sortBy($scope.info.progression.fights, 'id').reverse();
 
   /************************** FUNCTION THAT WE USE FOR EVERY LINK IN THE STORY *******************/
 
-  $scope.goToPage = function(page, section){
+  $scope.goToStory = function(page, section){
     //TODO: WE WOULD WANT TO REFRESH THE DATA, LIKE RESULT OF A FIGHT OR SMTHG
     $scope.prompt.show = false;
     $scope.prompt.showBackpack = false;
     $scope.prompt.showSpecialObjects = false;
 
-    $scope.$parent.progression.page = parseInt(page, 10);
-    var data = _.omit($scope.$parent.progression, '_id');
+    $scope.info.progression.page = parseInt(page, 10);
+    var data = _.omit($scope.info.progression, '_id');
 
-    var progressionId = $scope.$parent.progression.playerId;
+    var progressionId = $scope.info.progression.playerId;
     $http({
       method: 'PUT',
-      url: '/progressions/' + progressionId,
+      url: '/api/progressions/' + progressionId,
       data: data
     }).success(function(data) {
       var s = section || '1';

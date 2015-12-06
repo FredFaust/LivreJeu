@@ -29,11 +29,11 @@ form#create-player(ng-submit='formSubmit()')
     #discs.checkbox-container
       p Choisissez 5
         span &nbsp;disciplines
-      +checkboxesRepeat('DISC_', 'disciplines', 'user.disciplinesStatus')
+      +checkboxesRepeat('DISC_', 'context.disciplines', 'user.disciplinesStatus')
     #equip.checkbox-container
       p Choisissez 2
         span &nbsp;items
-      +checkboxesRepeat('ITEMS_', 'items', 'user.itemsStatus')
+      +checkboxesRepeat('ITEMS_', 'context.items', 'user.itemsStatus')
 
     p#mastered-weapon(ng-class="{'invisible': masteredWeapon.value === null}") Arme maitrise : {{masteredWeapon.value}}
 

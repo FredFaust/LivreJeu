@@ -5,15 +5,14 @@ block body
     nav()
       ul.navlinks
         li
-          a(href='/home', id='home', ng-class="{'nav-selected': nav.selected == 'home'}") Accueil
+          a(href='', ng-click="goToPage('/home')", id='home', ng-class="{'nav-selected': nav.selected == 'home'}") Accueil
         li
-          a(href='/create', id='story', ng-class="{'nav-selected': nav.selected == 'story'}") Jeu
+          a(href='', ng-click="goToPage('/story')", id='story', ng-class="{'nav-selected': nav.selected == 'story'}") Jeu
         li
-          a(href='/help/main', id='help', ng-class="{'nav-selected': nav.selected == 'help'}") Aide
+          a(href='', ng-click="goToPage('/help/main')", id='help', ng-class="{'nav-selected': nav.selected == 'help'}") Aide
       hr
 
-    div(ng-controller='playerController')
-      #view(ng-view)
+    #view(ng-view)
 
   footer.site-footer()
     hr

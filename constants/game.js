@@ -51,11 +51,11 @@ module.exports = {
     }
   ],
   MASTER: {
-    POIGNARD: 'Le Poignard',
-    LANCE: 'La Lance',
+    DAGGER: 'Le Poignard',
+    SPEAR: 'La Lance',
     MACE: 'La Mace',
     SABRE: 'Le Sabre',
-    WARHAMMER: 'Le Marteau de guerre',
+    WAR_HAMMER: 'Le Marteau de guerre',
     SWORD: "L'epee",
     AXE: 'La Hache',
     SWORD2: "L'epee",

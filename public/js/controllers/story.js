@@ -13,6 +13,7 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
   };
 
   $scope.itemsTableArray = [];
+  $scope.specialObjectsTableArray = [];
 
   $scope.showCustomPrompt = function() {
     $scope.prompt.showCustom = true;
@@ -49,6 +50,28 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
     $scope.prompt.showBackpack = true;
   };
   $scope.showSpecialObjectsPrompt = function() {
+    $scope.specialObjectsTableArray = [];
+    for(var i = 0; i < 2; i++) {
+      var rowArray = [];
+
+      for(var j = 0; j < 3; j++) {
+        var index = i*3 + j;
+          var item = {
+            key: 'EMPTY',
+            name: 'Vide',
+            src: '/images/backpack-empty.png'
+          };
+
+          if (index < $scope.info.progression.specialObjects.length) {
+            item.key = $scope.info.progression.specialObjects[index];
+            item.name = $scope.$parent.specialObjects[item.key];
+            item.src = $scope.$parent.specialObjectsFiles[item.key];
+          }
+
+          rowArray.push(item);
+      }
+      $scope.specialObjectsTableArray.push(rowArray);
+    }
     $scope.prompt.showSpecialObjects = true;
   };
 

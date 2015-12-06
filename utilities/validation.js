@@ -44,7 +44,7 @@ module.exports = {
     }
 
     if (!_.every(items, function(i) {
-          return game.ITEMS.hasOwnProperty(i) || game.WORLD_ITEMS.hasOwnProperty(i);
+          return game.ITEMS.hasOwnProperty(i) || game.SPECIAL_ITEMS.hasOwnProperty(i);
         })) {
       callback("Equipement invalide dans la progression", req, res);
       return false;

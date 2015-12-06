@@ -18,6 +18,8 @@ angular.module('LivreJeu.controllers').controller('playerController', function($
         $scope.disciplines = deserializedData.DISCIPLINES;
         $scope.items = deserializedData.ITEMS;
         $scope.itemsFiles = deserializedData.ITEMS_FILES;
+        $scope.specialObjects = deserializedData.SPECIAL_ITEMS;
+        $scope.specialObjectsFiles = deserializedData.SPECIAL_ITEMS_FILES;
       }, 0);
     }
   });

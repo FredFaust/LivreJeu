@@ -26,16 +26,16 @@ module.exports = {
   },
   ITEMS_FILES: {
     SWORD: '/images/sword.png',
-    SABRE: '/images/sword.png',
-    SPEAR: '/images/sword.png',
-    MACE: '/images/sword.png',
-    WAR_HAMMER: '/images/sword.png',
-    AXE: '/images/sword.png',
-    STICK: '/images/sword.png',
-    GLAIVE: '/images/sword.png',
-    QUILTED_LEATHER_VEST: '/images/sword.png',
-    LAMPSUR_POTION: '/images/sword.png',
-    SPECIAL_RATIONS: '/images/sword.png'
+    SABRE: '/images/sabre.png',
+    SPEAR: '/images/spear.png',
+    MACE: '/images/mace.png',
+    WAR_HAMMER: '/images/warhammer.png',
+    AXE: '/images/axe.png',
+    STICK: '/images/stick.png',
+    GLAIVE: '/images/glaive.png',
+    QUILTED_LEATHER_VEST: '/images/quilted-vest.png',
+    LAMPSUR_POTION: '/images/lampsur.png',
+    SPECIAL_RATIONS: '/images/rations.png'
   },
   FIGHT: [
     {
@@ -62,11 +62,22 @@ module.exports = {
     STICK: 'Le Baton',
     GLAIVE: 'Le Glaive'
   },
-  WORLD_ITEMS: {
+  SPECIAL_ITEMS: {
+    QUILTED_LEATHER_VEST: 'Gilet de cuir matelasse',
     BLUE_DISC: 'Disque de Pierre Bleu',
     BONE_SWORD: "Épée d'os",
     COVER: 'Couvertures en Fourrure',
     MEAL: 'Repas',
-    ROPE: 'Corde'
+    ROPE: 'Corde',
+    BAKANAL_OIL: 'Huile de Bakanal'
+  },
+  SPECIAL_ITEMS_FILES: {
+    QUILTED_LEATHER_VEST: '/images/quilted-vest.png',
+    BLUE_DISC: '/images/blue-disc.png',
+    BONE_SWORD: "/images/bone-sword.png",
+    COVER: '/images/sword.png',
+    MEAL: '/images/sword.png',
+    ROPE: '/images/stick.png',
+    BAKANAL_OIL: '/images/lampsur.png'
   }
 };

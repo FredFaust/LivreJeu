@@ -17,6 +17,7 @@ exports.postPlayer = function(req, res) {
   var disciplines = req.body.disciplines;
   var items = req.body.items;
   var masteredWeapon = req.body.masteredWeapon;
+  var speciaObjects = [];
 
   if (validation.validatePlayer(heroName, disciplines, req, res, renderInvalidPage) && validation.validateItems(items, req, res, renderInvalidPage)) {
     var initialCombatSkill = random.getIntInclusive(0, 9) + 10,
@@ -30,6 +31,8 @@ exports.postPlayer = function(req, res) {
 
     if (_.contains(items, 'QUILTED_LEATHER_VEST')) {
       actualEndurance += 2;
+      items = _.without(items, 'QUILTED_LEATHER_VEST');
+      speciaObjects.push('QUILTED_LEATHER_VEST');
     }
 
     var player = {
@@ -49,6 +52,7 @@ exports.postPlayer = function(req, res) {
         endurance: actualEndurance,
         combatSkill: actualCombatSkill,
         items: items,
+        specialObjects: speciaObjects,
         page: 1,
         money: 0
       };

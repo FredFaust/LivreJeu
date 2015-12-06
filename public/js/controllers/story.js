@@ -48,9 +48,6 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
     $scope.help.enduranceInfo = text;
   };
 
-  //$scope.updateCombatInfo();
-  //$scope.updateEnduranceInfo();
-
   /************************** PROMPT/MODAL FUNCTIONS  *************************************/
   $scope.showCustomPrompt = function() {
     $scope.prompt.showCustom = true;

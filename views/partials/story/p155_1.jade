@@ -7,17 +7,17 @@ block prompt-title
   h1 Repas
 
 block prompt-message
-  p Vous êtes affamé, et il vous faut prendre un #{gameInfo.SPECIAL_ITEMS.MEAL} avant de continuer, sinon, vous perdrez 3 points d'ENDURANCE.
+  p Vous êtes affamé, et il vous faut prendre un {{context.specialObjects.MEAL}} avant de continuer, sinon, vous perdrez 3 points d'ENDURANCE.
 
 block x-button
-  a.modal-close(href="/story/155/2", title="Close") X
+  a.modal-close(href="", ng-click='goToStory(155,2)', title="Close") X
 
 block prompt-buttons
-  a.button.button-accept(href="/story/155/2", title="Manger") Manger
-  a.button.button-warning(href="/story/155/2", title="Ne pas manger") Ne pas manger
+  a.button.button-accept(href="", ng-click='goToStory(155,2)', title="Manger") Manger
+  a.button.button-warning(href="", ng-click='goToStory(155,2)', title="Ne pas manger") Ne pas manger
 
 block story
   p.
       Le vent glacé de la montagne à tôt fait de dissiper les brumes de l'aube. Epuisé, transi jusqu'à la moelle et encore sous le choc des récents événements, vous escaladez l'impitoyable paroi de roc jusqu'à ce que vous parveniez enfin sur une large corniche où vous vous sentez plus en sécurité.
 
-  a.button.button-success.prompt-button(href='') Continuer
+  +promptButton('Continuer')

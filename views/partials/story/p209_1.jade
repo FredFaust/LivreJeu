@@ -1,4 +1,4 @@
-extends page_prompt
+extends story_prompt
 
 block extraModalClasses
   -var extraModalClasses = "modal-endurance";
@@ -8,14 +8,11 @@ block prompt-title
 block prompt-message
   p <strong>Vous perdez 2 points d'ENDURANCE.</strong>
 block x-button
-  a.modal-close(href="/game/209/2", title="Close") X
+  a.modal-close(href='', title="Close", ng-click='goToStory(209, 2)') X
 block prompt-buttons
-  a.button.button-accept(href="/game/209/2", title="Okay") Okay
+  a.button.button-accept(href='', ng-click='goToStory(209, 2)', title="Okay") Okay
 
-block sections
+block story
   p Vous vous cramponnez à la paroi rocheuse pendant toute la nuit. Le vent glacial vous cingle le visage et vous êtes saisi de tremblements incontrôlables, luttant de toutes vos forces pour ne pas vous évanouir.
 
-  block expired-content
-    a.button.button-success(href='#prompt') Continuer
-
-  block section2
+  +promptButton('Continuer')

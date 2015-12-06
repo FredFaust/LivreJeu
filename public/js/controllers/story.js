@@ -1,6 +1,7 @@
 angular.module('LivreJeu.controllers').controller('storyController', function($scope, $http, $timeout, $location) {
   console.log('storyController created');
 
+  /************************** SCOPE DEFINITION  *************************************/
   $scope.prompt = {
     showCustom: false,
     showBackpack: false,
@@ -12,9 +13,14 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
     progression: $scope.$parent.progression
   };
 
+  $scope.fights = [];
+
   $scope.itemsTableArray = [];
   $scope.specialObjectsTableArray = [];
 
+  $scope.$parent.updateNavBar('story');
+
+  /************************** PROMPT/MODAL FUNCTIONS  *************************************/
   $scope.showCustomPrompt = function() {
     $scope.prompt.showCustom = true;
   };
@@ -85,7 +91,15 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
     $scope.prompt.showSpecialObjects = false;
   };
 
+
+  /************************** SORT FIGHTS FROM PROGRESSION  *************************************/
+  //TODO: DO WE WANT TO SHOW THE LAST FIGHT AS THE FIRST ELEMENT OF OUR ORDERED LIST ??
+  $scope.fights = _.sortBy($scope.info.progression.fights, 'id');
+
+  /************************** FUNCTION THAT WE USE FOR EVERY LINK IN THE STORY *******************/
+
   $scope.goToPage = function(page, section){
+    //TODO: WE WOULD WANT TO REFRESH THE DATA, LIKE RESULT OF A FIGHT OR SMTHG
     $scope.prompt.show = false;
     $scope.prompt.showBackpack = false;
     $scope.prompt.showSpecialObjects = false;

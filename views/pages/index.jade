@@ -1,15 +1,15 @@
 extends layout
 
 block body
-  .page-wrap
+  .page-wrap(ng-controller='appController')
     nav()
       ul.navlinks
         li
-          a(href='/home', id='home', class='section-nav-link') Accueil
+          a(href='/home', id='home', ng-class="{'nav-selected': nav.selected == 'home'}") Accueil
         li
-          a(href='/create', id='story', class='section-nav-link') Jeu
+          a(href='/create', id='story', ng-class="{'nav-selected': nav.selected == 'story'}") Jeu
         li
-          a(href='/help/main', id='help', class='section-nav-link') Aide
+          a(href='/help/main', id='help', ng-class="{'nav-selected': nav.selected == 'help'}") Aide
       hr
 
     div(ng-controller='playerController')

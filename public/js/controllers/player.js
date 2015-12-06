@@ -6,6 +6,10 @@ angular.module('LivreJeu.controllers').controller('playerController', function($
   $scope.items = {};
   $scope.itemsFiles = {};
 
+  $scope.updateNavBar = function(selected) {
+    $scope.$parent.nav.selected = selected;
+  };
+
   $http({
     method: "GET",
     url: "/gameinfo/all"

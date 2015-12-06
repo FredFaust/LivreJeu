@@ -18,6 +18,8 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   };
   $scope.players = [];
 
+  $scope.$parent.updateNavBar('story');
+
   /********************* MASTERED WEAPON ****************************************/
   $scope.toggleMasteredWeapon = function() {
     if (!$scope.masteredWeapon.key && !$scope.masteredWeapon.value) {

@@ -46,6 +46,37 @@ exports.postPlayer = function(req, res) {
       player.masteredWeapon = masteredWeapon;
     }
 
+    //TEMPLATE FOR FIGHTS :
+    //"fights": [
+    //  {
+    //    "id": 1,
+    //    "versus": "BAKANAL",
+    //    "finished": true,
+    //    "result": "Victoire"
+    //    "rounds": [
+    //      {
+    //        "number": 1,
+    //        "playerHP": 15,
+    //        "playerDMG": 20,
+    //        "enemyHP": 20,
+    //        "enemyDMG": 7
+    //      }]
+    //  }, {
+    //    "id": 2,
+    //    "versus": "LANGUABARB",
+    //    "finished": true,
+    //    "result": "Victoire"
+    //    "rounds": [
+    //      {
+    //        "number": 1,
+    //        "playerHP": 10,
+    //        "playerDMG": 25,
+    //        "enemyHP": 16,
+    //        "enemyDMG": 9
+    //      }]
+    //  }
+    //],
+
     var createProgression = function(db) {
       var prog = {
         playerId: req.session.playerId,
@@ -53,6 +84,7 @@ exports.postPlayer = function(req, res) {
         combatSkill: actualCombatSkill,
         items: items,
         specialObjects: speciaObjects,
+        fights: [],
         page: 1,
         money: 0
       };

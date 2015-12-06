@@ -1,12 +1,10 @@
-angular.module('LivreJeu.controllers').controller('createController', function($scope, $http, $q, $window, $timeout) {
-
+angular.module('LivreJeu.controllers').controller('createController', function($scope, $http, $timeout, $location) {
+  console.log('createController was created');
   /********************* SCOPE DEFINITION ****************************************/
   $scope.canSubmit = false;
   $scope.submitSent = false;
   $scope.deleteSent = false;
   $scope.loadingPlayers = true;
-  $scope.disciplines = {};
-  $scope.items = {};
   $scope.masteredWeapon = {
     key : null,
     value : null
@@ -18,6 +16,8 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   };
   $scope.players = [];
 
+  $scope.updateNavBar('story');
+
   /********************* MASTERED WEAPON ****************************************/
   $scope.toggleMasteredWeapon = function() {
     if (!$scope.masteredWeapon.key && !$scope.masteredWeapon.value) {
@@ -25,7 +25,7 @@ angular.module('LivreJeu.controllers').controller('createController', function($
 
       $http({
         method: "GET",
-        url: "/gameinfo/master"
+        url: "/api/gameinfo/master"
       }).success(function(data) {
         if (!data) {
           return;
@@ -45,22 +45,7 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   /********************* HTTP REQUESTS ****************************************/
   $http({
     method: "GET",
-    url: "/gameinfo/all"
-  }).success(function(data) {
-    if (!_.isUndefined(data) && !_.isNull(data)) {
-      var deserializedData = JSON.parse(data);
-
-      //Updates the model whenever possible
-      $timeout(function () {
-        $scope.disciplines = deserializedData.DISCIPLINES;
-        $scope.items = deserializedData.ITEMS;
-      }, 0);
-    }
-  });
-
-  $http({
-    method: "GET",
-    url: "/players"
+    url: "/api/players"
   }).success(function(data) {
     $scope.loadingPlayers = false;
     if (!_.isUndefined(data) && !_.isNull(data)) {
@@ -80,7 +65,7 @@ angular.module('LivreJeu.controllers').controller('createController', function($
     player.deleteSent = true;
     $http({
       method: "DELETE",
-      url: "/players/" + player._id
+      url: "/api/players/" + player._id
     }).success(function(data) {
         //Filter our the deleted player
         $timeout(function () {
@@ -94,10 +79,12 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   $scope.continueStory = function(player) {
     $http({
       method: "GET",
-      url: "/progressions/" + player._id
+      url: "/api/progressions/" + player._id
     }).success(function(data) {
       if (data.page) {
-        window.location = '/story/' + data.page;
+        $scope.info.player = player;
+        $scope.info.progression = data;
+        $location.path('/story/' + data.page);
       }
     });
   };
@@ -146,13 +133,16 @@ angular.module('LivreJeu.controllers').controller('createController', function($
       //Requête ajax POST pour envoyer les infos du joueur en JSON
       $http({
             method: "POST",
-            url: "/players",
+            url: "/api/players",
             data: data
           }
       ).success(function(data) {
-          if (data && typeof(data.redirect) == 'string') {
+          if (data && data.redirect) {
+            $scope.info.player = data.player;
+            $scope.info.progression = data.progression;
+
             //On redirige l'utilisateur vers le nom de la page qui à été renvoyé par le service web
-            window.location = data.redirect;
+            $location.path(data.redirect);
           }
       });
 

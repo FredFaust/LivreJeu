@@ -1,70 +1,59 @@
 link(rel='stylesheet', href='/stylesheets/game.css')
 link(rel='stylesheet', href='/stylesheets/adventure-sheet.css')
-block extraScripts
-  script(src="/js/story.js", async=true)
 
-mixin backpackRow(array, start, finish)
-  tr
-    -for (var i = start; i < finish; i++) {
-      - var item = { name: 'Vide', src: '/images/backpack-empty.png' };
-      - if (i < array.length) {
-        - item = { name: array[i].name, src: '/images/' + array[i].file }
-      -}
-      td
-        img.img-table-backpack(src=item.src)
-        p= item.name
-    -}
+mixin storyLink(page, section)
+  -var s = section ? ',' + section : '';
+  -var clickStatement = 'goToStory(' + page + s + ')';
+  a(href='', ng-click=clickStatement) Rendez-vous au #{page}.
 
-// Dummy data, only for the first tps
--var hero = { name: 'Felix Le Vainqueur', ability: 10, endurance: 20, money: 10, equipment: [{ name: 'Marteau de guerre', file: 'warhammer.png' }, { name: 'Glaive', file: 'glaive.png' }, { name: 'Potion de Lampsur', file: 'lampsur.png' }], fights: [ { opponent: 'Le Seigneur de glaces', result: 'Victoire' }, { opponent: 'Dracula', result: 'Defaite' } ]};
--hero.specials = [{name : "Gilet de cuir matelasse", file: "quilted-vest.png"}];
--hero.disciplines = 'Communication Animale, 6e Sens';
+mixin tooltipInfo(title, refreshHelpInfo)
+  -var titleStatement = "{{" + title + "}}";
+  img.help-icon(src="/images/helpInfo.png" ng-attr-title=titleStatement, ng-mouseover=refreshHelpInfo)
 
 if errorMessage
   #error-block
     p #{errorMessage}
 
 #adventure-sheet
-  h1.hero-name #[img(src='/images/hero.png')] #{heroname}
+  h1.hero-name #[img(src='/images/hero.png')] {{info.player.name}}
   hr
   ul.attributes
-    li Habilet&eacute; : #{hero.ability}
-    li Endurance : #{hero.endurance}
-    li Pi&egrave;ces d'or : #{hero.money}
-    li Disciplines Kai : #{hero.disciplines}
+    li Habilet&eacute; : {{info.progression.combatSkill}}
+      +tooltipInfo('help.combatInfo', 'updateCombatInfo()')
+    li Endurance : {{info.progression.endurance}}
+      +tooltipInfo('help.enduranceInfo', 'updateEnduranceInfo()')
+    li Pi&egrave;ces d'or : {{info.progression.money}}
+  p Disciplines Kai :
+    ul.disciplines
+      li(ng-repeat='discipline in info.player.disciplines') {{context.disciplines[discipline]}}
   h2 #[img(src='/images/sword.png')] Derniers Combats #[img(src='/images/sword.png')]
   hr
   ol
-    each fight in hero.fights
-      -var fightClass = fight.result == 'Victoire' ? 'fight-victory' : 'fight-defeat'
-      -var fightContent = fight.opponent + ' - ' + fight.result
-      -var fightImage = fight.result == 'Victoire' ? '/images/trophy.png' : '/images/skull.png';
-      li(class=fightClass) #{fightContent}
-        img(src=fightImage)
-  img(src='/images/blood-splash.png')
-  a.button.button-brown(href="#backpack-modal") Sac &agrave; dos
-  #backpack-modal.modal-dialog
+    li(ng-repeat='fight in fights', ng-class="fight.result == 'Victoire' ? 'fight-victory' : 'fight-defeat'") {{fight.versus + ' - ' + fight.result}}
+      img(ng-src="{{fight.result == 'Victoire' ? '/images/trophy.png' : '/images/skull.png'}}")
+
+  img#blood-splash(src='/images/blood-splash.png')
+  a.button.button-brown(href="", ng-click='showBackpackPrompt()') Sac &agrave; dos
+  #backpack-modal.modal-dialog(ng-class="{'show-modal': prompt.showBackpack}")
     div
-      a.modal-close(href="#close", title="Close") X
+      a.modal-close(href="", title="Close", ng-click='hideBackpackPrompt()') X
       h2 Sac &agrave; dos
       table.tbl-backpack
-        +backpackRow(hero.equipment, 0, 3)
-        +backpackRow(hero.equipment, 3, 6)
-        +backpackRow(hero.equipment, 6, 8)
+        tr(ng-repeat='row in itemsTableArray')
+          td(ng-repeat='item in row')
+            img.img-table-backpack(src='{{item.src}}')
+            p= '{{item.name}}'
 
-  a#special-objects.button.button-brown(href="#special-modal") Objets sp&eacute;ciaux
-  #special-modal.modal-dialog
+  a#special-objects.button.button-brown(href="", ng-click='showSpecialObjectsPrompt()') Objets sp&eacute;ciaux
+  #special-modal.modal-dialog(ng-class="{'show-modal': prompt.showSpecialObjects}")
     div
-      a.modal-close(href="#close", title="Close") X
+      a.modal-close(href="", title="Close", ng-click='hideSpecialObjectsPrompt()') X
       h2 Objets sp&eacute;ciaux
       table.tbl-backpack
-        tr
-          td
-          -var uniqueSpecialItem = hero.specials[0];
-          td
-            img.img-table-item(src='/images/' + uniqueSpecialItem.file)
-            p= uniqueSpecialItem.name
-          td
+        tr(ng-repeat='row in specialObjectsTableArray')
+          td(ng-repeat='item in row')
+            img.img-table-backpack(src='{{item.src}}')
+            p= '{{item.name}}'
 
 h1 Page ##{pageNumber}
 block story

@@ -2,10 +2,11 @@ extends page
 
 block story
   p.
-      Vous cachez le cadavre sous l'escalier et vous vous hatez de le fouiller.
+    Vous cachez le cadavre sous l'escalier et vous vous hatez de le fouiller.
 
-  p.
-      Vous abandonnez ensuite le cadavre et vous montez l'escalier quatre &agrave; quatre.
+    Vous y d&eacute;couvrez une {{context.specialObjects.SPECIAL_ITEMS.BONE_SWORD}} et un {{context.specialObjects.SPECIAL_ITEMS.BLUE_DISC}}. Vous pouvez conserver l'un ou l'autre de ces objets (ou les deux).
+
+    Vous abandonnez ensuite le cadavre et vous montez l'escalier quatre &agrave; quatre.
 
   div#decision
-    p #[a(class="story-link" href="/story/331") Rendez-vous au 331].
+    p #[+storyLink(331, 1)]

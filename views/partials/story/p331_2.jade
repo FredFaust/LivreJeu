@@ -1,0 +1,20 @@
+extends page
+
+block extraScripts
+  script(src="/js/choice.js", async=true)
+
+block story
+  p.
+    Le lendemain, la température descend et un froid rigoureux s'installe. Des vents du nord amènent une grêle de glace qui vous cingle le visage et vos lèvres gercées se mettent à saigner. Vers midi, vous êtes pris dans un blizzard qui rend votre progression difficile et épuisante. Le vent violent vous force à descendre du traîneau pour le pousser. Vous êtes exténué, vos mains et vos orteils sont engourdis par le froid et la transpiration provoquée par vos efforts harassants a gelé sur votre peau, déposant à l'intérieur de vos moufles et de vos bottes une couche de glace.
+  p.
+    Lorsque vous atteignez enfin le glacier, la nuit est presque tombée, et vous êtes tous si fatigués que vous avez à peine suffisamment de force pour dresser la tente et prendre un repas. La situation frise le désastre.
+
+  p Vos orteils, vos doigts et votre nez ont subi la morsure du gel et, à moins que vous ne maîtrisiez la Discipline Kaï de la Guérison, vous perdez 4 points d'ENDURANCE.
+
+  p Utilisez la Table de Hasard pour obtenir un chiffre.
+
+  div#decision
+      p Si vous tirez un chiffre entre 0 et 4, rendez-vous au 62.
+      p Entre 5 et 9, rendez-vous au 288.
+
+  input.button.button-warning(type='button', value='Table de hasard')

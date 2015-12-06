@@ -7,27 +7,27 @@ block prompt-title
   h1 Choix d'items
 
 block prompt-message
-  p Vous y d&eacute;couvrez une #{gameInfo.WORLD_ITEMS.BONE_SWORD} et un #{gameInfo.WORLD_ITEMS.BLUE_DISC}. Vous pouvez conserver l'un ou l'autre de ces objets (ou les deux).
+  p Vous y d&eacute;couvrez une {{context.specialObjects.SPECIAL_ITEMS.BONE_SWORD}} et un {{context.specialObjects.SPECIAL_ITEMS.BLUE_DISC}}. Vous pouvez conserver l'un ou l'autre de ces objets (ou les deux).
   table.tbl-choice
     tr
       td
-        img(src='/images/bone-sword.png')
+        img(ng-src='{{context.specialObjectsFiles.BONE_SWORD}}')
         input#d1(type="checkbox", value='bone-sword')
         label.check-img
-        label.check-label(for='d1') &Eacute;p&eacute;e d'Os
+        label.check-label(for='d1') {{context.specialObjects.BONE_SWORD}}
       td
-        img(src='/images/blue-disc.png')
+        img(ng-src='{{context.specialObjectsFiles.BLUE_DISC}}')
         input#d2(type="checkbox", value='blue-disc')
         label.check-img
-        label.check-label(for='d2') Disque de Pierre Bleu
+        label.check-label(for='d2') {{context.specialObjects.BONE_SWORD}}
 block x-button
-  a.modal-close(href="/story/57/2", title="Close") X
+  a.modal-close(href="", ng-click="goToStory(57, 2)", title="Close") X
 block prompt-buttons
-  a.button.button-accept(href="/story/57/2", title="Okay") Okay
+  a.button.button-accept(href="", ng-click="goToStory(57, 2)", title="Okay") Okay
 
 
 block story
   p.
       Vous cachez le cadavre sous l'escalier et vous vous hatez de le fouiller.
 
-  a.button.button-success.prompt-button(href="") Fouiller
+  +promptButton('Fouiller')

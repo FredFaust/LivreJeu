@@ -17,6 +17,7 @@ exports.postPlayer = function(req, res) {
   var disciplines = req.body.disciplines;
   var items = req.body.items;
   var masteredWeapon = req.body.masteredWeapon;
+  var speciaObjects = [];
 
   if (validation.validatePlayer(heroName, disciplines, req, res, renderInvalidPage) && validation.validateItems(items, req, res, renderInvalidPage)) {
     var initialCombatSkill = random.getIntInclusive(0, 9) + 10,
@@ -30,6 +31,8 @@ exports.postPlayer = function(req, res) {
 
     if (_.contains(items, 'QUILTED_LEATHER_VEST')) {
       actualEndurance += 2;
+      items = _.without(items, 'QUILTED_LEATHER_VEST');
+      speciaObjects.push('QUILTED_LEATHER_VEST');
     }
 
     var player = {
@@ -43,13 +46,47 @@ exports.postPlayer = function(req, res) {
       player.masteredWeapon = masteredWeapon;
     }
 
+    //TEMPLATE FOR FIGHTS :
+    //"fights": [
+    //  {
+    //    "id": 1,
+    //    "versus": "BAKANAL",
+    //    "finished": true,
+    //    "result": "Victoire"
+    //    "rounds": [
+    //      {
+    //        "number": 1,
+    //        "playerHP": 15,
+    //        "playerDMG": 20,
+    //        "enemyHP": 20,
+    //        "enemyDMG": 7
+    //      }]
+    //  }, {
+    //    "id": 2,
+    //    "versus": "LANGUABARB",
+    //    "finished": true,
+    //    "result": "Victoire"
+    //    "rounds": [
+    //      {
+    //        "number": 1,
+    //        "playerHP": 10,
+    //        "playerDMG": 25,
+    //        "enemyHP": 16,
+    //        "enemyDMG": 9
+    //      }]
+    //  }
+    //],
+
     var createProgression = function(db) {
       var prog = {
         playerId: req.session.playerId,
         endurance: actualEndurance,
         combatSkill: actualCombatSkill,
         items: items,
-        page: 1
+        specialObjects: speciaObjects,
+        fights: [],
+        page: 1,
+        money: 0
       };
 
       mongodb.insertProgression(prog, db, function(err, result) {
@@ -59,7 +96,13 @@ exports.postPlayer = function(req, res) {
           console.log('Progression inserted in the collection');
 
           //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
-          res.status(200).send({ redirect: '/story/1/1' });
+          var data = {
+            redirect: '/story/1/1',
+            player: player,
+            progression: prog
+          };
+
+          res.status(200).send(data);
         } else if (err) {
           console.log('Error occurred while inserting a progression');
           console.log(err);

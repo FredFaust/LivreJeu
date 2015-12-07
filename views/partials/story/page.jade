@@ -10,6 +10,10 @@ mixin tooltipInfo(title, refreshHelpInfo)
   -var titleStatement = "{{" + title + "}}";
   img.help-icon(src="/images/helpInfo.png" ng-attr-title=titleStatement, ng-mouseover=refreshHelpInfo)
 
+mixin randomButton(page)
+  -var clickStatement = '!page.choiceMade && getRandomPageServer(' + page + ')';
+  a.button.button-warning(href='', ng-click=clickStatement, ng-class="{'button-disabled': page.choiceMade}") Choix aleatoire
+
 if errorMessage
   #error-block
     p #{errorMessage}
@@ -56,6 +60,7 @@ if errorMessage
             p= '{{item.name}}'
 
 h1 Page ##{pageNumber}
+block timeleft
 block story
 block prompt
 block fight

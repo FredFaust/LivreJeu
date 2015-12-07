@@ -37,16 +37,16 @@ exports.getChoiceJSON = function(req, res) {
   //qu'on doit maintenant visiter
 
   mongodb.connect(function(db) {
-    mongodb.findProgression(req.session.playerId, db, function(err, result) {
+    mongodb.findProgression(req.params.playerid, db, function(err, result) {
       db.close();
 
       if (!err && result) {
         var resultPage = pages.makeChoice(pageNumber, result);
-        res.json(JSON.stringify({ redirect: '/game/' + resultPage }));
+        res.json({ resultPage: resultPage });
       } else if (err) {
         console.log('Error occurred while retrieving a progression');
         console.log(err);
-        res.redirect(500, '/game/' +  pageNumber + '/');
+        res.json({ error: err, resultPage: pageNumber });
       }
     });
   });

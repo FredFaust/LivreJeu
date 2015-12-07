@@ -19,8 +19,8 @@ block story
       Les Bakanals sont de grandes créatures carnivores qui vivent à proximité descôtes de Kalte. Ils se nourrissent habituellement de gaillelots ou de petites ostrelles qui abondent au bord de la mer. Ce Bakanal, cependant, a été attiré par l'odeur des chiens et il s'apprête à les attaquer, bien décidé à en dévorer plusieurs d'un coup.
 
   div#decision
-      p Si vous maîtrisez la Discipline Kaï de la Chasse, #[a(class="story-link" href="/story/204") rendez-vous au 204].
-      p Si vous maîtrisez la Discipline Kaï de la Communication Animale, #[a(class="story-link" href="/story/318") rendez-vous au 318].
-      p Si vous souhaitez sortir de la tente pour vous lancer à l'attaque du Bakanal, #[a(class="story-link" href="/story/78") rendez-vous au 78].
+      p Si vous maîtrisez la Discipline Kaï de la Chasse, #[a(href="" ng-click='page.hasHunt && goToStory(204, 1)', ng-class="{'disabled-link': !page.hasHunt}") rendez-vous au 204].
+      p Si vous maîtrisez la Discipline Kaï de la Communication Animale, #[a(href="", ng-click='page.hasAnimalCommunication && goToStory(318, 1)', ng-class="{'disabled-link': !page.hasAnimalCommunication}") rendez-vous au 318].
+      p Si vous souhaitez sortir de la tente pour vous lancer à l'attaque du Bakanal, #[+storyLink(78, 1)].
 
 

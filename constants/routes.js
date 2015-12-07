@@ -9,7 +9,8 @@ module.exports = {
     GAMEINFO : {
       ALL: '/api/gameinfo/all',
       MASTER_WEAPONS: '/api/gameinfo/master'
-    }
+    },
+    CHOICE: '/api/randomchoice/:pagenumber/:playerid'
   },
   PARTIALS: {
     ANY: '/partials/:name',

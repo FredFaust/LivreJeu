@@ -54,6 +54,9 @@ router.route(routes.API.GAMEINFO.ALL)
 router.route(routes.API.GAMEINFO.MASTER_WEAPONS)
     .get(objectController.getMasterWeaponsJSON);
 
+router.route(routes.API.CHOICE)
+    .get(gameController.getChoiceJSON);
+
 //CATCH-ALL MUST BE LAST
 router.route(routes.CATCH_ALL)
     .get(spaController.getIndex);

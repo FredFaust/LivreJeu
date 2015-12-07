@@ -41,6 +41,11 @@ h1, h2, h3 {
     text-align: center;
 }
 
+.disabled-link {
+    color: red;
+    cursor: default;
+}
+
 hr {
     border: 0;
     height: 1px;
@@ -140,8 +145,8 @@ input[type="checkbox"]:checked + label.check-img  + label.check-label {
 }
 
 .button-disabled {
-    background-color: grey;
-    cursor: default;
+    background-color: grey !important;
+    cursor: default !important;
 }
 
 .button-success {

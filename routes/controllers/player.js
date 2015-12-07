@@ -85,7 +85,9 @@ exports.postPlayer = function(req, res) {
         items: items,
         specialObjects: speciaObjects,
         fights: [],
+        random: {},
         page: 1,
+        previousPage: 1,
         money: 0
       };
 

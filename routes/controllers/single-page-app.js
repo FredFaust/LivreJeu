@@ -53,10 +53,26 @@ exports.getStoryPartial = function(req, res) {
   var page = req.params.pageid,
       section = req.params.sectionid;
 
+  //Lecture du fichier filename
+  var readFile = function(filename) {
+    var bool = false;
+    res.render(filename, function(err, html) {
+      if (err) {
+        console.error(err);
+      } else {
+        bool = true;
+      }
+    });
+    return bool;
+  };
+
   if(!page || !section) {
     res.json({ error: 'page or section was wrong' });
   }
 
-  //ADD GAMEINFO MAYBE ?
-  res.render("partials/story/p" + page + '_' + section, { gameInfo: gameInfo, pageNumber: page, sectionNumber: section, errorMessage: getAndClearSessionError(req) });
+  if (!readFile('partials/story/p' + page + '_' + section)) {
+    res.render("partials/story/page_not_found", { gameInfo: gameInfo });
+  } else {
+    res.render("partials/story/p" + page + '_' + section, { gameInfo: gameInfo, pageNumber: page, sectionNumber: section, errorMessage: getAndClearSessionError(req) });
+  }
 };

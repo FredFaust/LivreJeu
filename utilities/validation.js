@@ -31,7 +31,7 @@ module.exports = {
 
     return true;
   },
-  validateItems: function(items, req, res, callback) {
+  initialValidateItems: function(items, req, res, callback) {
     if (!items || !_.isArray(items)) {
       callback('Valeurs invalides', req, res);
       return false;
@@ -51,12 +51,47 @@ module.exports = {
     }
     return true;
   },
-  validateProgression: function(progression, req, res, callback) {
-    if (!_.contains(pages.pagesNumbers, progression.page)) {
-      callback('Page invalide dans la progression', req, res);
+  validateItems: function(items, req, res, callback) {
+    if (!items || !_.isArray(items)) {
+      callback('Valeurs invalides', req, res);
       return false;
     }
 
+    // It must be EXACTLY 2 items
+    if (items.length > 8) {
+      callback("Nombre incorrect d'items... Nb items:" + items.length, req, res);
+      return false;
+    }
+
+    if (!_.every(items, function(i) {
+          return game.ITEMS.hasOwnProperty(i) || game.SPECIAL_ITEMS.hasOwnProperty(i);
+        })) {
+      callback("Equipement invalide dans la progression", req, res);
+      return false;
+    }
+    return true;
+  },
+  validateSpecialObjects: function(objects, req, res, callback) {
+    if (!objects || !_.isArray(objects)) {
+      callback('Valeurs invalides', req, res);
+      return false;
+    }
+
+    // It must be EXACTLY 2 items
+    if (objects.length > 6) {
+      callback("Nombre incorrect d'objets speciaux... Nb items:" + objects.length, req, res);
+      return false;
+    }
+
+    if (!_.every(objects, function(i) {
+          return game.SPECIAL_ITEMS.hasOwnProperty(i);
+        })) {
+      callback("Equipement invalide dans la progression", req, res);
+      return false;
+    }
+    return true;
+  },
+  initialValidateProgression: function(progression, req, res, callback) {
     if (progression.endurance < 0) {
       callback('Endurance invalide dans la progression', req, res);
       return false;
@@ -67,6 +102,20 @@ module.exports = {
       return false;
     }
 
-    return this.validateItems(progression.items, req, res, callback);
+    var joinedArrays = _.union(progression.items, progression.specialObjects);
+    return this.initialValidateItems(joinedArrays, req, res, callback);
+  },
+  validateProgression: function(progression, req, res, callback) {
+    if (progression.endurance < 0) {
+      callback('Endurance invalide dans la progression', req, res);
+      return false;
+    }
+
+    if (progression.combatSkill < 0) {
+      callback('Points d\'habilete invalide dans la progression', req, res);
+      return false;
+    }
+
+    return this.validateItems(progression.items, req, res, callback) && this.validateSpecialObjects(progression.specialObjects, req, res, callback);
   }
 };

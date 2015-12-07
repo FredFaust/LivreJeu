@@ -10,10 +10,10 @@ block prompt-message
   p Un vent glacial souffle sur ces montagnes hostiles. Si vous ne vous êtes pas precedemment enduit le corps d'huile de Bakanal, <strong>vous perdez 3 points d'ENDURANCE.</strong>
 
 block x-button
-  a.modal-close(href="", title="Close", ng-click='goToStory(129,2)') X
+  a.modal-close(href="", title="Close", ng-click="handleModalEvent(129,3)") X
 
 block prompt-buttons
-  a.button.button-accept(href="", title="Okay", ng-click='goToStory(129,2)') Okay
+  a.button.button-accept(href="", title="Okay", ng-click="handleModalEvent(129,3)") Okay
 
 block story
   p.

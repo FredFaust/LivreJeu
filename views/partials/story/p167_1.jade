@@ -1,0 +1,21 @@
+extends page
+
+block story
+  p.
+    Le vent tombe peu à peu, l'atmosphère s'éclaircit et le Glacier de Viad se révèle alors dans toute sa splendeur. La surface lisse
+    de laglace ressemble à un tapis de neige étincelante incrustée depierres de toutes les couleurs : jaunes, violettes, bleues, vertes,orange, cramoisies;
+    et les cristaux de glace brillent d'un tel éclatque le plus somptueux bijou paraîtrait terne par comparaison. Lemur de glace s'élève à 250 mètres de hauteur
+    et ne présente pasd'obstacle à l'escalade, bien qu'il soit très escarpé. Le temps est beau, mais il vous faut presque une journée entière pour grimperau sommet
+    de la paroi de glace. Tout le matériel a été déchargé etmonté là-haut où on l'arrime à nouveau sur les traîneaux. Leschiens Kanu jouent entre eux en se battant,
+    et vos provisionssont à tel point secouées par l'escalade qu'elles se sonttransformées à la fin de la journée en une infâme bouillie.Lorsque tout est enfin terminé, vous êtes
+    épuisé. La nuit tombeet vous décidez donc d'établir votre campement dans l'abri que vous offre une cuvette naturelle creusée dans la glace. Vous avez sans nul doute bien
+    mérité une bonne nuit de repos.
+
+  p.
+    Utilisez la Table de Hasard pour obtenir un chiffre.
+
+  div#decision
+    p Si vous tirez un chiffre de 0 à 6, #[a(href="" ng-click='page.choice1.show && goToStory(85, 1)', ng-class="{'disabled-link': !page.choice1.show}") rendez-vous au 85].
+    p De 7 à 9, #[a(href="" ng-click='page.choice2.show && goToStory(300, 1)', ng-class="{'disabled-link': !page.choice2.show}") rendez-vous au 300].
+
+  +randomButton('167')

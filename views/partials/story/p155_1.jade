@@ -10,11 +10,11 @@ block prompt-message
   p Vous êtes affamé, et il vous faut prendre un {{context.specialObjects.MEAL}} avant de continuer, sinon, vous perdrez 3 points d'ENDURANCE.
 
 block x-button
-  a.modal-close(href="", ng-click='goToStory(155,2)', title="Close") X
+  a.modal-close(href="", ng-click="handleModalEvent(155,'no')", title="Close") X
 
 block prompt-buttons
-  a.button.button-accept(href="", ng-click='goToStory(155,2)', title="Manger") Manger
-  a.button.button-warning(href="", ng-click='goToStory(155,2)', title="Ne pas manger") Ne pas manger
+  a.button.button-accept(href="", ng-click="page.canEat && handleModalEvent(155,'eat')", title="Manger", ng-class="{'button-disabled': !page.canEat}") Manger
+  a.button.button-warning(href="", ng-click="handleModalEvent(155,'no')", title="Ne pas manger") Ne pas manger
 
 block story
   p.

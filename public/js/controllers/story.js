@@ -2,11 +2,6 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
   console.log('storyController created');
 
   /************************** SCOPE DEFINITION  *************************************/
-  $scope.prompt = {
-    showCustom: false,
-    showBackpack: false,
-    showSpecialObjects: false
-  };
   $scope.help = {
     combatInfo: '',
     enduranceInfo: ''
@@ -49,9 +44,6 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
   };
 
   /************************** PROMPT/MODAL FUNCTIONS  *************************************/
-  $scope.showCustomPrompt = function() {
-    $scope.prompt.showCustom = true;
-  };
   $scope.showBackpackPrompt = function() {
     //Here we create a copy of the player's current items. We will then construct an array that will contain arrays
     //that each contain 3 individual items. Max inventory space is 8 so there will be two rowArray containing 3 items
@@ -109,9 +101,6 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
     $scope.prompt.showSpecialObjects = true;
   };
 
-  $scope.hideCustomPrompt = function() {
-    $scope.prompt.showCustom = false;
-  };
   $scope.hideBackpackPrompt = function() {
     $scope.prompt.showBackpack = false;
   };
@@ -119,30 +108,26 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
     $scope.prompt.showSpecialObjects = false;
   };
 
+  /******************************* RANDOM CHOICE FROM SERVER ************************************/
+  $scope.getRandomPageServer = function(page) {
+    $http({
+      method: "GET",
+      url: "/api/randomchoice/" + page + '/' + $scope.info.progression.playerId
+    }).success(function(data) {
+      if (!data) {
+        return;
+      } else if (!data.err && data.resultPage) {
+        $scope.info.progression.random = { landingPage: page, resultPage: data.resultPage };
+        $scope.handleEvent(page);
+      } else if (data.err){
+        alert(data.err);
+      }
+    });
+  };
+
 
   /************************** SORT FIGHTS FROM PROGRESSION  *************************************/
   //TODO: DO WE WANT TO SHOW THE LAST FIGHT AS THE FIRST ELEMENT OF OUR ORDERED LIST ??
   $scope.fights = _.sortBy($scope.info.progression.fights, 'id').reverse();
 
-  /************************** FUNCTION THAT WE USE FOR EVERY LINK IN THE STORY *******************/
-
-  $scope.goToStory = function(page, section){
-    //TODO: WE WOULD WANT TO REFRESH THE DATA, LIKE RESULT OF A FIGHT OR SMTHG
-    $scope.prompt.show = false;
-    $scope.prompt.showBackpack = false;
-    $scope.prompt.showSpecialObjects = false;
-
-    $scope.info.progression.page = parseInt(page, 10);
-    var data = _.omit($scope.info.progression, '_id');
-
-    var progressionId = $scope.info.progression.playerId;
-    $http({
-      method: 'PUT',
-      url: '/api/progressions/' + progressionId,
-      data: data
-    }).success(function(data) {
-      var s = section || '1';
-      $location.path('/story/' + page + '/' + s);
-    });
-  };
 });

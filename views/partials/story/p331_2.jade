@@ -1,8 +1,5 @@
 extends page
 
-block extraScripts
-  script(src="/js/choice.js", async=true)
-
 block story
   p.
     Le lendemain, la température descend et un froid rigoureux s'installe. Des vents du nord amènent une grêle de glace qui vous cingle le visage et vos lèvres gercées se mettent à saigner. Vers midi, vous êtes pris dans un blizzard qui rend votre progression difficile et épuisante. Le vent violent vous force à descendre du traîneau pour le pousser. Vous êtes exténué, vos mains et vos orteils sont engourdis par le froid et la transpiration provoquée par vos efforts harassants a gelé sur votre peau, déposant à l'intérieur de vos moufles et de vos bottes une couche de glace.
@@ -14,7 +11,7 @@ block story
   p Utilisez la Table de Hasard pour obtenir un chiffre.
 
   div#decision
-      p Si vous tirez un chiffre entre 0 et 4, rendez-vous au 62.
-      p Entre 5 et 9, rendez-vous au 288.
+      p Si vous tirez un chiffre entre 0 et 4 #[a(href="" ng-click='page.choice1.show && goToStory(62, 1)', ng-class="{'disabled-link': !page.choice1.show}") rendez-vous au 62].
+      p Entre 5 et 9 #[a(href="" ng-click='page.choice2.show && goToStory(288, 1)', ng-class="{'disabled-link': !page.choice2.show}") rendez-vous au 288].
 
-  input.button.button-warning(type='button', value='Table de hasard')
+  +randomButton('331')

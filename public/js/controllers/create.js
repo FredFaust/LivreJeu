@@ -55,7 +55,6 @@ angular.module('LivreJeu.controllers').controller('createController', function($
         _.each($scope.players, function(p) {
           p.deleteSent = false;
         });
-        console.log($scope.players);
       }, 0);
     }
   });
@@ -84,7 +83,14 @@ angular.module('LivreJeu.controllers').controller('createController', function($
       if (data.page) {
         $scope.info.player = player;
         $scope.info.progression = data;
+
+        var pageToHandle = _.findWhere($scope.pages, {id : data.page });
+
         $location.path('/story/' + data.page);
+
+        if (pageToHandle && pageToHandle.actionOnLoad){
+          pageToHandle.actionOnLoad();
+        }
       }
     });
   };
@@ -141,8 +147,17 @@ angular.module('LivreJeu.controllers').controller('createController', function($
             $scope.info.player = data.player;
             $scope.info.progression = data.progression;
 
-            //On redirige l'utilisateur vers le nom de la page qui à été renvoyé par le service web
-            $location.path(data.redirect);
+            if (data.redirect === '/create') {
+              $location.path(data.redirect);
+            } else {
+              var pageToHandle = _.findWhere($scope.pages, {id : 1 });
+
+              $location.path('/story/1');
+
+              if (pageToHandle && pageToHandle.actionOnLoad){
+                pageToHandle.actionOnLoad();
+              }
+            }
           }
       });
 

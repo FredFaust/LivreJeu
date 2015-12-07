@@ -7,7 +7,7 @@ var validationFailedCb = function(msg, req, res) {
 };
 
 exports.postProgression = function(req, res) {
-  if (validation.validateProgression(req.body, req, res, validationFailedCb)) {
+  if (validation.initialValidateProgression(req.body, req, res, validationFailedCb)) {
     mongodb.connect(function(db) {
       //Recherche dans la database
       mongodb.insertProgression(req.body, db, function(err, result) {

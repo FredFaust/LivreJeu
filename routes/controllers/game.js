@@ -32,8 +32,8 @@ exports.getPage = function(req, res) {
 
 exports.getChoiceJSON = function(req, res) {
   var pageNumber = parseInt(req.params.pagenumber, 10);
-  //On utilise la fonction makeChoice afin d'appeller la fonction de choix aléatoire pour une page spécifique
-  //Celle-ci va prendre un chiffre au hasard, en fonction du contexte de la page, retournera le numéro de la page
+  //On utilise la fonction makeChoice afin d'appeller la fonction de choix alï¿½atoire pour une page spï¿½cifique
+  //Celle-ci va prendre un chiffre au hasard, en fonction du contexte de la page, retournera le numï¿½ro de la page
   //qu'on doit maintenant visiter
 
   mongodb.connect(function(db) {
@@ -44,8 +44,8 @@ exports.getChoiceJSON = function(req, res) {
         var resultPage = pages.makeChoice(pageNumber, result);
         res.json({ resultPage: resultPage });
       } else if (err) {
-        console.log('Error occurred while retrieving a progression');
-        console.log(err);
+        console.error('Error occurred while retrieving a progression');
+        console.error(err);
         res.json({ error: err, resultPage: pageNumber });
       }
     });
@@ -62,7 +62,7 @@ exports.getPageJSON = function(req, res) {
 
   var index = 1, stop = false;
 
-  //Lecture du fichier filename et ajout de son html à l'objet pageJSON
+  //Lecture du fichier filename et ajout de son html ï¿½ l'objet pageJSON
   var readFile = function(filename, i) {
     res.render(filename, function(err, html) {
       if (err) {
@@ -74,7 +74,7 @@ exports.getPageJSON = function(req, res) {
     });
   };
 
-  //Boucle qui permet de trouver tous les fichiers associé à un numéro de page
+  //Boucle qui permet de trouver tous les fichiers associï¿½ ï¿½ un numï¿½ro de page
   while (!stop) {
     readFile('pages/book/p' + pageJSON.id + '_' + index, index);
     index++;
@@ -83,10 +83,10 @@ exports.getPageJSON = function(req, res) {
   //On va chercher la page dans notre fichier de constantes de pages
   var page = _.findWhere(pages.pagesInfo, { id: parseInt(pageJSON.id, 10) });
   if (page) {
-    //On ajoute les chemins possibles (autres pages) qu'on peut accéder à partir de celle-ci
+    //On ajoute les chemins possibles (autres pages) qu'on peut accï¿½der ï¿½ partir de celle-ci
     pageJSON.range = page.range;
 
-    //Si cette page contient un combat, on ajoute ses infos à notre objet pageJSON
+    //Si cette page contient un combat, on ajoute ses infos ï¿½ notre objet pageJSON
     if (page.combatInfo) {
       pageJSON.combatInfo = page.combatInfo;
     }

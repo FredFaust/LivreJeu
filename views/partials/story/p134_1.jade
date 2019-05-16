@@ -15,7 +15,7 @@ block story
 
   div#decision
       p Si vous tirez un chiffre entre 0 et 3,0 #[a(href="" ng-click='page.choice1.show && goToStory(57, 1)', ng-class="{'disabled-link': !page.choice1.show}") rendez-vous au 57].
-      p Entre 4 et 6, #[a(href="" ng-mouseover='console.log(page)' ng-click='page.choice2.show && goToStory(188, 1)', ng-class="{'disabled-link': !page.choice2.show}") rendez-vous au 188].
+      p Entre 4 et 6, #[a(href="" ng-click='page.choice2.show && goToStory(188, 1)', ng-class="{'disabled-link': !page.choice2.show}") rendez-vous au 188].
       p Entre 7 et 9, #[a(href="" ng-click='page.choice3.show && goToStory(331, 1)', ng-class="{'disabled-link': !page.choice3.show}") rendez-vous au 331].
 
   +randomButton('134')

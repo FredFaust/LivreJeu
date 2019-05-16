@@ -1,6 +1,4 @@
 angular.module('LivreJeu.controllers').controller('storyController', function ($scope, $http, $timeout, $location) {
-  console.log('storyController created');
-
   /************************** SCOPE DEFINITION  *************************************/
   $scope.help = {
     combatInfo: '',
@@ -16,7 +14,6 @@ angular.module('LivreJeu.controllers').controller('storyController', function ($
   /************************** TOOLTIP INFO  *************************************/
 
   $scope.updateCombatInfo = function () {
-    console.log('update CI');
     var text = 'Initial (' + $scope.info.player.combatSkill + ') ';
 
     if (_.contains($scope.info.player.disciplines, 'ARMS_CONTROL') &&
@@ -31,7 +28,6 @@ angular.module('LivreJeu.controllers').controller('storyController', function ($
   };
 
   $scope.updateEnduranceInfo = function () {
-    console.log('update EI');
     var text = 'Initial (' + $scope.info.player.endurance + ') ';
 
     if (_.contains($scope.info.progression.specialObjects, 'QUILTED_LEATHER_VEST')) {

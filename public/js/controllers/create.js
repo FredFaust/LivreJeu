@@ -1,17 +1,16 @@
-angular.module('LivreJeu.controllers').controller('createController', function($scope, $http, $timeout, $location) {
-  console.log('createController was created');
+angular.module('LivreJeu.controllers').controller('createController', function ($scope, $http, $timeout, $location) {
   /********************* SCOPE DEFINITION ****************************************/
   $scope.canSubmit = false;
   $scope.submitSent = false;
   $scope.deleteSent = false;
   $scope.loadingPlayers = true;
   $scope.masteredWeapon = {
-    key : null,
-    value : null
+    key: null,
+    value: null
   };
   $scope.user = {
-    disciplinesStatus : {},
-    itemsStatus : {},
+    disciplinesStatus: {},
+    itemsStatus: {},
     name: ''
   };
   $scope.players = [];
@@ -19,14 +18,14 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   $scope.updateNavBar('story');
 
   /********************* MASTERED WEAPON ****************************************/
-  $scope.toggleMasteredWeapon = function() {
+  $scope.toggleMasteredWeapon = function () {
     if (!$scope.masteredWeapon.key && !$scope.masteredWeapon.value) {
       var randomWeaponIndex = Math.floor(Math.random() * (9 - 1)) + 1;
 
       $http({
         method: "GET",
         url: "/api/gameinfo/master"
-      }).then(function(response) {
+      }).then(function (response) {
         if (!(response || response.data)) {
           return;
         }
@@ -48,14 +47,14 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   $http({
     method: "GET",
     url: "/api/players"
-  }).then(function(response) {
+  }).then(function (response) {
     $scope.loadingPlayers = false;
 
     if (response && response.data) {
       //Updates the model whenever possible
       $timeout(function () {
         $scope.players = response.data.players;
-        _.each($scope.players, function(p) {
+        _.each($scope.players, function (p) {
           p.deleteSent = false;
         });
       }, 0);
@@ -63,37 +62,37 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   });
 
   /********************* PLAYER ACTIONS ****************************************/
-  $scope.deletePlayer = function(player) {
+  $scope.deletePlayer = function (player) {
     player.deleteSent = true;
     $http({
       method: "DELETE",
       url: "/api/players/" + player._id
-    }).then(function() {
-        //Filter our the deleted player
-        $timeout(function () {
-          $scope.players = $scope.players.filter(function(p) {
-            return p._id != player._id;
-          });
-        }, 0);
+    }).then(function () {
+      //Filter our the deleted player
+      $timeout(function () {
+        $scope.players = $scope.players.filter(function (p) {
+          return p._id != player._id;
+        });
+      }, 0);
     });
   };
 
-  $scope.continueStory = function(player) {
+  $scope.continueStory = function (player) {
     $http({
       method: "GET",
       url: "/api/progressions/" + player._id
-    }).then(function(response) {
+    }).then(function (response) {
       if (response && response.data && response.data.page) {
         const data = response.data;
 
         $scope.info.player = player;
         $scope.info.progression = data;
 
-        var pageToHandle = _.findWhere($scope.pages, {id : data.page });
+        var pageToHandle = _.findWhere($scope.pages, { id: data.page });
 
         $location.path('/story/' + data.page);
 
-        if (pageToHandle && pageToHandle.actionOnLoad){
+        if (pageToHandle && pageToHandle.actionOnLoad) {
           pageToHandle.actionOnLoad();
         }
       }
@@ -101,27 +100,27 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   };
 
   /********************* FORM SUBMIT ****************************************/
-  $scope.updateSubmit = function() {
-    var customCountBy = function(object) {
-      return (_.countBy(object, function(value) {
-        return value ? 'checked': 'unchecked';
+  $scope.updateSubmit = function () {
+    var customCountBy = function (object) {
+      return (_.countBy(object, function (value) {
+        return value ? 'checked' : 'unchecked';
       })).checked;
     };
     var discs = customCountBy($scope.user.disciplinesStatus),
-        items = customCountBy($scope.user.itemsStatus);
+      items = customCountBy($scope.user.itemsStatus);
 
     $scope.canSubmit = discs === 5 && items === 2 && $scope.user.name;
   };
 
-  $scope.formSubmit = function() {
+  $scope.formSubmit = function () {
     //action='/player' was removed from the jade because the form was always submitted
     // now that it is removed, only this function will be called and we can decide to ajax on /players or not
     if ($scope.canSubmit) {
       var disciplines = [],
-          items = [];
+        items = [];
 
-      var keepSelectedCheckboxes = function(input, output) {
-        _.map(input, function(value, key) {
+      var keepSelectedCheckboxes = function (input, output) {
+        _.map(input, function (value, key) {
           if (value) {
             output.push(key);
           }
@@ -143,29 +142,29 @@ angular.module('LivreJeu.controllers').controller('createController', function($
 
       //Requ�te ajax POST pour envoyer les infos du joueur en JSON
       $http({
-            method: "POST",
-            url: "/api/players",
-            data: data
-          }
-      ).then(function(response) {
-          if (response && response.data && response.data.redirect) {
-            const data = response.data;
+        method: "POST",
+        url: "/api/players",
+        data: data
+      }
+      ).then(function (response) {
+        if (response && response.data && response.data.redirect) {
+          const data = response.data;
 
-            $scope.info.player = data.player;
-            $scope.info.progression = data.progression;
+          $scope.info.player = data.player;
+          $scope.info.progression = data.progression;
 
-            if (data.redirect === '/create') {
-              $location.path(data.redirect);
-            } else {
-              var pageToHandle = _.findWhere($scope.pages, {id : 1 });
+          if (data.redirect === '/create') {
+            $location.path(data.redirect);
+          } else {
+            var pageToHandle = _.findWhere($scope.pages, { id: 1 });
 
-              $location.path('/story/1');
+            $location.path('/story/1');
 
-              if (pageToHandle && pageToHandle.actionOnLoad){
-                pageToHandle.actionOnLoad();
-              }
+            if (pageToHandle && pageToHandle.actionOnLoad) {
+              pageToHandle.actionOnLoad();
             }
           }
+        }
       });
 
       $scope.submitSent = true;

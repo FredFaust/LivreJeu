@@ -1,7 +1,5 @@
 angular.module('LivreJeu.controllers').controller('appController', function ($scope, $http, $location, $timeout) {
-  console.log('appController created');
-
-  //$scope.goToStory = function() {console.log('rasdf')};
+  //$scope.goToStory = function() {};
 
   $scope.page = {};
   $scope.nav = {

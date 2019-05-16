@@ -26,10 +26,12 @@ angular.module('LivreJeu.controllers').controller('createController', function($
       $http({
         method: "GET",
         url: "/api/gameinfo/master"
-      }).success(function(data) {
-        if (!data) {
+      }).then(function(response) {
+        if (!(response || response.data)) {
           return;
         }
+
+        const data = response.data;
 
         $timeout(function () {
           var weapons = _.pairs(JSON.parse(data));
@@ -46,12 +48,13 @@ angular.module('LivreJeu.controllers').controller('createController', function($
   $http({
     method: "GET",
     url: "/api/players"
-  }).success(function(data) {
+  }).then(function(response) {
     $scope.loadingPlayers = false;
-    if (!_.isUndefined(data) && !_.isNull(data)) {
+
+    if (response && response.data) {
       //Updates the model whenever possible
       $timeout(function () {
-        $scope.players = data.players;
+        $scope.players = response.data.players;
         _.each($scope.players, function(p) {
           p.deleteSent = false;
         });
@@ -65,7 +68,7 @@ angular.module('LivreJeu.controllers').controller('createController', function($
     $http({
       method: "DELETE",
       url: "/api/players/" + player._id
-    }).success(function(data) {
+    }).then(function() {
         //Filter our the deleted player
         $timeout(function () {
           $scope.players = $scope.players.filter(function(p) {
@@ -79,8 +82,10 @@ angular.module('LivreJeu.controllers').controller('createController', function($
     $http({
       method: "GET",
       url: "/api/progressions/" + player._id
-    }).success(function(data) {
-      if (data.page) {
+    }).then(function(response) {
+      if (response && response.data && response.data.page) {
+        const data = response.data;
+
         $scope.info.player = player;
         $scope.info.progression = data;
 
@@ -136,14 +141,16 @@ angular.module('LivreJeu.controllers').controller('createController', function($
         data.masteredWeapon = $scope.masteredWeapon.key;
       }
 
-      //Requête ajax POST pour envoyer les infos du joueur en JSON
+      //Requï¿½te ajax POST pour envoyer les infos du joueur en JSON
       $http({
             method: "POST",
             url: "/api/players",
             data: data
           }
-      ).success(function(data) {
-          if (data && data.redirect) {
+      ).then(function(response) {
+          if (response && response.data && response.data.redirect) {
+            const data = response.data;
+
             $scope.info.player = data.player;
             $scope.info.progression = data.progression;
 

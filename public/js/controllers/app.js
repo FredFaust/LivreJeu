@@ -1,11 +1,11 @@
-angular.module('LivreJeu.controllers').controller('appController', function($scope, $http, $location, $timeout) {
+angular.module('LivreJeu.controllers').controller('appController', function ($scope, $http, $location, $timeout) {
   console.log('appController created');
 
   //$scope.goToStory = function() {console.log('rasdf')};
 
   $scope.page = {};
   $scope.nav = {
-      selected:  ""
+    selected: ""
   };
 
   $scope.info = {
@@ -27,19 +27,19 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     showSpecialObjects: false
   };
 
-  $scope.showCustomPrompt = function() {
+  $scope.showCustomPrompt = function () {
     $scope.prompt.showCustom = true;
   };
 
-  $scope.hideCustomPrompt = function() {
+  $scope.hideCustomPrompt = function () {
     $scope.prompt.showCustom = false;
   };
 
-  $scope.updateNavBar = function(selected) {
+  $scope.updateNavBar = function (selected) {
     $scope.nav.selected = selected;
   };
 
-  $scope.goToPage = function(link){
+  $scope.goToPage = function (link) {
     var page = link;
 
     if (link === '/story') {
@@ -56,9 +56,9 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
   $http({
     method: "GET",
     url: "/api/gameinfo/all"
-  }).success(function(data) {
-    if (!_.isUndefined(data) && !_.isNull(data)) {
-      var deserializedData = JSON.parse(data);
+  }).then(function (response) {
+    if (response && response.data) {
+      var deserializedData = JSON.parse(response.data);
 
       //Updates the model whenever possible
       $timeout(function () {
@@ -72,30 +72,30 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
   });
 
   /************************** ACTIONS + PAGES DEFINITION *************************************/
-  var verifyDisciplines = function() {
+  var verifyDisciplines = function () {
     $scope.page.hasHunt = _.contains($scope.info.player.disciplines, 'HUNT');
     $scope.page.hasAnimalCommunication = _.contains($scope.info.player.disciplines, 'ANIMAL_COMMUNICATION');
   };
 
-  var page160OnLoad = function() {
+  var page160OnLoad = function () {
     $scope.page = this.variables;
     verifyDisciplines();
   };
 
-  var page91OnLoad = function() {
+  var page91OnLoad = function () {
     $scope.page = this.variables;
     $scope.showCustomPrompt();
   };
 
-  var addBakanalOil = function() {
+  var addBakanalOil = function () {
     $scope.info.progression.specialObjects.push('BAKANAL_OIL');
   };
 
-  var updateLinks134 = function() {
-    $timeout(function() {
+  var updateLinks134 = function () {
+    $timeout(function () {
       var resultPage = $scope.info.progression.random.resultPage;
 
-      switch(resultPage){
+      switch (resultPage) {
         case 57:
           $scope.page.choice1.show = true;
           break;
@@ -110,11 +110,11 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     }, 0);
   };
 
-  var updateLinks167 = function() {
-    $timeout(function() {
+  var updateLinks167 = function () {
+    $timeout(function () {
       var resultPage = $scope.info.progression.random.resultPage;
 
-      switch(resultPage){
+      switch (resultPage) {
         case 85:
           $scope.page.choice1.show = true;
           break;
@@ -127,11 +127,11 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
   };
 
 
-  var updateLinks331 = function() {
-    $timeout(function() {
+  var updateLinks331 = function () {
+    $timeout(function () {
       var resultPage = $scope.info.progression.random.resultPage;
 
-      switch(resultPage){
+      switch (resultPage) {
         case 62:
           $scope.page.choice1.show = true;
           break;
@@ -143,11 +143,11 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     }, 0);
   };
 
-  var updateLinks155 = function() {
-    $timeout(function() {
+  var updateLinks155 = function () {
+    $timeout(function () {
       var resultPage = $scope.info.progression.random.resultPage;
 
-      switch(resultPage){
+      switch (resultPage) {
         case 248:
           $scope.page.choice1.show = true;
           break;
@@ -159,7 +159,7 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     }, 0);
   };
 
-  var checkFoodChoice = function(page, choice) {
+  var checkFoodChoice = function (page, choice) {
     if (choice === 'eat' && $scope.page.canEat) {
       $scope.info.progression.specialObjects = _.without($scope.info.progression.specialObjects, 'MEAL');
     } else if (choice === 'no') {
@@ -168,27 +168,27 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     $scope.goToStory(page, 2);
   };
 
-  var loseEndurance = function(page, end) {
+  var loseEndurance = function (page, end) {
     $scope.info.progression.endurance -= end;
     $scope.goToStory(page, 2);
   };
 
-  var updateProgressionWithSelection = function() {
-    if ($scope.page.blueDiscSelected){
+  var updateProgressionWithSelection = function () {
+    if ($scope.page.blueDiscSelected) {
       $scope.info.progression.specialObjects.push('BLUE_DISC');
     }
 
-    if ($scope.page.boneSwordSelected){
+    if ($scope.page.boneSwordSelected) {
       $scope.info.progression.specialObjects.push('BONE_SWORD');
     }
   };
 
-  var killPlayer = function() {
+  var killPlayer = function () {
     $http({
       method: 'DELETE',
       url: '/api/players/' + $scope.info.player._id
-    }).success(function(data) {
-      $timeout(function() {
+    }).then(function () {
+      $timeout(function () {
         $scope.info.player = {};
         $scope.info.progression = {};
         $scope.goToPage('/home');
@@ -199,12 +199,12 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
   $scope.pages = [
     {
       id: 57,
-      actionOnLoad: function() {
+      actionOnLoad: function () {
         $scope.page = this.variables;
       },
       actionOnEvent: updateProgressionWithSelection,
       variables: {
-        boneSwordSelected : false,
+        boneSwordSelected: false,
         blueDiscSelected: false
       }
     },
@@ -213,7 +213,7 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
       actionOnLoad: page160OnLoad,
       actionOnEvent: null,
       variables: {
-        hasHunt : false,
+        hasHunt: false,
         hasAnimalCommunication: false
       }
     },
@@ -225,7 +225,7 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     },
     {
       id: 134,
-      actionOnLoad: function() {
+      actionOnLoad: function () {
         $scope.page = this.variables;
       },
       actionOnEvent: updateLinks134,
@@ -247,7 +247,7 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     },
     {
       id: 167,
-      actionOnLoad: function() {
+      actionOnLoad: function () {
         $scope.page = this.variables;
       },
       actionOnEvent: updateLinks167,
@@ -265,7 +265,7 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     },
     {
       id: 155,
-      actionOnLoad: function() {
+      actionOnLoad: function () {
         $scope.page = this.variables;
         if (_.contains($scope.info.progression.specialObjects, 'MEAL')) {
           $scope.page.canEat = true;
@@ -288,7 +288,7 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     },
     {
       id: 331,
-      actionOnLoad: function() {
+      actionOnLoad: function () {
         $scope.page = this.variables;
       },
       actionOnEvent: updateLinks331,
@@ -306,88 +306,88 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
     },
     {
       id: 188,
-      actionOnLoad: function() {
-        $timeout(function() {
+      actionOnLoad: function () {
+        $timeout(function () {
           $scope.goToStory(331, 1);
         }, 3000);
       },
-      actionOnEvent: function() {},
-      variables: { }
+      actionOnEvent: function () { },
+      variables: {}
     },
     {
       id: 62,
-      actionOnLoad: function() {
-        $timeout(function() {
+      actionOnLoad: function () {
+        $timeout(function () {
           $scope.goToStory(288, 1);
         }, 3000);
       },
-      actionOnEvent: function() {},
-      variables: { }
+      actionOnEvent: function () { },
+      variables: {}
     },
     {
       id: 85,
-      actionOnLoad: function() {
-        $timeout(function() {
+      actionOnLoad: function () {
+        $timeout(function () {
           $scope.goToStory(300, 1);
         }, 3000);
       },
-      actionOnEvent: function() {},
-      variables: { }
+      actionOnEvent: function () { },
+      variables: {}
     },
     {
       id: 70,
-      actionOnLoad: function() {
+      actionOnLoad: function () {
         $scope.page = this.variables;
         $scope.page.hasBakanalOil = _.contains($scope.info.progression.specialObjects, 'BAKANAL_OIL');
       },
-      actionOnEvent: function() {},
+      actionOnEvent: function () { },
       variables: {
-        hasBakanalOil : false
+        hasBakanalOil: false
       }
     },
     {
       id: 339,
       actionOnLoad: killPlayer,
-      actionOnEvent: function() {},
+      actionOnEvent: function () { },
       variables: {}
     },
     {
       id: 248,
       actionOnLoad: killPlayer,
-      actionOnEvent: function() {},
+      actionOnEvent: function () { },
       variables: {}
     },
     {
       id: 129,
-      actionOnLoad: function() {
+      actionOnLoad: function () {
         $scope.page = this.variables;
       },
-      actionOnEvent: function() {},
+      actionOnEvent: function () { },
       actionOnModalEvent: loseEndurance,
       variables: {}
     },
     {
       id: 209,
-      actionOnLoad: function() {
+      actionOnLoad: function () {
         $scope.page = this.variables;
       },
-      actionOnEvent: function() {},
+      actionOnEvent: function () { },
       actionOnModalEvent: loseEndurance,
       variables: {}
     }
   ];
 
   /************************** HANDLE EVENT *************************************/
-  $scope.handleEvent = function(page) {
-    var pageToHandle = _.findWhere($scope.pages, {id : page});
+  $scope.handleEvent = function (page) {
+    var pageToHandle = _.findWhere($scope.pages, { id: page });
 
     if (pageToHandle && pageToHandle.actionOnEvent) {
       pageToHandle.actionOnEvent();
     }
   };
 
-  $scope.handleModalEvent = function(page, context) {
-    var pageToHandle = _.findWhere($scope.pages, {id : page});
+  $scope.handleModalEvent = function (page, context) {
+    var pageToHandle = _.findWhere($scope.pages, { id: page });
 
     if (pageToHandle && pageToHandle.actionOnModalEvent) {
       pageToHandle.actionOnModalEvent(page, context);
@@ -395,7 +395,7 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
   };
 
   /************************** FUNCTION THAT WE USE FOR EVERY LINK IN THE STORY *******************/
-  $scope.goToStory = function(page, section){
+  $scope.goToStory = function (page, section) {
     //TODO: WE WOULD WANT TO REFRESH THE DATA, LIKE RESULT OF A FIGHT OR SMTHG
     $scope.prompt.show = false;
     $scope.prompt.showBackpack = false;
@@ -406,19 +406,19 @@ angular.module('LivreJeu.controllers').controller('appController', function($sco
 
     if ($scope.info.progression.endurance > 0) {
       var data = _.omit($scope.info.progression, '_id'),
-          progressionId = $scope.info.progression.playerId;
+        progressionId = $scope.info.progression.playerId;
 
       $http({
         method: 'PUT',
         url: '/api/progressions/' + progressionId,
         data: data
-      }).success(function(data) {
+      }).then(function () {
         var s = section || '1';
-        var pageToHandle = _.findWhere($scope.pages, {id : page });
+        var pageToHandle = _.findWhere($scope.pages, { id: page });
 
         $location.path('/story/' + page + '/' + s);
 
-        if (pageToHandle && pageToHandle.actionOnLoad){
+        if (pageToHandle && pageToHandle.actionOnLoad) {
           pageToHandle.actionOnLoad();
         }
       });

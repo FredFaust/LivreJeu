@@ -217,7 +217,7 @@ exports.deletePlayer = function(req, res) {
   });
 };
 
-exports.getPlayersJSON = function(req, res) {
+exports.getPlayersJSON = function(_req, res) {
   mongodb.connect(function(db) {
     //Recherche dans la database
     mongodb.getPlayers(db, function(err, result) {

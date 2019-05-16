@@ -1,13 +1,13 @@
 var help = require('../../constants/help');
 
-exports.getMain = function(req, res) {
+exports.getMain = function (_req, res) {
   res.render('pages/help', {
     title: 'Aide',
     selectedNav: 'help'
   });
 };
 
-exports.getTopic = function(req, res) {
+exports.getTopic = function (req, res) {
   var topic = req.params.topic;
 
   if (!help.TOPICS.hasOwnProperty(topic.toUpperCase())) {

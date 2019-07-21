@@ -1,8 +1,7 @@
 var mongodb = require('../../utilities/mongodb'),
     validation = require('../../utilities/validation');
 
-var validationFailedCb = function(msg, req, res) {
-  console.log(msg);
+var validationFailedCb = function(msg, _req, res) {
   res.status(422).send({ error: msg });
 };
 
@@ -14,11 +13,10 @@ exports.postProgression = function(req, res) {
         db.close();
 
         if (!err && result && result.insertedCount) {
-          console.log('Progression inserted in the collection');
           res.status(200).send({ _id: result.insertedId });
         } else if (err) {
-          console.log('Error occurred while inserting a progression');
-          console.log(err);
+          console.error('Error occurred while inserting a progression');
+          console.error(err);
           res.status(200).send(err);
         }
       });
@@ -35,8 +33,8 @@ exports.getProgression = function(req, res) {
       if (!err && result) {
         res.json(result);
       } else if (err) {
-        console.log('Error occurred while retrieving a progression');
-        console.log(err);
+        console.error('Error occurred while retrieving a progression');
+        console.error(err);
 
         if (err.errorId) {
           res.status(400).send({ error: err.errorId });
@@ -57,8 +55,8 @@ exports.getProgressions = function(req, res) {
       if (!err && result) {
         res.json({ progressions: result });
       } else if (err) {
-        console.log('Error occurred while retrieving progression(s)');
-        console.log(err);
+        console.error('Error occurred while retrieving progression(s)');
+        console.error(err);
         res.status(200).send({ error: err.message });
       }
     });
@@ -76,8 +74,8 @@ exports.putProgression = function(req, res) {
         if (!err && result) {
           res.json({ progression: result });
         } else if (err) {
-          console.log('Error occurred while updating a progression');
-          console.log(err);
+          console.error('Error occurred while updating a progression');
+          console.error(err);
 
           if (err.errorId) {
             res.status(400).send({ error: err.errorId });
@@ -109,8 +107,8 @@ exports.deleteProgression = function(req, res) {
           }
         }
       } else if (err) {
-        console.log('Error occurred while deleting a progression');
-        console.log(err);
+        console.error('Error occurred while deleting a progression');
+        console.error(err);
 
         if (err.errorId) {
           res.status(400).send({ error: err.errorId });

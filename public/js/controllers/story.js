@@ -1,6 +1,4 @@
-angular.module('LivreJeu.controllers').controller('storyController', function($scope, $http, $timeout, $location) {
-  console.log('storyController created');
-
+angular.module('LivreJeu.controllers').controller('storyController', function ($scope, $http, $timeout, $location) {
   /************************** SCOPE DEFINITION  *************************************/
   $scope.help = {
     combatInfo: '',
@@ -15,13 +13,12 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
 
   /************************** TOOLTIP INFO  *************************************/
 
-  $scope.updateCombatInfo = function() {
-    console.log('update CI');
-    var text = 'Initial ('  + $scope.info.player.combatSkill + ') ';
+  $scope.updateCombatInfo = function () {
+    var text = 'Initial (' + $scope.info.player.combatSkill + ') ';
 
     if (_.contains($scope.info.player.disciplines, 'ARMS_CONTROL') &&
-        $scope.info.player.masteredWeapon &&
-        _.contains($scope.info.progression.items, $scope.info.player.masteredWeapon)) {
+      $scope.info.player.masteredWeapon &&
+      _.contains($scope.info.progression.items, $scope.info.player.masteredWeapon)) {
       text += '+ Arme maitrisee (2) ';
     }
 
@@ -30,9 +27,8 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
     $scope.help.combatInfo = text;
   };
 
-  $scope.updateEnduranceInfo = function() {
-    console.log('update EI');
-    var text = 'Initial ('  + $scope.info.player.endurance + ') ';
+  $scope.updateEnduranceInfo = function () {
+    var text = 'Initial (' + $scope.info.player.endurance + ') ';
 
     if (_.contains($scope.info.progression.specialObjects, 'QUILTED_LEATHER_VEST')) {
       text += '+ Veste de cuir matelasse (2) ';
@@ -44,17 +40,17 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
   };
 
   /************************** PROMPT/MODAL FUNCTIONS  *************************************/
-  $scope.showBackpackPrompt = function() {
+  $scope.showBackpackPrompt = function () {
     //Here we create a copy of the player's current items. We will then construct an array that will contain arrays
     //that each contain 3 individual items. Max inventory space is 8 so there will be two rowArray containing 3 items
     //and one containing 2 items
     //This is for formatting needs only
     $scope.itemsTableArray = [];
-    for(var i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) {
       var rowArray = [];
 
-      for(var j = 0; j < 3; j++) {
-        var index = i*3 + j;
+      for (var j = 0; j < 3; j++) {
+        var index = i * 3 + j;
         if (index < 8) {
           var item = {
             key: 'EMPTY',
@@ -75,52 +71,54 @@ angular.module('LivreJeu.controllers').controller('storyController', function($s
     }
     $scope.prompt.showBackpack = true;
   };
-  $scope.showSpecialObjectsPrompt = function() {
+  $scope.showSpecialObjectsPrompt = function () {
     $scope.specialObjectsTableArray = [];
-    for(var i = 0; i < 2; i++) {
+    for (var i = 0; i < 2; i++) {
       var rowArray = [];
 
-      for(var j = 0; j < 3; j++) {
-        var index = i*3 + j;
-          var item = {
-            key: 'EMPTY',
-            name: 'Vide',
-            src: '/images/backpack-empty.png'
-          };
+      for (var j = 0; j < 3; j++) {
+        var index = i * 3 + j;
+        var item = {
+          key: 'EMPTY',
+          name: 'Vide',
+          src: '/images/backpack-empty.png'
+        };
 
-          if (index < $scope.info.progression.specialObjects.length) {
-            item.key = $scope.info.progression.specialObjects[index];
-            item.name = $scope.context.specialObjects[item.key];
-            item.src = $scope.context.specialObjectsFiles[item.key];
-          }
+        if (index < $scope.info.progression.specialObjects.length) {
+          item.key = $scope.info.progression.specialObjects[index];
+          item.name = $scope.context.specialObjects[item.key];
+          item.src = $scope.context.specialObjectsFiles[item.key];
+        }
 
-          rowArray.push(item);
+        rowArray.push(item);
       }
       $scope.specialObjectsTableArray.push(rowArray);
     }
     $scope.prompt.showSpecialObjects = true;
   };
 
-  $scope.hideBackpackPrompt = function() {
+  $scope.hideBackpackPrompt = function () {
     $scope.prompt.showBackpack = false;
   };
-  $scope.hideSpecialObjectsPrompt = function() {
+  $scope.hideSpecialObjectsPrompt = function () {
     $scope.prompt.showSpecialObjects = false;
   };
 
   /******************************* RANDOM CHOICE FROM SERVER ************************************/
-  $scope.getRandomPageServer = function(page) {
+  $scope.getRandomPageServer = function (page) {
     $http({
       method: "GET",
       url: "/api/randomchoice/" + page + '/' + $scope.info.progression.playerId
-    }).success(function(data) {
-      if (!data) {
+    }).then(function (response) {
+      if (!(response || response.data)) {
         return;
-      } else if (!data.err && data.resultPage) {
-        $scope.info.progression.random = { landingPage: page, resultPage: data.resultPage };
+      }
+      else if (!response.data.err && response.data.resultPage) {
+        $scope.info.progression.random = { landingPage: page, resultPage: response.data.resultPage };
         $scope.handleEvent(page);
-      } else if (data.err){
-        alert(data.err);
+      }
+      else if (response.data.err) {
+        alert(response.data.err);
       }
     });
   };

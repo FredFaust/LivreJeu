@@ -3,8 +3,6 @@ var random = require('../../utilities/random'),
     validation = require('../../utilities/validation');
 
 var renderInvalidPage = function(errorMessage, req, res) {
-  console.log(errorMessage);
-
   req.session.errorMessage = errorMessage;
 
   res.status(200).send({
@@ -95,9 +93,7 @@ exports.postPlayer = function(req, res) {
         db.close();
 
         if (!err && result && result.insertedCount) {
-          console.log('Progression inserted in the collection');
-
-          //Les données associé au formulaire étaient valides, on redirige donc l'utilisateur vers la première page du jeu
+          //Les donnï¿½es associï¿½ au formulaire ï¿½taient valides, on redirige donc l'utilisateur vers la premiï¿½re page du jeu
           var data = {
             redirect: '/story/1/1',
             player: player,
@@ -106,8 +102,8 @@ exports.postPlayer = function(req, res) {
 
           res.status(200).send(data);
         } else if (err) {
-          console.log('Error occurred while inserting a progression');
-          console.log(err);
+          console.error('Error occurred while inserting a progression');
+          console.error(err);
           renderInvalidPage(err, req, res);
         }
       });
@@ -120,7 +116,6 @@ exports.postPlayer = function(req, res) {
 
         if (!err && result) {
           if (result.insertedCount) {
-            console.log('Player inserted in the collection');
             //Enregistrement de l'identifiant du joueur sur la session
             req.session.playerId = String(result.insertedId);
 
@@ -129,8 +124,8 @@ exports.postPlayer = function(req, res) {
             renderInvalidPage('Le joueur n\'a pas plus etre cree dans la base de donnees...', req, res);
           }
         } else if (err) {
-          console.log('Error occurred while inserting a player');
-          console.log(err);
+          console.error('Error occurred while inserting a player');
+          console.error(err);
           renderInvalidPage('Probleme lors de la creation du joueur, veuillez re-essayer! ;)', req, res);
         }
       });
@@ -149,8 +144,8 @@ exports.getPlayerJSON = function(req, res) {
         if (!err && result) {
           res.json(result);
         } else if (err) {
-          console.log('Error occurred while retrieving a player');
-          console.log(err);
+          console.error('Error occurred while retrieving a player');
+          console.error(err);
 
           if (err.errorId){
             res.status(400).send({ error: err.errorId });
@@ -172,8 +167,8 @@ exports.putPlayer = function(req, res) {
         if (!err && result) {
           res.json({player: result});
         } else if (err) {
-          console.log('Error occurred while updating a player');
-          console.log(err);
+          console.error('Error occurred while updating a player');
+          console.error(err);
 
           if (err.errorId){
             res.status(400).send({ error: err.errorId });
@@ -209,8 +204,8 @@ exports.deletePlayer = function(req, res) {
           }
         }
       } else if (err) {
-        console.log('Error occurred while deleting a player');
-        console.log(err);
+        console.error('Error occurred while deleting a player');
+        console.error(err);
 
         if (err.errorId){
           res.status(400).send({ error: err.errorId });
@@ -222,7 +217,7 @@ exports.deletePlayer = function(req, res) {
   });
 };
 
-exports.getPlayersJSON = function(req, res) {
+exports.getPlayersJSON = function(_req, res) {
   mongodb.connect(function(db) {
     //Recherche dans la database
     mongodb.getPlayers(db, function(err, result) {
@@ -231,8 +226,8 @@ exports.getPlayersJSON = function(req, res) {
       if (!err && result) {
         res.json({ players: result });
       } else if (err) {
-        console.log('Error occurred while retrieving player(s)');
-        console.log(err);
+        console.error('Error occurred while retrieving player(s)');
+        console.error(err);
         res.status(200).send({ error: err.message });
       }
     });

@@ -28,8 +28,8 @@ module.exports = {
       if (!err) {
         callback(db);
       } else {
-        console.log('Unable to connect to database');
-        console.log(err);
+        console.error('Unable to connect to database');
+        console.error(err);
       }
     });
   },

@@ -1,34 +1,34 @@
 var gameInfo = require('../../constants/game'),
-    pages = require('../../constants/pages');
+  pages = require('../../constants/pages');
 
-var getAndClearSessionError = function(req) {
+var getAndClearSessionError = function (req) {
   var error = req.session.errorMessage;
   req.session.errorMessage = null;
   return error;
 };
 
 
-exports.getIndex = function(req, res) {
+exports.getIndex = function (_req, res) {
   res.render('pages/index', {
     title: 'Le Livre de Jeu du Maitre Kai'
   });
 };
 
-exports.getPartial = function(req, res) {
+exports.getPartial = function (req, res) {
   var name = req.params.name;
-  if(!name) {
+  if (!name) {
     res.json({ error: 'filename was wrong' });
   }
 
   res.render("partials/" + name, { gameInfo: gameInfo, errorMessage: getAndClearSessionError(req) });
 };
 
-exports.getFightPartial = function(req, res) {
+exports.getFightPartial = function (req, res) {
   //TODO: verify returnPage and returnSection
 
   //TODO : make a call to retreive the info for this fight or maybe use gameInfo ??
 
-  fight = _.find(gameInfo.FIGHT, function(fightInfo){ return fightInfo.page === req.params.pageid; });
+  fight = _.find(gameInfo.FIGHT, function (fightInfo) { return fightInfo.page === req.params.pageid; });
 
   res.render("partials/fight", {
     gameInfo: gameInfo,
@@ -39,24 +39,24 @@ exports.getFightPartial = function(req, res) {
   });
 };
 
-exports.getHelpPartial = function(req, res) {
+exports.getHelpPartial = function (req, res) {
   var name = req.params.name;
-  if(!name) {
+  if (!name) {
     res.json({ error: 'filename was wrong' });
   }
 
   //ADD GAMEINFO MAYBE ?
-  res.render("partials/help/" + name );
+  res.render("partials/help/" + name);
 };
 
-exports.getStoryPartial = function(req, res) {
+exports.getStoryPartial = function (req, res) {
   var page = req.params.pageid,
-      section = req.params.sectionid;
+    section = req.params.sectionid;
 
   //Lecture du fichier filename
-  var readFile = function(filename) {
+  var readFile = function (filename) {
     var bool = false;
-    res.render(filename, function(err, html) {
+    res.render(filename, function (err, _html) {
       if (err) {
         console.error(err);
       } else {
@@ -66,7 +66,7 @@ exports.getStoryPartial = function(req, res) {
     return bool;
   };
 
-  if(!page || !section) {
+  if (!page || !section) {
     res.json({ error: 'page or section was wrong' });
   }
 
